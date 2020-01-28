@@ -1,11 +1,10 @@
 import React from "react";
 import LoginForm from "./components/login/LoginFormController";
-import { login } from "./services/authenticationService";
 
-function App() {
+const App = () => {
   return (
     <div className="container">
-      <LoginForm login={login} />
+      <LoginForm />
     </div>
   );
 }

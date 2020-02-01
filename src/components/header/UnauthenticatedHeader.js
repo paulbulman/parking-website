@@ -1,5 +1,6 @@
 import React from "react";
+import Home from "./Home";
 
-const UnauthenticatedHeader = () => <div>Home</div>;
+const UnauthenticatedHeader = () => <Home />;
 
 export default UnauthenticatedHeader;

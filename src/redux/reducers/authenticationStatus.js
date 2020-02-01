@@ -1,0 +1,3 @@
+export const AUTHENTICATED = "AUTHENTICATED";
+export const NOT_AUTHENTICATED = "NOT_AUTHENTICATED";
+export const UNKNOWN = "UNKNOWN";

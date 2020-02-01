@@ -1,18 +1,38 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import LoginForm from "./LoginForm";
 import { login } from "../../services/authenticationService";
+import {
+  markAsAuthenticated,
+  markAsNotAuthenticated
+} from "../../redux/actions/authenticationActions";
 
-const CreateLoginFormController = login => {
-  const LoginFormController = () => {
+export const CreateLoginFormController = login => {
+  const LoginFormController = ({
+    markAsAuthenticated,
+    markAsNotAuthenticated
+  }) => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
     const [errorMessage, setErrorMessage] = useState("");
 
     const handleChange = (k, v) => setCredentials({ ...credentials, [k]: v });
 
-    const handleLogin = () => {
-      login(credentials.email, credentials.password);
+    const handleLogin = async () => {
+      if (await login(credentials.email, credentials.password)) {
+        handleLoginSuccess();
+      } else {
+        handleLoginFailure();
+      }
+    };
+
+    const handleLoginSuccess = () => {
+      markAsAuthenticated();
+    };
+
+    const handleLoginFailure = () => {
+      markAsNotAuthenticated();
+      setErrorMessage("Invalid username or password");
       setCredentials({ ...credentials, password: "" });
-      setErrorMessage("Not yet implemented");
     };
 
     return (
@@ -29,4 +49,9 @@ const CreateLoginFormController = login => {
   return LoginFormController;
 };
 
-export default CreateLoginFormController(login);
+const mapDispatchToProps = { markAsAuthenticated, markAsNotAuthenticated };
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(CreateLoginFormController(login));

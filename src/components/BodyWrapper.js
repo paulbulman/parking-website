@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "./login/LoginFormWrapper";
+import LoginForm from "./login/LoginFormController";
 import Router from "./Router";
 
 const BodyWrapper = ({ isAuthenticated }) => {

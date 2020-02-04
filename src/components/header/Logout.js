@@ -1,12 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
 import { logout } from "../../services/authenticationService";
-import { markAsNotAuthenticated } from "../../redux/actions/authenticationActions";
 
-const Logout = ({ markAsNotAuthenticated }) => {
+const Logout = () => {
   const onLogout = async () => {
     await logout();
-    markAsNotAuthenticated();
   };
 
   return (
@@ -16,6 +13,4 @@ const Logout = ({ markAsNotAuthenticated }) => {
   );
 };
 
-const mapDispatchToProps = { markAsNotAuthenticated };
-
-export default connect(null, mapDispatchToProps)(Logout);
+export default Logout;

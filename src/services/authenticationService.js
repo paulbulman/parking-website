@@ -1,4 +1,5 @@
 import * as Auth from "../api/authenticationApi";
+import * as dispatch from "./../redux/dispatchers/authenticationDispatchers";
 
 export const createConfigure = configureApi => () =>
   configureApi({
@@ -9,30 +10,39 @@ export const createConfigure = configureApi => () =>
     }
   });
 
-export const createLogin = signIn => async (username, password) => {
+export const createLogin = (signIn, markAsAuthenticated) => async (
+  username,
+  password
+) => {
   try {
     const signInResult = await signIn(username, password);
 
     if (signInResult.signInUserSession) {
+      markAsAuthenticated();
       return true;
     }
-  } catch (error) {}
+  } catch {}
 
   return false;
 };
 
-export const createLogout = signOut => async () => {
+export const createLogout = (signOut, markAsNotAuthenticated) => async () => {
   try {
     await signOut();
-  } catch (error) {}
+    markAsNotAuthenticated();
+  } catch {}
 };
 
-export const createIsAuthenticated = currentUser => async () => {
+export const createRefreshAuthenticationStatus = (
+  currentUser,
+  markAsAuthenticated,
+  markAsNotAuthenticated
+) => async () => {
   try {
     await currentUser();
-    return true;
+    markAsAuthenticated();
   } catch {
-    return false;
+    markAsNotAuthenticated();
   }
 };
 
@@ -47,10 +57,17 @@ export const createGetUserIdToken = currentSession => async () => {
 
 export const configure = createConfigure(Auth.configure);
 
-export const login = createLogin(Auth.signIn);
+export const login = createLogin(Auth.signIn, dispatch.markAsAuthenticated);
 
-export const logout = createLogout(Auth.signOut);
+export const logout = createLogout(
+  Auth.signOut,
+  dispatch.markAsNotAuthenticated
+);
 
-export const isAuthenticated = createIsAuthenticated(Auth.currentUser);
+export const refreshAuthenticationStatus = createRefreshAuthenticationStatus(
+  Auth.currentUser,
+  dispatch.markAsAuthenticated,
+  dispatch.markAsNotAuthenticated
+);
 
 export const getUserIdToken = createGetUserIdToken(Auth.currentSession);

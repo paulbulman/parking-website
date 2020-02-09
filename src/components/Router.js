@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Summary from "./Summary";
+import Summary from "./summary/Summary";
 import EditRequests from "./EditRequests";
 import RegistrationNumbers from "./RegistrationNumbers";
 import NotFound from "./NotFound";

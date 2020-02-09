@@ -1,6 +1,7 @@
 import React from "react";
 import Logout from "./Logout";
 import Home from "./Home";
+import Link from "./Link";
 
 const AuthenticatedHeader = () => (
   <>
@@ -12,9 +13,12 @@ const AuthenticatedHeader = () => (
         </li>
       </ul>
       <ul className="navbar-nav flex-grow-1">
-          <li className="nav-item">
-              More links here
-          </li>
+        <li className="nav-item">
+          <Link to="/EditRequests" caption="Edit Requests" />
+        </li>
+        <li className="nav-item">
+          <Link to="/RegistrationNumbers" caption="Registration Numbers" />
+        </li>
       </ul>
     </div>
   </>

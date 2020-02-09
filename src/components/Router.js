@@ -1,5 +1,25 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom";
+import Summary from "./Summary";
+import EditRequests from "./EditRequests";
+import RegistrationNumbers from "./RegistrationNumbers";
+import NotFound from "./NotFound";
 
-const Router = () => <div>Render content based on route...</div>;
+const Router = () => (
+  <Switch>
+    <Route exact path="/">
+      <Summary />
+    </Route>
+    <Route path="/EditRequests">
+      <EditRequests />
+    </Route>
+    <Route path="/RegistrationNumbers">
+      <RegistrationNumbers />
+    </Route>
+    <Route path="*">
+      <NotFound />
+    </Route>
+  </Switch>
+);
 
 export default Router;

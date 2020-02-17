@@ -1,4 +1,5 @@
-.day-header {
+.day-header,
+.highlighted {
   font-weight: bold;
 }
 

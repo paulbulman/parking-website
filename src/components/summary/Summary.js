@@ -14,12 +14,6 @@ const Summary = () => {
       highlight: "Person 1"
     },
     {
-      date: moment("2020-01-08", "YYYY-MM-DD"),
-      allocated: ["08 Person 1", "Person 2"],
-      interrupted: ["Person 3"],
-      highlight: "Person 1"
-    },
-    {
       date: moment("2020-01-09", "YYYY-MM-DD"),
       allocated: ["09 Person 1", "Person 2"],
       interrupted: ["Person 3"],

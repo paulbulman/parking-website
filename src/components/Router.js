@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Summary from "./summary/Summary";
-import EditRequests from "./EditRequests";
+import EditRequests from "./editRequests/EditRequests";
 import RegistrationNumbers from "./RegistrationNumbers";
 import NotFound from "./NotFound";
 

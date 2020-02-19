@@ -6,6 +6,15 @@ import Link from "./Link";
 const AuthenticatedHeader = () => (
   <>
     <Home />
+    <button
+      className="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target=".navbar-collapse"
+    >
+      <span className="navbar-toggler-icon"></span>
+    </button>
+
     <div className="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
       <ul className="navbar-nav">
         <li className="nav-item">

@@ -7,7 +7,6 @@ import configureStore from "./redux/config/configureStore";
 import initialState from "./redux/reducers/initialState";
 import { configure as configureAuthentication } from "./services/authenticationService";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 configureAuthentication();

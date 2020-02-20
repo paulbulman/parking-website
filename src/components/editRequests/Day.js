@@ -5,7 +5,7 @@ const Day = ({ data, onChange }) => {
     <>
       <label>
         <input type="checkbox" checked={data.requested} onChange={onChange} />
-        {` `}
+        {' '}
         {data.date.format("DD MMM")}
       </label>
     </>

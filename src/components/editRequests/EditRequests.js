@@ -15,18 +15,36 @@ const EditRequests = () => {
 
   const [data, setData] = useState(initialData);
 
+  const updateMany = (filterFunc, value) => {
+    const dataCopy = [...data];
+    const requestsToUpdate = dataCopy.filter(filterFunc);
+    requestsToUpdate.forEach(d => (d.requested = value));
+    setData(dataCopy);
+  };
+
+  const toggle = date => {
+    const currentValue = data.find(d => d.date.isSame(date)).requested;
+    updateMany(d => d.date.isSame(date), !currentValue);
+  };
+
+  const selectAll = () => {
+    updateMany(() => true, true);
+  };
+
+  const selectNone = () => {
+    updateMany(() => true, false);
+  };
+
+  const selectAllNextMonth = () => {
+    const earliestDate = _.sortBy(data, d => d.date)[0].date;
+    updateMany(d => !d.date.isSame(earliestDate, "month"), true);
+  };
+
   const ordered = _.sortBy(data, g => g.date);
   const grouped = _.groupBy(ordered, d => moment(d.date).weekday(1));
 
-  const onChange = date => {
-    const temp = [...data];
-    const updateDate = temp.find(d => d.date.isSame(date));
-    updateDate.requested = !updateDate.requested;
-    setData(temp);
-  };
-
   const weeks = Object.keys(grouped).map(key => (
-    <tr key={key}>{<Week data={grouped[key]} onChange={onChange} />}</tr>
+    <tr key={key}>{<Week data={grouped[key]} onChange={toggle} />}</tr>
   ));
 
   return (
@@ -46,6 +64,27 @@ const EditRequests = () => {
         </thead>
         <tbody>{weeks}</tbody>
       </table>
+      <div className="form-group">
+        <button className="btn btn-outline-secondary" onClick={selectAll}>
+          Select all
+        </button>
+        {' '}
+        <button
+          className="btn btn-outline-secondary"
+          onClick={selectAllNextMonth}
+        >
+          Select all next month
+        </button>
+        {' '}
+        <button className="btn btn-outline-secondary" onClick={selectNone}>
+          Select none
+        </button>
+      </div>
+      <div className="form-group">
+        <button className="btn btn-primary" onClick={() => alert("save")}>
+          Save
+        </button>
+      </div>
     </>
   );
 };

@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getRegistrationNumberData } from "../services/registrationNumberService";
 
 const RegistrationNumbers = () => {
-  const data = [
-    { registrationNumber: "AB123CDE", name: "Person 1" },
-    { registrationNumber: "X789XZ", name: "Person 2" }
-  ];
+  const [registrationNumberData, setRegistrationNumberData] = useState([]);
+
+  useEffect(() => {
+    const loadRegistrationNumberData = async () => {
+      setRegistrationNumberData(await getRegistrationNumberData());
+    };
+
+    loadRegistrationNumberData();
+  }, []);
 
   const createRow = singlePersonData => (
     <tr>
@@ -25,7 +31,7 @@ const RegistrationNumbers = () => {
             <th>Name</th>
           </tr>
         </thead>
-        <tbody>{data.map(createRow)}</tbody>
+        <tbody>{registrationNumberData.map(createRow)}</tbody>
       </table>
     </>
   );

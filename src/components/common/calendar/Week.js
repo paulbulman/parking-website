@@ -1,17 +1,17 @@
 import React from "react";
 import moment from "moment";
 
-import Day from "./Day";
-
-const Week = ({ data, onChange }) => {
+const Week = ({ data, DayComponent, onChange }) => {
   const createDayCell = date => {
-    const singleDayData = data.find(d => d.date.isSame(date));
+    const dailyData = data.find(d => d.date.isSame(date));
 
-    return (
-      <td key={date}>
-        {singleDayData ? <Day data={singleDayData} onChange={() => onChange(date)} /> : <>&nbsp;</>}
-      </td>
+    const cellContent = dailyData ? (
+      <DayComponent data={dailyData} onChange={() => onChange(date)} />
+    ) : (
+      <>&nbsp;</>
     );
+
+    return <td key={date}>{cellContent}</td>;
   };
 
   const monday = moment(data[0].date).day("monday");

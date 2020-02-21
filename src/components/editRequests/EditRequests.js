@@ -1,29 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import _ from "lodash";
 import Week from "./Week";
+import {
+  getRequestsData,
+  updateRequestsData
+} from "./../../services/requestsService";
 
 const EditRequests = () => {
-  const initialData = [
-    { date: moment("2020-01-06", "YYYY-MM-DD"), requested: true },
-    { date: moment("2020-01-07", "YYYY-MM-DD"), requested: false },
-    { date: moment("2020-01-08", "YYYY-MM-DD"), requested: true },
-    { date: moment("2020-01-02", "YYYY-MM-DD"), requested: true },
-    { date: moment("2019-12-30", "YYYY-MM-DD"), requested: true },
-    { date: moment("2019-12-31", "YYYY-MM-DD"), requested: false }
-  ];
+  const userId = "USER_ID";
 
-  const [data, setData] = useState(initialData);
+  const [requestsData, setRequestsData] = useState([]);
+
+  useEffect(() => {
+    const loadRequestsData = async () => {
+      setRequestsData(await getRequestsData(userId));
+    };
+
+    loadRequestsData();
+  }, []);
 
   const updateMany = (filterFunc, value) => {
-    const dataCopy = [...data];
+    const dataCopy = [...requestsData];
     const requestsToUpdate = dataCopy.filter(filterFunc);
     requestsToUpdate.forEach(d => (d.requested = value));
-    setData(dataCopy);
+    setRequestsData(dataCopy);
   };
 
   const toggle = date => {
-    const currentValue = data.find(d => d.date.isSame(date)).requested;
+    const currentValue = requestsData.find(d => d.date.isSame(date)).requested;
     updateMany(d => d.date.isSame(date), !currentValue);
   };
 
@@ -36,11 +41,15 @@ const EditRequests = () => {
   };
 
   const selectAllNextMonth = () => {
-    const earliestDate = _.sortBy(data, d => d.date)[0].date;
+    const earliestDate = _.sortBy(requestsData, d => d.date)[0].date;
     updateMany(d => !d.date.isSame(earliestDate, "month"), true);
   };
 
-  const ordered = _.sortBy(data, g => g.date);
+  const save = async () => {
+    await updateRequestsData(userId, requestsData);
+  };
+
+  const ordered = _.sortBy(requestsData, g => g.date);
   const grouped = _.groupBy(ordered, d => moment(d.date).weekday(1));
 
   const weeks = Object.keys(grouped).map(key => (
@@ -67,21 +76,19 @@ const EditRequests = () => {
       <div className="form-group">
         <button className="btn btn-outline-secondary" onClick={selectAll}>
           Select all
-        </button>
-        {' '}
+        </button>{" "}
         <button
           className="btn btn-outline-secondary"
           onClick={selectAllNextMonth}
         >
           Select all next month
-        </button>
-        {' '}
+        </button>{" "}
         <button className="btn btn-outline-secondary" onClick={selectNone}>
           Select none
         </button>
       </div>
       <div className="form-group">
-        <button className="btn btn-primary" onClick={() => alert("save")}>
+        <button className="btn btn-primary" onClick={save}>
           Save
         </button>
       </div>

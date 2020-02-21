@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
+import moment from "moment";
+import _ from "lodash";
 import Week from "./Week";
 import { getSummaryData } from "./../../services/summaryService";
 
 import "./summary.css";
 
 const Summary = () => {
+  const userId = "USER_ID";
+
   const [summaryData, setSummaryData] = useState([]);
 
   useEffect(() => {
     const loadSummaryData = async () => {
-      setSummaryData(await getSummaryData());
+      setSummaryData(await getSummaryData(userId));
     };
 
     loadSummaryData();
   }, []);
 
-  const weeks = Object.keys(summaryData).map(key => (
+  const ordered = _.sortBy(summaryData, g => g.date);
+  const grouped = _.groupBy(ordered, d => moment(d.date).weekday(1));
+
+  const weeks = Object.keys(grouped).map(key => (
     <tr key={key}>
-      <Week data={summaryData[key]} />
+      <Week data={grouped[key]} />
     </tr>
   ));
 

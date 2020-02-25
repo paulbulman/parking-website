@@ -4,6 +4,7 @@ import Summary from "./summary/Summary";
 import EditRequests from "./editRequests/EditRequests";
 import RegistrationNumbers from "./RegistrationNumbers";
 import NotFound from "./NotFound";
+import Reservations from "./reservations/Reservations";
 
 const Router = () => (
   <Switch>
@@ -15,6 +16,9 @@ const Router = () => (
     </Route>
     <Route path="/RegistrationNumbers">
       <RegistrationNumbers />
+    </Route>
+    <Route path="/Reservations">
+      <Reservations />
     </Route>
     <Route path="*">
       <NotFound />

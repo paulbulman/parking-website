@@ -13,7 +13,7 @@ const RegistrationNumbers = () => {
   }, []);
 
   const createRow = singlePersonData => (
-    <tr>
+    <tr key={singlePersonData.registrationNumber}>
       <td>{singlePersonData.registrationNumber}</td>
       <td>{singlePersonData.name}</td>
     </tr>

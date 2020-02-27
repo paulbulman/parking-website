@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import _ from "lodash";
+import { getUsersData } from "../../services/usersService";
 import {
   getReservationsData,
   updateReservationsData
@@ -8,46 +9,38 @@ import {
 import Week from "./Week";
 
 export default () => {
-  const [reservationsData, setReservationsData] = useState({});
+  const [usersData, setUsersData] = useState([]);
+  const [reservationsData, setReservationsData] = useState();
 
   useEffect(() => {
-    const loadReservationsData = async () => {
+    const loadData = async () => {
+      setUsersData(await getUsersData());
       setReservationsData(await getReservationsData());
     };
 
-    loadReservationsData();
+    loadData();
   }, []);
 
   const update = (date, reservationIndex, selectedUserId) => {
-    const dataCopy = [...reservationsData.reservations];
+    const dataCopy = [...reservationsData];
+    const reservationsToUpdate = dataCopy.find(r => r.date.isSame(date));
 
-    const dataToUpdate = dataCopy.find(r => r.date.isSame(date));
     const newValue = selectedUserId === "" ? null : selectedUserId;
+    reservationsToUpdate.reservations[reservationIndex] = newValue;
 
-    dataToUpdate.reservations[reservationIndex] = newValue;
-
-    const updated = {
-      users: reservationsData.users,
-      reservations: dataCopy
-    };
-
-    setReservationsData(updated);
+    setReservationsData(dataCopy);
   };
 
   const save = async () => {
-    await updateReservationsData(reservationsData.reservations);
+    await updateReservationsData(reservationsData);
   };
 
-  const ordered = _.sortBy(reservationsData.reservations, g => g.date);
+  const ordered = _.sortBy(reservationsData, g => g.date);
   const grouped = _.groupBy(ordered, d => moment(d.date).weekday(1));
 
   const weeks = Object.keys(grouped).map(key => (
     <tr key={key}>
-      <Week
-        data={grouped[key]}
-        users={reservationsData.users}
-        onChange={update}
-      />
+      <Week data={grouped[key]} users={usersData} onChange={update} />
     </tr>
   ));
 

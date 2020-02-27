@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import _ from "lodash";
-import { getReservationsData } from "./../../services/reservationsService";
+import {
+  getReservationsData,
+  updateReservationsData
+} from "./../../services/reservationsService";
 import Week from "./Week";
 
-const Reservations = () => {
-  const [reservationsData, setReservationsData] = useState([]);
+export default () => {
+  const [reservationsData, setReservationsData] = useState({});
 
   useEffect(() => {
     const loadReservationsData = async () => {
@@ -15,12 +18,36 @@ const Reservations = () => {
     loadReservationsData();
   }, []);
 
+  const update = (date, reservationIndex, selectedUserId) => {
+    const dataCopy = [...reservationsData.reservations];
+
+    const dataToUpdate = dataCopy.find(r => r.date.isSame(date));
+    const newValue = selectedUserId === "" ? null : selectedUserId;
+
+    dataToUpdate.reservations[reservationIndex] = newValue;
+
+    const updated = {
+      users: reservationsData.users,
+      reservations: dataCopy
+    };
+
+    setReservationsData(updated);
+  };
+
+  const save = async () => {
+    await updateReservationsData(reservationsData.reservations);
+  };
+
   const ordered = _.sortBy(reservationsData.reservations, g => g.date);
   const grouped = _.groupBy(ordered, d => moment(d.date).weekday(1));
 
   const weeks = Object.keys(grouped).map(key => (
     <tr key={key}>
-      <Week data={grouped[key]} users={reservationsData.users} />
+      <Week
+        data={grouped[key]}
+        users={reservationsData.users}
+        onChange={update}
+      />
     </tr>
   ));
 
@@ -41,8 +68,11 @@ const Reservations = () => {
         </thead>
         <tbody>{weeks}</tbody>
       </table>
+      <div className="form-group">
+        <button className="btn btn-primary" onClick={save}>
+          Save
+        </button>
+      </div>
     </>
   );
 };
-
-export default Reservations;

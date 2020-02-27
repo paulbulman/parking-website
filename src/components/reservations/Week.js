@@ -3,14 +3,14 @@ import moment from "moment";
 
 import Day from "./Day";
 
-const Week = ({ data, users }) => {
+export default ({ data, users, onChange }) => {
   const createDayCell = date => {
     const singleDayData = data.find(d => d.date.isSame(date));
 
     return (
       <td key={date.toString()}>
         {singleDayData ? (
-          <Day data={singleDayData} users={users} />
+          <Day data={singleDayData} users={users} onChange={onChange} />
         ) : (
           <>&nbsp;</>
         )}
@@ -24,5 +24,3 @@ const Week = ({ data, users }) => {
 
   return days.map(d => createDayCell(d));
 };
-
-export default Week;

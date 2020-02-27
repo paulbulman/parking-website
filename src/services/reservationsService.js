@@ -32,3 +32,7 @@ export const getReservationsData = async () => {
 
   return { users, reservations };
 };
+
+export const updateReservationsData = async reservationsData => {
+  console.log("Saving reservation data", reservationsData);
+};

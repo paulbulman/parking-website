@@ -4,8 +4,6 @@ import _ from "lodash";
 import Week from "./Week";
 import { getSummaryData } from "./../../services/summaryService";
 
-import "./summary.css";
-
 const Summary = () => {
   const userId = "USER_ID";
 

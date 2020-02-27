@@ -10,5 +10,5 @@ export const getRequestsData = async userId => [
 ];
 
 export const updateRequestsData = async (userId, requestsData) => {
-  console.log(`Saving requests data for user :${userId}`, requestsData);
+  console.log("Saving requests data for user", userId, requestsData);
 };

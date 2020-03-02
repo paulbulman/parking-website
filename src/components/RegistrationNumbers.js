@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { getRegistrationNumberData } from "../services/registrationNumberService";
+import { getRegistrationNumbersData } from "../services/registrationNumbersService";
 
 const RegistrationNumbers = () => {
-  const [registrationNumberData, setRegistrationNumberData] = useState([]);
+  const [registrationNumbersData, setRegistrationNumbersData] = useState([]);
 
   useEffect(() => {
-    const loadRegistrationNumberData = async () => {
-      setRegistrationNumberData(await getRegistrationNumberData());
+    const loadRegistrationNumbersData = async () => {
+      setRegistrationNumbersData(await getRegistrationNumbersData());
     };
 
-    loadRegistrationNumberData();
+    loadRegistrationNumbersData();
   }, []);
 
   const createRow = singlePersonData => (
@@ -31,7 +31,7 @@ const RegistrationNumbers = () => {
             <th>Name</th>
           </tr>
         </thead>
-        <tbody>{registrationNumberData.map(createRow)}</tbody>
+        <tbody>{registrationNumbersData.map(createRow)}</tbody>
       </table>
     </>
   );

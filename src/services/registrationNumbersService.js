@@ -1,7 +1,7 @@
-import { getRegistrationNumbers } from "../api/registrationNumbersApi";
 import { getUserIdToken } from "./authenticationService";
+import { get } from "../api/apiHelpers";
 
 export const getRegistrationNumbersData = async () => {
   const token = await getUserIdToken();
-  return await getRegistrationNumbers(token);
+  return await get("registrationNumbers", token);
 };

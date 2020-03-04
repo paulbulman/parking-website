@@ -17,3 +17,19 @@ export const get = async (uri, token) => {
     throw e;
   }
 };
+
+export const post = async (uri, data, token) => {
+  try {
+    const config = {
+      headers: {
+        Authorization: token
+      }
+    };
+
+    const response = await axios.post(`${baseUri}${uri}`, data, config);
+    return response.data;
+  } catch (e) {
+    console.dir(e);
+    throw e;
+  }
+};

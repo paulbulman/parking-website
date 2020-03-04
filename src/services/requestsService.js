@@ -1,14 +1,18 @@
 import moment from "moment";
+import { getUserIdToken } from "./authenticationService";
+import { get, post } from "../api/apiHelpers";
 
-export const getRequestsData = async userId => [
-  { date: moment("2020-01-06", "YYYY-MM-DD"), requested: true },
-  { date: moment("2020-01-07", "YYYY-MM-DD"), requested: false },
-  { date: moment("2020-01-08", "YYYY-MM-DD"), requested: true },
-  { date: moment("2020-01-02", "YYYY-MM-DD"), requested: true },
-  { date: moment("2019-12-30", "YYYY-MM-DD"), requested: true },
-  { date: moment("2019-12-31", "YYYY-MM-DD"), requested: false }
-];
+export const getRequestsData = async userId => {
+  const token = await getUserIdToken();
+  const rawData = await get(`requests/${userId}`, token);
+
+  return rawData.map(r => ({
+    date: moment(r.date, "YYYY-MM-DD"),
+    requested: r.requested
+  }));
+};
 
 export const updateRequestsData = async (userId, requestsData) => {
-  console.log("Saving requests data for user", userId, requestsData);
+  const token = await getUserIdToken();
+  return await post(`requests/${userId}`, requestsData, token);
 };

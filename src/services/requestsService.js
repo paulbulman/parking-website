@@ -1,10 +1,8 @@
 import moment from "moment";
-import { getUserIdToken } from "./authenticationService";
-import { get, post } from "../api/apiHelpers";
+import { getRequests, updateRequests } from "../api/requestsApi";
 
 export const getRequestsData = async userId => {
-  const token = await getUserIdToken();
-  const rawData = await get(`requests/${userId}`, token);
+  const rawData = await getRequests(userId);
 
   return rawData.map(r => ({
     date: moment(r.date, "YYYY-MM-DD"),
@@ -13,6 +11,10 @@ export const getRequestsData = async userId => {
 };
 
 export const updateRequestsData = async (userId, requestsData) => {
-  const token = await getUserIdToken();
-  return await post(`requests/${userId}`, requestsData, token);
+  const rawData = requestsData.map(r => ({
+    date: r.date.format("YYYY-MM-DD"),
+    requested: r.requested
+  }));
+  
+  return await updateRequests(userId, rawData);
 };

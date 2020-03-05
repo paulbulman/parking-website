@@ -1,15 +1,22 @@
 import axios from "axios";
 
+import { getUserIdToken } from "../services/authenticationService";
+
 const baseUri = process.env.REACT_APP_API_BASE_URI;
 
-export const get = async (uri, token) => {
-  try {
-    const config = {
-      headers: {
-        Authorization: token
-      }
-    };
+const createAuthorizationHeader = async () => {
+  const token = await getUserIdToken();
 
+  return {
+    headers: {
+      Authorization: token
+    }
+  };
+};
+
+export const get = async uri => {
+  try {
+    const config = await createAuthorizationHeader();
     const response = await axios.get(`${baseUri}${uri}`, config);
     return response.data;
   } catch (e) {
@@ -18,14 +25,9 @@ export const get = async (uri, token) => {
   }
 };
 
-export const post = async (uri, data, token) => {
+export const post = async (uri, data) => {
   try {
-    const config = {
-      headers: {
-        Authorization: token
-      }
-    };
-
+    const config = await createAuthorizationHeader();
     const response = await axios.post(`${baseUri}${uri}`, data, config);
     return response.data;
   } catch (e) {

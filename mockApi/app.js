@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const textBody = require("body");
+
 const port = 4000;
 
 app.use(cors());
@@ -21,7 +23,7 @@ app.get("/registrationNumbers", (req, res) => {
   res.send(response);
 });
 
-app.get("/requests", (req, res) => {
+app.get("/requests/:userId", (req, res) => {
   const authorization = req.header("Authorization");
 
   if (!authorization) {
@@ -39,6 +41,70 @@ app.get("/requests", (req, res) => {
   ];
 
   res.send(response);
+});
+
+app.post("/requests/:userId", (req, res) => {
+  textBody(req, res, function(err, body) {
+    const authorization = req.header("Authorization");
+
+    if (!authorization) {
+      res.sendStatus(401);
+      return;
+    }
+
+    console.log("Saving requests data for user", req.params["userId"], body);
+
+    res.send("Requests saved successfully");
+  });
+});
+
+app.get("/reservations", (req, res) => {
+  const authorization = req.header("Authorization");
+
+  if (!authorization) {
+    res.sendStatus(401);
+    return;
+  }
+
+  const response = [
+    {
+      date: "2020-01-06",
+      reservations: ["1", "3", null]
+    },
+    {
+      date: "2020-01-07",
+      reservations: ["1", "3", null]
+    },
+    {
+      date: "2020-01-08",
+      reservations: ["1", null, null]
+    },
+    {
+      date: "2019-12-30",
+      reservations: ["1", "3", null]
+    },
+    {
+      date: "2019-12-31",
+      reservations: [null, "2", null]
+    }
+  ];
+
+  res.send(response);
+});
+
+app.post("/reservations", (req, res) => {
+  textBody(req, res, function(err, body) {
+    const authorization = req.header("Authorization");
+
+    if (!authorization) {
+      res.sendStatus(401);
+      return;
+    }
+
+    console.log("Saving reservations", body);
+
+    res.send("Reservations saved successfully");
+  });
 });
 
 app.listen(port, () => console.log(`Mock API server running on port ${port}`));

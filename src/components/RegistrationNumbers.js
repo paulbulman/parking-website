@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { getRegistrationNumbersData } from "../services/registrationNumbersService";
+import { getRegistrationNumbers } from "../api/registrationNumbersApi";
 
 const RegistrationNumbers = () => {
   const [registrationNumbersData, setRegistrationNumbersData] = useState([]);
 
   useEffect(() => {
     const loadRegistrationNumbersData = async () => {
-      setRegistrationNumbersData(await getRegistrationNumbersData());
+      setRegistrationNumbersData(await getRegistrationNumbers());
     };
 
     loadRegistrationNumbersData();

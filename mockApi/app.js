@@ -7,11 +7,18 @@ const port = 4000;
 
 app.use(cors());
 
-app.get("/registrationNumbers", (req, res) => {
+const checkAuthorizationHeader = (req, res) => {
   const authorization = req.header("Authorization");
 
   if (!authorization) {
     res.sendStatus(401);
+  }
+
+  return authorization;
+};
+
+app.get("/registrationNumbers", (req, res) => {
+  if (!checkAuthorizationHeader(req, res)) {
     return;
   }
 
@@ -24,10 +31,7 @@ app.get("/registrationNumbers", (req, res) => {
 });
 
 app.get("/requests/:userId", (req, res) => {
-  const authorization = req.header("Authorization");
-
-  if (!authorization) {
-    res.sendStatus(401);
+  if (!checkAuthorizationHeader(req, res)) {
     return;
   }
 
@@ -45,10 +49,7 @@ app.get("/requests/:userId", (req, res) => {
 
 app.post("/requests/:userId", (req, res) => {
   textBody(req, res, function(err, body) {
-    const authorization = req.header("Authorization");
-
-    if (!authorization) {
-      res.sendStatus(401);
+    if (!checkAuthorizationHeader(req, res)) {
       return;
     }
 
@@ -59,10 +60,7 @@ app.post("/requests/:userId", (req, res) => {
 });
 
 app.get("/reservations", (req, res) => {
-  const authorization = req.header("Authorization");
-
-  if (!authorization) {
-    res.sendStatus(401);
+  if (!checkAuthorizationHeader(req, res)) {
     return;
   }
 
@@ -94,10 +92,7 @@ app.get("/reservations", (req, res) => {
 
 app.post("/reservations", (req, res) => {
   textBody(req, res, function(err, body) {
-    const authorization = req.header("Authorization");
-
-    if (!authorization) {
-      res.sendStatus(401);
+    if (!checkAuthorizationHeader(req, res)) {
       return;
     }
 
@@ -105,6 +100,20 @@ app.post("/reservations", (req, res) => {
 
     res.send("Reservations saved successfully");
   });
+});
+
+app.get("/users", (req, res) => {
+  if (!checkAuthorizationHeader(req, res)) {
+    return;
+  }
+
+  const response = [
+    { userId: "1", name: "Person 1" },
+    { userId: "2", name: "Person 2" },
+    { userId: "3", name: "Person 3" }
+  ];
+
+  res.send(response);
 });
 
 app.listen(port, () => console.log(`Mock API server running on port ${port}`));

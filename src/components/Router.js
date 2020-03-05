@@ -5,7 +5,7 @@ import EditRequests from "./editRequests/EditRequests";
 import RegistrationNumbers from "./RegistrationNumbers";
 import NotFound from "./NotFound";
 import Reservations from "./reservations/Reservations";
-import OverrideRequests from "./overrideRequests/OverrideRequests";
+import OverrideRequests from "./OverrideRequests";
 
 const Router = () => (
   <Switch>

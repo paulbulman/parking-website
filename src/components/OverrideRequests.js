@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getUsersData } from "../../services/usersService";
-import EditRequestsCommon from "../editRequests/EditRequestsCommon";
+import { getUsers } from "../api/usersApi";
+import EditRequestsCommon from "./editRequests/EditRequestsCommon";
 
 export default () => {
   const [userId, setUserId] = useState("");
@@ -8,7 +8,7 @@ export default () => {
 
   useEffect(() => {
     const loadUsersData = async () => {
-      setUsersData(await getUsersData());
+      setUsersData(await getUsers());
     };
 
     loadUsersData();

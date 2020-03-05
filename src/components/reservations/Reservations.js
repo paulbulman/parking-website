@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import _ from "lodash";
-import { getUsersData } from "../../services/usersService";
+import { getUsers } from "../../api/usersApi";
 import {
   getReservationsData,
   updateReservationsData
@@ -14,7 +14,7 @@ export default () => {
 
   useEffect(() => {
     const loadData = async () => {
-      setUsersData(await getUsersData());
+      setUsersData(await getUsers());
       setReservationsData(await getReservationsData());
     };
 

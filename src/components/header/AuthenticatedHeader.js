@@ -18,6 +18,9 @@ const AuthenticatedHeader = () => (
     <div className="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
       <ul className="navbar-nav">
         <li className="nav-item">
+          <Link to="/Account/Profile" caption="Account" />
+        </li>
+        <li className="nav-item">
           <Logout />
         </li>
       </ul>

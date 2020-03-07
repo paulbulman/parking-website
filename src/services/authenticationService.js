@@ -16,7 +16,7 @@ export const createLogin = signIn => async (username, password) => {
     if (signInResult.signInUserSession) {
       return true;
     }
-  } catch (error) {}
+  } catch {}
 
   return false;
 };
@@ -24,7 +24,7 @@ export const createLogin = signIn => async (username, password) => {
 export const createLogout = signOut => async () => {
   try {
     await signOut();
-  } catch (error) {}
+  } catch {}
 };
 
 export const createIsAuthenticated = currentUser => async () => {
@@ -45,6 +45,17 @@ export const createGetUserIdToken = currentSession => async () => {
   }
 };
 
+export const createChangePassword = changePassword => async (oldPassword, newPassword) => {
+  try {
+    await changePassword(oldPassword, newPassword);
+    return true;
+  }
+  catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
 export const configure = createConfigure(Auth.configure);
 
 export const login = createLogin(Auth.signIn);
@@ -54,3 +65,5 @@ export const logout = createLogout(Auth.signOut);
 export const isAuthenticated = createIsAuthenticated(Auth.currentUser);
 
 export const getUserIdToken = createGetUserIdToken(Auth.currentSession);
+
+export const changePassword = createChangePassword(Auth.changePassword);

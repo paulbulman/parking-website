@@ -11,3 +11,8 @@ export const signOut = async () => await Auth.signOut();
 export const currentUser = async () => await Auth.currentAuthenticatedUser();
 
 export const currentSession = async () => await Auth.currentSession();
+
+export const changePassword = async(oldPassword, newPassword) => {
+  const user = await currentUser();
+  return await Auth.changePassword(user, oldPassword, newPassword);
+}

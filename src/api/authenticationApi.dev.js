@@ -40,3 +40,11 @@ export const currentSession = async () => {
     }
   };
 };
+
+export const changePassword = async (oldPassword, newPassword) => {
+  if (oldPassword && newPassword) {
+    return true;
+  }
+
+  throw new Error("Something went wrong");
+}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Password from "./Password";
+import { changePassword } from "../../services/authenticationService";
 
 export default () => {
   const createInitialState = () => ({
@@ -22,9 +23,12 @@ export default () => {
       return;
     }
 
-    alert(
-      `Save ${details.oldPassword}, ${details.newPassword}, ${details.confirmNewPassword}`
-    );
+    if (await changePassword(details.oldPassword, details.newPassword)) {
+      alert("Password updated successfully.")
+    }
+    else {
+      setErrorMessage("Updating password failed. Please try again.");
+    }
   };
 
   return (

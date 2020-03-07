@@ -53,6 +53,10 @@ const handlePost = (req, res, message, ...rest) => {
   });
 };
 
+app.get("/manageUsers/", (req, res) => {
+  handleGet(req, res, "manageUsers");
+});
+
 app.get("/profile/:userId", (req, res) => {
   handleGet(req, res, "profile");
 });

@@ -37,6 +37,9 @@ const AuthenticatedHeader = () => (
         <li className="nav-item">
           <Link to="/OverrideRequests" caption="Override Requests" />
         </li>
+        <li className="nav-item">
+          <Link to="/ManageUsers" caption="Manage Users" />
+        </li>
       </ul>
     </div>
   </>

@@ -1,8 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import NotFound from "../NotFound";
-import Profile from "./Profile";
-import Password from "./Password";
+import Profile from "./ProfileController";
+import Password from "./PasswordController";
 
 const Router = () => (
   <Switch>

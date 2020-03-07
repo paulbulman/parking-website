@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import _ from "lodash";
-import { getManageUsers } from "../../api/manageUsersApi";
+import { getUsers } from "../../api/manageUsersApi";
 
 export default () => {
   const [manageUsersData, setManageUsersData] = useState([]);
 
   useEffect(() => {
     const loadManageUsersData = async () => {
-      setManageUsersData(await getManageUsers());
+      setManageUsersData(await getUsers());
     };
 
     loadManageUsersData();
@@ -39,7 +39,7 @@ export default () => {
       <h2>Manage Users</h2>
       <p><Link to="/ManageUsers/Add">Create new</Link></p>
       <table className="table table-top table-striped table-bordered">
-        <thead class="thead-dark">
+        <thead className="thead-dark">
           <tr>
             <th>First Name</th>
             <th>Last Name</th>

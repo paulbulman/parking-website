@@ -35,3 +35,14 @@ export const post = async (uri, data) => {
     throw e;
   }
 };
+
+export const del = async uri => {
+  try {
+    const config = await createAuthorizationHeader();
+    const response = await axios.delete(`${baseUri}${uri}`, config);
+    return response.data;
+  } catch (e) {
+    console.dir(e);
+    throw e;
+  }
+};

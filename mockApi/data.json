@@ -1,5 +1,5 @@
 {
-  "manageUsers": [
+  "manageUsersAll": [
     {
       "userId": "1",
       "firstName": "Person",
@@ -25,6 +25,14 @@
       "commuteDistance": "7"
     }
   ],
+  "manageUsers": {
+    "userId": "1",
+    "firstName": "Person",
+    "lastName": "1",
+    "registrationNumber": "AB123CDE",
+    "alternativeRegistrationNumber": "X789XZ",
+    "commuteDistance": "3"
+  },
   "profile": {
     "registrationNumber": "AB123CDE",
     "alternativeRegistrationNumber": "X789XZ"

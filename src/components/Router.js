@@ -5,7 +5,7 @@ import Account from "./account/Account";
 import EditRequests from "./editRequests/EditRequests";
 import ManageUsers from "./manageUsers/ManageUsers";
 import AddUser from "./manageUsers/AddUser";
-import EditUser from "./manageUsers/EditUser";
+import EditUser from "./manageUsers/EditUserController";
 import DeleteUser from "./manageUsers/DeleteUser";
 import OverrideRequests from "./OverrideRequests";
 import RegistrationNumbers from "./RegistrationNumbers";

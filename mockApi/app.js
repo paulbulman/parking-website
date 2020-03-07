@@ -41,7 +41,7 @@ const handleGet = (req, res, key) => {
   res.send(data[key]);
 };
 
-const handlePost = (req, res, message, ...rest) => {
+const handleUpdate = (req, res, message, ...rest) => {
   textBody(req, res, function(err, body) {
     if (!checkAuthorizationHeader(req, res)) {
       return;
@@ -54,14 +54,24 @@ const handlePost = (req, res, message, ...rest) => {
 };
 
 app.get("/manageUsers/", (req, res) => {
+  handleGet(req, res, "manageUsersAll");
+});
+
+app.get("/manageUsers/:userId", (req, res) => {
   handleGet(req, res, "manageUsers");
+});
+app.post("/manageUsers/:userId", (req, res) => {
+  handleUpdate(req, res, "Saving user data", req.params["userId"]);
+});
+app.delete("/manageUsers/:userId", (req, res) => {
+  handleUpdate(req, res, "Deleting user", req.params["userId"]);
 });
 
 app.get("/profile/:userId", (req, res) => {
   handleGet(req, res, "profile");
 });
 app.post("/profile/:userId", (req, res) => {
-  handlePost(req, res, "Saving profile data", req.params["userId"]);
+  handleUpdate(req, res, "Saving profile data", req.params["userId"]);
 });
 
 app.get("/registrationNumbers", (req, res) => {
@@ -72,14 +82,14 @@ app.get("/requests/:userId", (req, res) => {
   handleGet(req, res, "requests");
 });
 app.post("/requests/:userId", (req, res) => {
-  handlePost(req, res, "Saving requests data", req.params["userId"]);
+  handleUpdate(req, res, "Saving requests data", req.params["userId"]);
 });
 
 app.get("/reservations", (req, res) => {
   handleGet(req, res, "reservations");
 });
 app.post("/reservations", (req, res) => {
-  handlePost(req, res, "Saving reservations");
+  handleUpdate(req, res, "Saving reservations");
 });
 
 app.get("/summary/:userId", (req, res) => {

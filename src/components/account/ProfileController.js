@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Profile from "./Profile";
+import { getProfile, updateProfile } from "../../api/profileApi";
 
 export default () => {
-  const [details, setDetails] = useState({
-    registrationNumber: "",
-    alternativeRegistrationNumber: ""
-  });
+  const userId = "USER_ID";
+  const [details, setDetails] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const loadProfileData = async () => {
+      setDetails(await getProfile(userId));
+    };
+
+    loadProfileData();
+  }, [userId]);
 
   const handleChange = (k, v) => setDetails({ ...details, [k]: v });
 
@@ -17,9 +24,7 @@ export default () => {
       return;
     }
 
-    alert(
-      `Save ${details.registrationNumber}, ${details.alternativeRegistrationNumber}`
-    );
+    await updateProfile(userId, details);
   };
 
   return (

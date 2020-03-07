@@ -1,0 +1,101 @@
+{
+  "profile": {
+    "registrationNumber": "AB123CDE",
+    "alternativeRegistrationNumber": "X789XZ"
+  },
+  "registrationNumbers": [
+    { "registrationNumber": "AB123CDE", "name": "Person 1" },
+    { "registrationNumber": "X789XZ", "name": "Person 2" }
+  ],
+  "requests": [
+    { "date": "2020-01-06", "requested": true },
+    { "date": "2020-01-07", "requested": false },
+    { "date": "2020-01-08", "requested": true },
+    { "date": "2020-01-02", "requested": true },
+    { "date": "2019-12-30", "requested": true },
+    { "date": "2019-12-31", "requested": false }
+  ],
+  "reservations": [
+    {
+      "date": "2020-01-06",
+      "reservations": ["1", "3", null]
+    },
+    {
+      "date": "2020-01-07",
+      "reservations": ["1", "3", null]
+    },
+    {
+      "date": "2020-01-08",
+      "reservations": ["1", null, null]
+    },
+    {
+      "date": "2019-12-30",
+      "reservations": ["1", "3", null]
+    },
+    {
+      "date": "2019-12-31",
+      "reservations": [null, "2", null]
+    }
+  ],
+  "summary": [
+    {
+      "date": "2020-01-06",
+      "allocated": ["Person 1", "Person 2"],
+      "interrupted": ["Person 3"],
+      "highlight": "Person 1"
+    },
+    {
+      "date": "2020-01-09",
+      "allocated": ["Person 1", "Person 3"],
+      "interrupted": ["Person 2"],
+      "highlight": "Person 2"
+    },
+    {
+      "date": "2020-01-10",
+      "allocated": ["Person 2", "Person 3"],
+      "interrupted": ["Person 1"],
+      "highlight": "Person 3"
+    },
+    {
+      "date": "2019-12-30",
+      "allocated": ["Person 1", "Person 2"],
+      "interrupted": ["Person 3"],
+      "highlight": "Person 1"
+    },
+    {
+      "date": "2019-12-31",
+      "allocated": ["Person 1", "Person 3"],
+      "interrupted": ["Person 2"],
+      "highlight": "Person 2"
+    },
+    {
+      "date": "2020-01-01",
+      "allocated": ["Person 2", "Person 3"],
+      "interrupted": ["Person 1"],
+      "highlight": "Person 3"
+    },
+    {
+      "date": "2020-01-02",
+      "allocated": ["Person 1", "Person 2"],
+      "interrupted": ["Person 3"],
+      "highlight": "Person 1"
+    },
+    {
+      "date": "2020-01-07",
+      "allocated": ["Person 1", "Person 3"],
+      "interrupted": ["Person 2"],
+      "highlight": "Person 2"
+    },
+    {
+      "date": "2020-01-03",
+      "allocated": ["Person 2", "Person 3"],
+      "interrupted": ["Person 1"],
+      "highlight": "Person 3"
+    }
+  ],
+  "users": [
+    { "userId": "1", "name": "Person 1" },
+    { "userId": "2", "name": "Person 2" },
+    { "userId": "3", "name": "Person 3" }
+  ]
+}

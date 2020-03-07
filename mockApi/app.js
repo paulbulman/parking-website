@@ -1,9 +1,25 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
+const fs = require("fs");
 const textBody = require("body");
 
+const app = express();
+const dataPath = "./mockApi/data.json";
 const port = 4000;
+
+let data = {};
+
+const updateData = () => {
+  const content = fs.readFileSync(dataPath);
+
+  if (content.length) {
+    data = JSON.parse(content);
+  }
+};
+
+updateData();
+
+fs.watch(dataPath, { encoding: "buffer" }, updateData);
 
 app.use(cors());
 
@@ -17,168 +33,57 @@ const checkAuthorizationHeader = (req, res) => {
   return authorization;
 };
 
-app.get("/registrationNumbers", (req, res) => {
+const handleGet = (req, res, key) => {
   if (!checkAuthorizationHeader(req, res)) {
     return;
   }
 
-  const response = [
-    { registrationNumber: "AB123CDE", name: "Person 1" },
-    { registrationNumber: "X789XZ", name: "Person 2" }
-  ];
+  res.send(data[key]);
+};
 
-  res.send(response);
+const handlePost = (req, res, message, ...rest) => {
+  textBody(req, res, function(err, body) {
+    if (!checkAuthorizationHeader(req, res)) {
+      return;
+    }
+
+    console.log(message, ...rest, body);
+
+    res.send(`${message} completed succesfully`);
+  });
+};
+
+app.get("/profile/:userId", (req, res) => {
+  handleGet(req, res, "profile");
+});
+app.post("/profile/:userId", (req, res) => {
+  handlePost(req, res, "Saving profile data", req.params["userId"]);
+});
+
+app.get("/registrationNumbers", (req, res) => {
+  handleGet(req, res, "registrationNumbers");
 });
 
 app.get("/requests/:userId", (req, res) => {
-  if (!checkAuthorizationHeader(req, res)) {
-    return;
-  }
-
-  const response = [
-    { date: "2020-01-06", requested: true },
-    { date: "2020-01-07", requested: false },
-    { date: "2020-01-08", requested: true },
-    { date: "2020-01-02", requested: true },
-    { date: "2019-12-30", requested: true },
-    { date: "2019-12-31", requested: false }
-  ];
-
-  res.send(response);
+  handleGet(req, res, "requests");
 });
-
 app.post("/requests/:userId", (req, res) => {
-  textBody(req, res, function(err, body) {
-    if (!checkAuthorizationHeader(req, res)) {
-      return;
-    }
-
-    console.log("Saving requests data for user", req.params["userId"], body);
-
-    res.send("Requests saved successfully");
-  });
+  handlePost(req, res, "Saving requests data", req.params["userId"]);
 });
 
 app.get("/reservations", (req, res) => {
-  if (!checkAuthorizationHeader(req, res)) {
-    return;
-  }
-
-  const response = [
-    {
-      date: "2020-01-06",
-      reservations: ["1", "3", null]
-    },
-    {
-      date: "2020-01-07",
-      reservations: ["1", "3", null]
-    },
-    {
-      date: "2020-01-08",
-      reservations: ["1", null, null]
-    },
-    {
-      date: "2019-12-30",
-      reservations: ["1", "3", null]
-    },
-    {
-      date: "2019-12-31",
-      reservations: [null, "2", null]
-    }
-  ];
-
-  res.send(response);
+  handleGet(req, res, "reservations");
 });
-
 app.post("/reservations", (req, res) => {
-  textBody(req, res, function(err, body) {
-    if (!checkAuthorizationHeader(req, res)) {
-      return;
-    }
-
-    console.log("Saving reservations", body);
-
-    res.send("Reservations saved successfully");
-  });
+  handlePost(req, res, "Saving reservations");
 });
 
 app.get("/summary/:userId", (req, res) => {
-  if (!checkAuthorizationHeader(req, res)) {
-    return;
-  }
-
-  const response = [
-    {
-      date: "2020-01-06",
-      allocated: ["Person 1", "Person 2"],
-      interrupted: ["Person 3"],
-      highlight: "Person 1"
-    },
-    {
-      date: "2020-01-09",
-      allocated: ["Person 1", "Person 3"],
-      interrupted: ["Person 2"],
-      highlight: "Person 2"
-    },
-    {
-      date: "2020-01-10",
-      allocated: ["Person 2", "Person 3"],
-      interrupted: ["Person 1"],
-      highlight: "Person 3"
-    },
-    {
-      date: "2019-12-30",
-      allocated: ["Person 1", "Person 2"],
-      interrupted: ["Person 3"],
-      highlight: "Person 1"
-    },
-    {
-      date: "2019-12-31",
-      allocated: ["Person 1", "Person 3"],
-      interrupted: ["Person 2"],
-      highlight: "Person 2"
-    },
-    {
-      date: "2020-01-01",
-      allocated: ["Person 2", "Person 3"],
-      interrupted: ["Person 1"],
-      highlight: "Person 3"
-    },
-    {
-      date: "2020-01-02",
-      allocated: ["Person 1", "Person 2"],
-      interrupted: ["Person 3"],
-      highlight: "Person 1"
-    },
-    {
-      date: "2020-01-07",
-      allocated: ["Person 1", "Person 3"],
-      interrupted: ["Person 2"],
-      highlight: "Person 2"
-    },
-    {
-      date: "2020-01-03",
-      allocated: ["Person 2", "Person 3"],
-      interrupted: ["Person 1"],
-      highlight: "Person 3"
-    }
-  ];
-
-  res.send(response);
+  handleGet(req, res, "summary");
 });
 
 app.get("/users", (req, res) => {
-  if (!checkAuthorizationHeader(req, res)) {
-    return;
-  }
-
-  const response = [
-    { userId: "1", name: "Person 1" },
-    { userId: "2", name: "Person 2" },
-    { userId: "3", name: "Person 3" }
-  ];
-
-  res.send(response);
+  handleGet(req, res, "users");
 });
 
 app.listen(port, () => console.log(`Mock API server running on port ${port}`));

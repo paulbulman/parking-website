@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import _ from "lodash";
 import { getRegistrationNumbers } from "../api/registrationNumbersApi";
 
 const RegistrationNumbers = () => {
@@ -19,6 +20,8 @@ const RegistrationNumbers = () => {
     </tr>
   );
 
+  const ordered = _.sortBy(registrationNumbersData, r => r.registrationNumber);
+
   return (
     <>
       <h2>Registration Numbers</h2>
@@ -31,7 +34,7 @@ const RegistrationNumbers = () => {
             <th>Name</th>
           </tr>
         </thead>
-        <tbody>{registrationNumbersData.map(createRow)}</tbody>
+        <tbody>{ordered.map(createRow)}</tbody>
       </table>
     </>
   );

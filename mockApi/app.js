@@ -60,7 +60,7 @@ app.get("/manageUsers/", (req, res) => {
 app.get("/manageUsers/:userId", (req, res) => {
   handleGet(req, res, "manageUsers");
 });
-app.post("/manageUsers/:userId", (req, res) => {
+app.put("/manageUsers/:userId", (req, res) => {
   handleUpdate(req, res, "Saving user data", req.params["userId"]);
 });
 app.delete("/manageUsers/:userId", (req, res) => {
@@ -70,7 +70,7 @@ app.delete("/manageUsers/:userId", (req, res) => {
 app.get("/profile/:userId", (req, res) => {
   handleGet(req, res, "profile");
 });
-app.post("/profile/:userId", (req, res) => {
+app.put("/profile/:userId", (req, res) => {
   handleUpdate(req, res, "Saving profile data", req.params["userId"]);
 });
 

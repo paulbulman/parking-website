@@ -60,6 +60,9 @@ app.get("/manageUsers/", (req, res) => {
 app.get("/manageUsers/:userId", (req, res) => {
   handleGet(req, res, "manageUsers");
 });
+app.post("/manageUsers/", (req, res) => {
+  handleUpdate(req, res, "Adding user");
+});
 app.put("/manageUsers/:userId", (req, res) => {
   handleUpdate(req, res, "Saving user data", req.params["userId"]);
 });

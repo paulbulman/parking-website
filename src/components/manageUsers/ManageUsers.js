@@ -27,9 +27,18 @@ export default () => {
       <td>{user.alternativeRegistrationNumber}</td>
       <td>{user.commuteDistance}</td>
       <td>
-        <Link to={`/ManageUsers/Edit/${user.userId}`}>Edit</Link>
-        {" | "}
-        <Link to={`/ManageUsers/Delete/${user.userId}`}>Delete</Link>
+        <Link
+          className="btn btn-link btn-sm"
+          to={`/ManageUsers/Edit/${user.userId}`}
+        >
+          Edit
+        </Link>
+        <Link
+          className="btn btn-link btn-sm"
+          to={`/ManageUsers/Delete/${user.userId}`}
+        >
+          Delete
+        </Link>
       </td>
     </tr>
   ));
@@ -37,7 +46,13 @@ export default () => {
   return (
     <>
       <h2>Manage Users</h2>
-      <p><Link to="/ManageUsers/Add">Create new</Link></p>
+      <h4>Create new users, or update/delete existing:</h4>
+      <hr />
+      <p>
+        <Link className="btn btn-primary" to="/ManageUsers/Add">
+          Create new
+        </Link>
+      </p>
       <table className="table table-top table-striped table-bordered">
         <thead className="thead-dark">
           <tr>

@@ -24,11 +24,12 @@ export default ({
 
   return (
     <>
+      <h2>Update existing user</h2>
+      <h4>Edit details below:</h4>
+      <hr />
       <div className="row">
         <div className="col-md-6">
           <form onSubmit={handleSubmit}>
-            <h4>Edit user details:</h4>
-            <hr />
             {errors}
             <div className="form-group">
               <label htmlFor="input_firstName">First Name</label>
@@ -85,14 +86,13 @@ export default ({
                 onChange={handleChange}
               />
             </div>
-            <div>
+            <div className="form-group">
               <button className="btn btn-primary" type="submit">
                 Save
               </button>
-
-              {" | "}
-
-              <Link to="/ManageUsers">Return without saving</Link>
+              <Link className="btn btn-link" to="/ManageUsers">
+                Return without saving
+              </Link>
             </div>
           </form>
         </div>

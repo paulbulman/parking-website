@@ -1,3 +1,9 @@
-import React from "react"
+import React from "react";
 
-export default () => <div>Add user</div>;
+export default () => (
+  <>
+    <h2>Create new user</h2>
+    <h4>Enter details below:</h4>
+    <hr />
+  </>
+);

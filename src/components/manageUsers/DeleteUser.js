@@ -40,9 +40,7 @@ export default () => {
           Delete
         </button>
 
-        {" | "}
-
-        <Link to="/ManageUsers">Return without deleting</Link>
+        <Link className="btn btn-link" to="/ManageUsers">Return without deleting</Link>
       </div>
     </>
   );

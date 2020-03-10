@@ -41,7 +41,7 @@ export const currentUser = async () => {
   const userIdJwtToken = localStorage.getUserIdToken();
 
   if (userIdJwtToken) {
-    return { user: {} };
+    return { username: "USER_ID" };
   }
 
   throw new Error("No current user");

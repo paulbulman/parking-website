@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import _ from "lodash";
 import Week from "./Week";
+import { getCurrentUserId } from "../../services/authenticationService";
 import { getSummaryData } from "./../../services/summaryService";
 
 const Summary = () => {
-  const userId = "USER_ID";
-
   const [summaryData, setSummaryData] = useState([]);
 
   useEffect(() => {
     const loadSummaryData = async () => {
+      const userId = await getCurrentUserId();
       setSummaryData(await getSummaryData(userId));
     };
 

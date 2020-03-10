@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Profile from "./Profile";
+import { getCurrentUserId } from "../../services/authenticationService";
 import { getProfile, updateProfile } from "../../api/profileApi";
 
 export default () => {
-  const userId = "USER_ID";
+  const [userId, setUserId] = useState(null);
   const [details, setDetails] = useState({
     registrationNumber: "",
     alternativeRegistrationNumber: ""
@@ -11,11 +12,21 @@ export default () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
+    const loadUserId = async () => {
+      setUserId(await getCurrentUserId());
+    };
+
+    loadUserId();
+  }, []);
+
+  useEffect(() => {
     const loadProfileData = async () => {
       setDetails(await getProfile(userId));
     };
 
-    loadProfileData();
+    if (userId) {
+      loadProfileData();
+    }
   }, [userId]);
 
   const handleChange = (k, v) => setDetails({ ...details, [k]: v });

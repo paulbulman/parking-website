@@ -58,6 +58,15 @@ export const createIsAuthenticated = currentUser => async () => {
   }
 };
 
+export const createGetCurrentUserId = currentUser => async () => {
+  try {
+    const result = await currentUser();
+    return result.username;
+  } catch {
+    return null;
+  }
+};
+
 export const createGetUserIdToken = currentSession => async () => {
   try {
     const currentSessionResult = await currentSession();
@@ -87,6 +96,8 @@ export const login = createLogin(Auth.signIn, Auth.completeNewPassword);
 export const logout = createLogout(Auth.signOut);
 
 export const isAuthenticated = createIsAuthenticated(Auth.currentUser);
+
+export const getCurrentUserId = createGetCurrentUserId(Auth.currentUser);
 
 export const getUserIdToken = createGetUserIdToken(Auth.currentSession);
 

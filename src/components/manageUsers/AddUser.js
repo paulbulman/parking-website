@@ -1,6 +1,8 @@
 import React from "react";
 
 export default ({
+  firstName,
+  lastName,
   emailAddress,
   confirmEmailAddress,
   errorMessage,
@@ -27,6 +29,27 @@ export default ({
         <div className="col-md-6">
           <form onSubmit={handleSubmit}>
             {errors}
+            <div className="form-group">
+              <label htmlFor="input_firstName">First name</label>
+              <input
+                id="input_firstName"
+                className="form-control"
+                value={firstName}
+                name="firstName"
+                autoFocus
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="input_password">Last name</label>
+              <input
+                id="input_lastName"
+                className="form-control"
+                value={lastName}
+                name="lastName"
+                onChange={handleChange}
+              />
+            </div>
             <div className="form-group">
               <label htmlFor="input_emailAddress">Email address</label>
               <input

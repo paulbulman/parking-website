@@ -8,6 +8,8 @@ export default () => {
   const history = useHistory();
 
   const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
     emailAddress: "",
     confirmEmailAddress: ""
   });
@@ -24,7 +26,11 @@ export default () => {
     }
 
     try {
-      await addUser(userData.emailAddress);
+      await addUser({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        emailAddress: userData.emailAddress
+      });
       history.push("/ManageUsers");
     } catch {
       setErrorMessage("Something went wrong. Please try again.");

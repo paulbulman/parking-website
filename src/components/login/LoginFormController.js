@@ -15,24 +15,21 @@ export const CreateLoginFormController = login => {
   }) => {
     const [completeSignup, setCompleteSignup] = useState(false);
 
-    const [credentials, setCredentials] = useState({ email: "", password: "" });
-    const [signupData, setSignupData] = useState({
+    const [credentials, setCredentials] = useState({
+      email: "",
+      password: "",
       newPassword: "",
       confirmNewPassword: ""
     });
 
-    const [credentialsErrorMessage, setCredentialsErrorMessage] = useState("");
-    const [signupErrorMessage, setsignupErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
-    const handleCredentialsChange = (k, v) =>
-      setCredentials({ ...credentials, [k]: v });
-    const handleSignupDataChange = (k, v) =>
-      setSignupData({ ...signupData, [k]: v });
+    const handleChange = (k, v) => setCredentials({ ...credentials, [k]: v });
 
     const handleLogin = async () => {
       const result = await login(credentials.email, credentials.password);
       if (result === LoginResult.Success) {
-        handleLoginSuccess();
+        markAsAuthenticated();
       } else if (result === LoginResult.CompleteSignupRequired) {
         setCompleteSignup(true);
       } else {
@@ -40,61 +37,57 @@ export const CreateLoginFormController = login => {
       }
     };
 
-    const handleLoginSuccess = () => {
-      markAsAuthenticated();
-    };
-
     const handleLoginFailure = () => {
       markAsNotAuthenticated();
-      setCredentialsErrorMessage("Invalid username or password");
+      setErrorMessage("Invalid username or password");
       setCredentials({ ...credentials, password: "" });
     };
 
     const handleSignup = async () => {
-      setsignupErrorMessage("");
+      setErrorMessage("");
 
-      if (signupData.newPassword !== signupData.confirmNewPassword) {
-        setsignupErrorMessage("New passwords do not match");
+      if (credentials.newPassword !== credentials.confirmNewPassword) {
+        setErrorMessage("New passwords do not match");
         return;
       }
 
       const result = await login(
         credentials.email,
         credentials.password,
-        signupData.newPassword
+        credentials.newPassword
       );
 
       if (result === LoginResult.Success) {
-        handleSignupSuccess();
+        markAsAuthenticated();
       } else {
         handleSignupFailure();
       }
     };
 
-    const handleSignupSuccess = () => {
-      markAsAuthenticated();
-    };
-
     const handleSignupFailure = () => {
       markAsNotAuthenticated();
-      setsignupErrorMessage("Something went wrong. Please try again.");
-      setSignupData({ ...signupData, newPassword: "", confirmNewPassword: "" });
+      setErrorMessage("Something went wrong. Please try again.");
+      setCredentials({
+        ...credentials,
+        newPassword: "",
+        confirmNewPassword: ""
+      });
     };
 
     return completeSignup ? (
       <CompleteSignupForm
-        newPassword={signupData.newPassword}
-        confirmNewPassword={signupData.confirmNewPassword}
-        errorMessage={signupErrorMessage}
-        onChange={handleSignupDataChange}
+        newPassword={credentials.newPassword}
+        confirmNewPassword={credentials.confirmNewPassword}
+        errorMessage={errorMessage}
+        onChange={handleChange}
         onSignup={handleSignup}
       />
     ) : (
       <LoginForm
         email={credentials.email}
         password={credentials.password}
-        errorMessage={credentialsErrorMessage}
-        onChange={handleCredentialsChange}
+        errorMessage={errorMessage}
+        onChange={handleChange}
         onLogin={handleLogin}
       />
     );

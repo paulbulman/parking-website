@@ -4,7 +4,10 @@ import { getProfile, updateProfile } from "../../api/profileApi";
 
 export default () => {
   const userId = "USER_ID";
-  const [details, setDetails] = useState({});
+  const [details, setDetails] = useState({
+    registrationNumber: "",
+    alternativeRegistrationNumber: ""
+  });
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {

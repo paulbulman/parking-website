@@ -16,19 +16,19 @@ describe("authentication service", () => {
   });
 
   describe("when the sign in API returns a valid session", () => {
-    it("returns true", async () => {
+    it("returns SUCCESS", async () => {
       const signInResult = { signInUserSession: {} };
       const signIn = async (username, password) => signInResult;
       const login = authenticationService.createLogin(signIn);
 
       const result = await login("USER", "PASS");
 
-      expect(result).toBe(true);
+      expect(result).toBe("SUCCESS");
     });
   });
 
   describe("when the sign in API returns an error", () => {
-    it("returns false", async () => {
+    it("returns FAILURE", async () => {
       const signIn = async (username, password) => {
         throw new Error("Something went wrong");
       };
@@ -36,7 +36,7 @@ describe("authentication service", () => {
 
       const result = await login("USER", "PASS");
 
-      expect(result).toBe(false);
+      expect(result).toBe("FAILURE");
     });
   });
 

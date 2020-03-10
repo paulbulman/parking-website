@@ -1,5 +1,11 @@
 import * as Auth from "../api/authenticationApi";
 
+export const LoginResult = {
+  Success: "SUCCESS",
+  Failure: "FAILURE",
+  CompleteSignupRequired: "COMPLETESIGNUPREQUIRED"
+};
+
 export const createConfigure = configureApi => () =>
   configureApi({
     Auth: {
@@ -9,16 +15,32 @@ export const createConfigure = configureApi => () =>
     }
   });
 
-export const createLogin = signIn => async (username, password) => {
+export const createLogin = (signIn, completeNewPassword) => async (
+  username,
+  password,
+  newPassword
+) => {
   try {
     const signInResult = await signIn(username, password);
 
     if (signInResult.signInUserSession) {
-      return true;
-    }
+      return LoginResult.Success;
+    } else if (signInResult.challengeName === "NEW_PASSWORD_REQUIRED")
+      if (newPassword) {
+        const completeSignupResult = await completeNewPassword(
+          signInResult,
+          newPassword
+        );
+
+        if (completeSignupResult.signInUserSession) {
+          return LoginResult.Success;
+        }
+      } else {
+        return LoginResult.CompleteSignupRequired;
+      }
   } catch {}
 
-  return false;
+  return LoginResult.Failure;
 };
 
 export const createLogout = signOut => async () => {
@@ -45,20 +67,22 @@ export const createGetUserIdToken = currentSession => async () => {
   }
 };
 
-export const createChangePassword = changePassword => async (oldPassword, newPassword) => {
+export const createChangePassword = changePassword => async (
+  oldPassword,
+  newPassword
+) => {
   try {
     await changePassword(oldPassword, newPassword);
     return true;
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
     return false;
   }
-}
+};
 
 export const configure = createConfigure(Auth.configure);
 
-export const login = createLogin(Auth.signIn);
+export const login = createLogin(Auth.signIn, Auth.completeNewPassword);
 
 export const logout = createLogout(Auth.signOut);
 

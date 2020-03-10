@@ -2,15 +2,31 @@ import * as localStorage from "./../localStorage";
 
 export const configure = config => {};
 
-export const signIn = async (username, password) => {
-  const setUserIdToken = username => {
-    const timestamp = new Date().toISOString();
-    const dummyTokenString = `[Some JWT string for user ${username} at ${timestamp}]`;
-    localStorage.setUserIdToken(dummyTokenString);
-  };
+const setUserIdToken = username => {
+  const timestamp = new Date().toISOString();
+  const dummyTokenString = `[Some JWT string for user ${username} at ${timestamp}]`;
+  localStorage.setUserIdToken(dummyTokenString);
+};
 
+export const signIn = async (username, password) => {
   if (username && password) {
-    setUserIdToken(username);
+    if (password === "temp") {
+      return {
+        username: username,
+        challengeName: "NEW_PASSWORD_REQUIRED"
+      };
+    } else {
+      setUserIdToken(username);
+      return { signInUserSession: {} };
+    }
+  }
+
+  return null;
+};
+
+export const completeNewPassword = async (signInResult, newPassword) => {
+  if (signInResult.username && newPassword) {
+    setUserIdToken(signInResult.username);
     return { signInUserSession: {} };
   }
 
@@ -47,4 +63,4 @@ export const changePassword = async (oldPassword, newPassword) => {
   }
 
   throw new Error("Something went wrong");
-}
+};

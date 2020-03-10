@@ -27,7 +27,7 @@ describe("Login form controller", () => {
   };
 
   it("calls the Login API with the given username and password", async () => {
-    const { login, component } = createComponent(true);
+    const { login, component } = createComponent("SUCCESS");
 
     component
       .find("input[name='email']")
@@ -44,13 +44,13 @@ describe("Login form controller", () => {
   });
 
   it("marks the user as authenticated when the login API returns success", async () => {
-    const { markAsAuthenticated, component } = createComponent(true);
+    const { markAsAuthenticated, component } = createComponent("SUCCESS");
     await submitForm(component);
     expect(markAsAuthenticated.mock.calls.length).toBe(1);
   });
 
   it("marks the user as not authenticated when the login API returns failure", async () => {
-    const { markAsNotAuthenticated, component } = createComponent(false);
+    const { markAsNotAuthenticated, component } = createComponent("FAILURE");
     await submitForm(component);
     expect(markAsNotAuthenticated.mock.calls.length).toBe(1);
   });

@@ -1,18 +1,18 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Summary from "./summary/Summary";
-import Account from "./account/Account";
-import EditRequests from "./editRequests/EditRequests";
-import ManageUsers from "./manageUsers/ManageUsers";
-import AddUser from "./manageUsers/AddUserController";
-import EditUser from "./manageUsers/EditUserController";
-import DeleteUser from "./manageUsers/DeleteUser";
-import OverrideRequests from "./OverrideRequests";
-import RegistrationNumbers from "./RegistrationNumbers";
-import Reservations from "./reservations/Reservations";
-import NotFound from "./NotFound";
+import Summary from "../summary/Summary";
+import Account from "../account/Account";
+import EditRequests from "../editRequests/EditRequests";
+import ManageUsers from "../manageUsers/ManageUsers";
+import AddUser from "../manageUsers/AddUserController";
+import EditUser from "../manageUsers/EditUserController";
+import DeleteUser from "../manageUsers/DeleteUser";
+import OverrideRequests from "../OverrideRequests";
+import RegistrationNumbers from "../RegistrationNumbers";
+import Reservations from "../reservations/Reservations";
+import NotFound from "../NotFound";
 
-const Router = () => (
+export default () => (
   <Switch>
     <Route exact path="/">
       <Summary />
@@ -49,5 +49,3 @@ const Router = () => (
     </Route>
   </Switch>
 );
-
-export default Router;

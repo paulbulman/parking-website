@@ -1,12 +1,12 @@
 import React from "react";
-import LoginForm from "./login/LoginFormWrapper";
 import AuthenticatedRouter from "./router/AuthenticatedRouter";
+import UnauthenticatedRouter from "./router/UnauthenticatedRouter";
 
 const BodyWrapper = ({ isAuthenticated }) => {
   return (
     <div className="container">
       <main role="main" className="pb-3">
-        {isAuthenticated ? <AuthenticatedRouter /> : <LoginForm />}
+        {isAuthenticated ? <AuthenticatedRouter /> : <UnauthenticatedRouter />}
       </main>
     </div>
   );

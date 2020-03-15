@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const LoginForm = ({ email, password, errorMessage, onChange, onLogin }) => {
   const handleChange = event => onChange(event.target.name, event.target.value);
@@ -44,12 +45,13 @@ const LoginForm = ({ email, password, errorMessage, onChange, onLogin }) => {
                 onChange={handleChange}
               />
             </div>
-            <div>
+            <div className="form-group">
               <button className="btn btn-primary" type="submit">
                 Log in
               </button>
             </div>
           </form>
+          <Link to={"/ForgottenPassword"}>Forgotten Password</Link>
         </div>
       </div>
     </>

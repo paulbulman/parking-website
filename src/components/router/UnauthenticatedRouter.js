@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import ForgottenPassword from "../login/ForgottenPassword";
+import ForgottenPassword from "../login/ForgottenPasswordController";
 import LoginForm from "../login/LoginFormController";
 
 export default () => (

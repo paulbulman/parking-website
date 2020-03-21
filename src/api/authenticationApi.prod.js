@@ -9,6 +9,12 @@ export const signIn = async (username, password) =>
 export const completeNewPassword = async (signInResult, newPassword) =>
   await Auth.completeNewPassword(signInResult, newPassword);
 
+export const forgotPassword = async username =>
+  await Auth.forgotPassword(username);
+
+export const forgotPasswordSubmit = async (username, resetCode, newPassword) =>
+  await Auth.forgotPasswordSubmit(username, resetCode, newPassword);
+
 export const signOut = async () => await Auth.signOut();
 
 export const currentUser = async () => await Auth.currentAuthenticatedUser();

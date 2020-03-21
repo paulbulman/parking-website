@@ -43,6 +43,28 @@ export const createLogin = (signIn, completeNewPassword) => async (
   return LoginResult.Failure;
 };
 
+export const createForgotPassword = forgotPassword => async username => {
+  try {
+    await forgotPassword(username);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+export const createForgotPasswordSubmit = forgotPasswordSubmit => async (
+  username,
+  resetCode,
+  newPassword
+) => {
+  try {
+    await forgotPasswordSubmit(username, resetCode, newPassword);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 export const createLogout = signOut => async () => {
   try {
     await signOut();
@@ -92,6 +114,12 @@ export const createChangePassword = changePassword => async (
 export const configure = createConfigure(Auth.configure);
 
 export const login = createLogin(Auth.signIn, Auth.completeNewPassword);
+
+export const forgotPassword = createForgotPassword(Auth.forgotPassword);
+
+export const forgotPasswordSubmit = createForgotPasswordSubmit(
+  Auth.forgotPasswordSubmit
+);
 
 export const logout = createLogout(Auth.signOut);
 

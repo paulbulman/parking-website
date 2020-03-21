@@ -33,6 +33,47 @@ export const completeNewPassword = async (signInResult, newPassword) => {
   return null;
 };
 
+export const forgotPassword = async username => {
+  if (!username) {
+    throw new Error("AuthError: Username cannot be empty");
+  }
+
+  return {
+    CodeDeliveryDetails: {
+      AttributeName: "email",
+      DeliveryMedium: "EMAIL",
+      Destination: username
+    }
+  };
+};
+
+export const forgotPasswordSubmit = async (
+  username,
+  resetCode,
+  newPassword
+) => {
+  if (!username || !resetCode || !newPassword) {
+    throw new Error("AuthError: Parameter cannot be empty");
+  }
+
+  if (resetCode !== "123456") {
+    return Promise.reject({
+      code: "CodeMismatchException",
+      name: "CodeMismatchException",
+      message: "Invalid verification code provided, please try again."
+    });
+  }
+
+  if (newPassword.length < 6) {
+    return Promise.reject({
+      code: "InvalidParameterException",
+      name: "InvalidParameterException",
+      message:
+        "1 validation error detected: Value at 'password' failed to satisfy constraint: Member must have length greater than or equal to 6"
+    });
+  }
+};
+
 export const signOut = async () => {
   localStorage.removeUserIdToken();
 };

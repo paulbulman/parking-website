@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Summary from "../summary/Summary";
 import Account from "../account/Account";
 import EditRequests from "../editRequests/EditRequests";
@@ -16,6 +16,9 @@ export default () => (
   <Switch>
     <Route exact path="/">
       <Summary />
+    </Route>
+    <Route path="/ForgottenPassword">
+      <Redirect to="/" />
     </Route>
     <Route path="/Account">
       <Account />

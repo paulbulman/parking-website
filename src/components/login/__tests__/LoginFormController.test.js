@@ -2,6 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 import { CreateLoginFormController } from "./../LoginFormController";
+import { MemoryRouter } from "react-router-dom";
 
 describe("Login form controller", () => {
   const createComponent = loginResult => {
@@ -11,10 +12,12 @@ describe("Login form controller", () => {
     const markAsAuthenticated = jest.fn();
     const markAsNotAuthenticated = jest.fn();
     const component = mount(
-      <LoginFormController
-        markAsAuthenticated={markAsAuthenticated}
-        markAsNotAuthenticated={markAsNotAuthenticated}
-      />
+      <MemoryRouter>
+        <LoginFormController
+          markAsAuthenticated={markAsAuthenticated}
+          markAsNotAuthenticated={markAsNotAuthenticated}
+        />
+      </MemoryRouter>
     );
 
     return { login, markAsAuthenticated, markAsNotAuthenticated, component };

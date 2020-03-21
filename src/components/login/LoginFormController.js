@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import LoginForm from "./LoginForm";
 import CompleteSignupForm from "./CompleteSignupForm";
@@ -13,6 +14,8 @@ export const CreateLoginFormController = login => {
     markAsAuthenticated,
     markAsNotAuthenticated
   }) => {
+    const history = useHistory();
+
     const [completeSignup, setCompleteSignup] = useState(false);
 
     const [credentials, setCredentials] = useState({
@@ -35,6 +38,10 @@ export const CreateLoginFormController = login => {
       } else {
         handleLoginFailure();
       }
+    };
+
+    const handleForgottenPassword = () => {
+      history.push("/ForgottenPassword");
     };
 
     const handleLoginFailure = () => {
@@ -89,6 +96,7 @@ export const CreateLoginFormController = login => {
         errorMessage={errorMessage}
         onChange={handleChange}
         onLogin={handleLogin}
+        onForgottenPassword={handleForgottenPassword}
       />
     );
   };

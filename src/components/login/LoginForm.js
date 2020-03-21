@@ -1,7 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-const LoginForm = ({ email, password, errorMessage, onChange, onLogin }) => {
+const LoginForm = ({
+  email,
+  password,
+  errorMessage,
+  onChange,
+  onLogin,
+  onForgottenPassword
+}) => {
   const handleChange = event => onChange(event.target.name, event.target.value);
 
   const handleSubmit = event => {
@@ -49,9 +55,11 @@ const LoginForm = ({ email, password, errorMessage, onChange, onLogin }) => {
               <button className="btn btn-primary" type="submit">
                 Log in
               </button>
+              <button className="btn btn-link" onClick={onForgottenPassword}>
+                Forgotten Password
+              </button>
             </div>
           </form>
-          <Link to={"/ForgottenPassword"}>Forgotten Password</Link>
         </div>
       </div>
     </>

@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import ForgottenPassword from "../login/ForgottenPasswordController";
 import LoginForm from "../login/LoginFormController";
 
-export default () => (
+const UnauthenticatedRouter = () => (
   <Switch>
     <Route exact path="/ForgottenPassword">
       <ForgottenPassword />
@@ -13,3 +13,5 @@ export default () => (
     </Route>
   </Switch>
 );
+
+export default UnauthenticatedRouter;

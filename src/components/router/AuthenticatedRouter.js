@@ -12,7 +12,7 @@ import RegistrationNumbers from "../RegistrationNumbers";
 import Reservations from "../reservations/Reservations";
 import NotFound from "../NotFound";
 
-export default () => (
+const AuthenticatedRouter = () => (
   <Switch>
     <Route exact path="/">
       <Summary />
@@ -52,3 +52,5 @@ export default () => (
     </Route>
   </Switch>
 );
+
+export default AuthenticatedRouter;

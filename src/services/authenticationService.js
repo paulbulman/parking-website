@@ -1,4 +1,5 @@
 import * as Auth from "../api/authenticationApi";
+import jwt from "jsonwebtoken";
 
 export const LoginResult = {
   Success: "SUCCESS",
@@ -111,6 +112,19 @@ export const createChangePassword = changePassword => async (
   }
 };
 
+export const createHasRole = getUserIdToken => async role => {
+  try {
+    const raw = await getUserIdToken();
+    const decoded = jwt.decode(raw);
+    return (
+      decoded["cognito:groups"] && decoded["cognito:groups"].includes(role)
+    );
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 export const configure = createConfigure(Auth.configure);
 
 export const login = createLogin(Auth.signIn, Auth.completeNewPassword);
@@ -130,3 +144,5 @@ export const getCurrentUserId = createGetCurrentUserId(Auth.currentUser);
 export const getUserIdToken = createGetUserIdToken(Auth.currentSession);
 
 export const changePassword = createChangePassword(Auth.changePassword);
+
+export const hasRole = createHasRole(getUserIdToken);

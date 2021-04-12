@@ -1,5 +1,5 @@
-export type LayoutProps = {
+export interface LayoutProps {
   heading: string;
   subheading: string;
   children: React.ReactNode;
-};
+}

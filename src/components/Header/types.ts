@@ -1,1 +1,3 @@
-export type HeaderProps = { children: React.ReactNode };
+export interface HeaderProps {
+  children: React.ReactNode;
+}

@@ -1,1 +1,4 @@
-export type HeaderLinkProps = { to: string; caption: string };
+export interface HeaderLinkProps {
+  to: string;
+  caption: string;
+}

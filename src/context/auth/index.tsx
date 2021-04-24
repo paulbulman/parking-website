@@ -13,6 +13,10 @@ import {
   SignInParameters,
 } from "./types";
 
+if (process.env.NODE_ENV === "development") {
+  require("./auth.dev");
+}
+
 Auth.configure({
   Auth: {
     region: process.env.REACT_APP_COGNITO_REGION,
@@ -34,8 +38,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       try {
         const result = await Auth.currentAuthenticatedUser();
         setUser(result);
-      } catch (Error) {
-        console.log({ Error });
+      } catch (error) {
+        console.log({ error });
       }
       setIsInitialising(false);
     };
@@ -55,7 +59,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         setUser(result);
         return true;
       } catch (error) {
-        console.error(error);
+        console.log({ error });
         setUser(null);
         return false;
       }

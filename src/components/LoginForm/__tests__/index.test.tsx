@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { LoginForm } from ".";
+import { LoginForm } from "..";
 
 describe("login form", () => {
   it("calls onSubmit with the given values", async () => {

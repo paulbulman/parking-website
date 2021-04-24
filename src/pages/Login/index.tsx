@@ -1,14 +1,19 @@
+import { toast } from "react-toastify";
 import { Layout } from "../../components/Layout";
 import { LoginForm } from "../../components/LoginForm";
 import { Link } from "react-router-dom";
 import { LoginFormValues } from "../../components/LoginForm/types";
+import { useAuthContext } from "../../hooks/context/auth";
 
 export const LoginPage = () => {
-  const fakeDelay = () => new Promise((resolve) => setTimeout(resolve, 1500));
+  const { signIn } = useAuthContext();
 
   const handleLogin = async (values: LoginFormValues) => {
-    await fakeDelay();
-    alert(JSON.stringify(values, null, 2));
+    const signInResult = await signIn(values);
+
+    if (!signInResult) {
+      toast("Your login details were incorrect. Please try again.");
+    }
   };
 
   return (

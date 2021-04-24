@@ -1,13 +1,17 @@
-import { SignedOutHeader } from "./SignedOutHeader";
-import { SignedOutRouter } from "./SignedOutRouter";
+import { useAuthContext } from "./hooks/context/auth";
+import { AuthenticationStatuses } from "./context/auth/types";
+import { SignedInApp } from "./pages/SignedInApp";
+import { SignedOutApp } from "./pages/SignedOutApp";
 
-function App() {
-  return (
-    <>
-      <SignedOutHeader />
-      <SignedOutRouter />
-    </>
-  );
-}
+export const App = () => {
+  const { authenticationStatus } = useAuthContext();
 
-export default App;
+  switch (authenticationStatus) {
+    case AuthenticationStatuses.Initialising:
+      return <div>Loading...</div>;
+    case AuthenticationStatuses.NotSignedIn:
+      return <SignedOutApp />;
+    case AuthenticationStatuses.SignedIn:
+      return <SignedInApp />;
+  }
+};

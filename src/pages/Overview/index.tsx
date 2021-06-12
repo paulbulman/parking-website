@@ -1,4 +1,4 @@
-import { useOverview } from "../../hooks/api/overview";
+import { useOverview } from "../../hooks/api/queries/overview";
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
 import { OverviewCalendar } from "../../components/OverviewCalendar";

@@ -1,5 +1,5 @@
 import { UseQueryOptions } from "react-query";
-import type { operations } from "../types";
+import type { operations } from "../../types";
 
 export type OverviewRequestParameters = never;
 export type OverviewRequestResult =

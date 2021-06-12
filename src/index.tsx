@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Zoom } from "react-toastify";
 import { AuthContextProvider } from "./context/auth";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { App } from "./App";
@@ -22,7 +22,7 @@ ReactDOM.render(
     <AuthContextProvider>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <ToastContainer />
+          <ToastContainer hideProgressBar transition={Zoom} />
           <App />
         </BrowserRouter>
       </QueryClientProvider>

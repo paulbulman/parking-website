@@ -42,6 +42,10 @@ describe("Overview", () => {
       );
     });
 
-    await waitFor(() => expect(screen.getByText("User 1")).toBeInTheDocument());
+    await waitFor(() => {
+      expect(screen.queryByText("Loading")).not.toBeInTheDocument();
+    });
+
+    expect(screen.getByText("User 1")).toBeInTheDocument();
   });
 });

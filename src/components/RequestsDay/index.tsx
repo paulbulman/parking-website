@@ -12,6 +12,15 @@ export const RequestsDay = ({
     Boolean(day.data?.requested),
     requestEdits
   );
+
+  const handleChange = (updatedRequested: boolean) => {
+    const requestEdit = {
+      localDate: day.localDate,
+      requested: updatedRequested,
+    };
+    onChange(requestEdit);
+  };
+
   return day.hidden ? (
     <td></td>
   ) : (
@@ -20,9 +29,7 @@ export const RequestsDay = ({
         <input
           type="checkbox"
           checked={checked}
-          onChange={() =>
-            onChange({ localDate: day.localDate, requested: !checked })
-          }
+          onChange={(event) => handleChange(event.target.checked)}
         />{" "}
         {format(new Date(day.localDate), "dd MMM")}
       </label>

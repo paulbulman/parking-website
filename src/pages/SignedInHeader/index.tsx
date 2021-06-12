@@ -5,11 +5,13 @@ import { NavigationLink } from "../../components/NavigationLink";
 import { useAuthContext } from "../../hooks/context/auth";
 
 export const SignedInHeader = () => {
-  const { signOut } = useAuthContext();
+  const { signOut, getGroups } = useAuthContext();
 
   const handleLogoutClick = async () => {
     await signOut();
   };
+
+  const groups = getGroups();
 
   return (
     <Header>
@@ -24,6 +26,14 @@ export const SignedInHeader = () => {
           <li className="navbar-item">
             <NavigationLink to="/edit-requests" caption="Edit Requests" />
           </li>
+          {groups.includes("TeamLeader") && (
+            <li className="navbar-item">
+              <NavigationLink
+                to="/edit-reservations"
+                caption="Edit Reservations"
+              />
+            </li>
+          )}
         </ul>
       </div>
     </Header>

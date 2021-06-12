@@ -5,36 +5,43 @@ import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContextProvider } from "../../../context/auth";
 import { getMockSession } from "../../../context/auth/auth.dev";
-import { EditRequestsPage } from "..";
+import { EditReservationsPage } from "..";
 
-describe("Edit requests", () => {
+describe("Edit reservations", () => {
   const queryClient = new QueryClient();
 
   const data = {
-    requests: {
+    reservations: {
       weeks: [
         {
           days: [
             {
               localDate: "2021-05-17",
-              data: { requested: false },
+              data: { userIds: ["user1"] },
               hidden: false,
             },
           ],
         },
       ],
     },
+    shortLeadTimeSpaces: 1,
+    users: [
+      { userId: "user1", name: "User 1" },
+      { userId: "user2", name: "User 2" },
+    ],
   };
 
-  it("displays data from the requests endpoint", async () => {
-    Auth.currentSession = jest.fn().mockResolvedValue(getMockSession("Normal"));
+  it("displays data from the reservations endpoint", async () => {
+    Auth.currentSession = jest
+      .fn()
+      .mockResolvedValue(getMockSession("TeamLeader"));
     axios.get = jest.fn().mockReturnValueOnce({ data });
 
     act(() => {
       render(
         <AuthContextProvider>
           <QueryClientProvider client={queryClient}>
-            <EditRequestsPage />
+            <EditReservationsPage />
           </QueryClientProvider>
         </AuthContextProvider>
       );
@@ -44,12 +51,15 @@ describe("Edit requests", () => {
       expect(screen.queryByText("Loading")).not.toBeInTheDocument();
     });
 
-    const requestCheckbox = screen.getByRole("checkbox", { name: "17 May" });
-    expect(requestCheckbox).toBeInTheDocument();
+    const reservationSelect = screen.getAllByRole("combobox")[0];
+
+    expect(reservationSelect).toHaveDisplayValue(["User 1"]);
   });
 
-  it("sends changes to the requests endpoint", async () => {
-    Auth.currentSession = jest.fn().mockResolvedValue(getMockSession("Normal"));
+  it("sends changes to the reservations endpoint", async () => {
+    Auth.currentSession = jest
+      .fn()
+      .mockResolvedValue(getMockSession("TeamLeader"));
     axios.get = jest.fn().mockReturnValueOnce({ data });
     axios.patch = jest.fn().mockReturnValueOnce({ data });
 
@@ -57,7 +67,7 @@ describe("Edit requests", () => {
       render(
         <AuthContextProvider>
           <QueryClientProvider client={queryClient}>
-            <EditRequestsPage />
+            <EditReservationsPage />
           </QueryClientProvider>
         </AuthContextProvider>
       );
@@ -67,17 +77,17 @@ describe("Edit requests", () => {
       expect(screen.queryByText("Loading")).not.toBeInTheDocument();
     });
 
-    const requestCheckbox = screen.getByRole("checkbox", { name: "17 May" });
+    const reservationSelect = screen.getAllByRole("combobox")[0];
     const saveButton = screen.getByRole("button", { name: "Save" });
 
-    userEvent.click(requestCheckbox);
+    userEvent.selectOptions(reservationSelect, "User 2");
     userEvent.click(saveButton);
 
     await waitFor(() =>
       expect(axios.patch).toHaveBeenCalledWith(
-        expect.stringMatching(/\/requests$/),
+        expect.stringMatching(/\/reservations$/),
         {
-          requests: [{ localDate: "2021-05-17", requested: true }],
+          reservations: [{ localDate: "2021-05-17", userIds: ["user2"] }],
         },
         expect.objectContaining({
           headers: { Authorization: expect.stringContaining("Bearer") },

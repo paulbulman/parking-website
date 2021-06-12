@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRequests } from "../../hooks/api/queries/requests";
+import { useEditRequests } from "../../hooks/api/mutations/editRequests";
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
 import { RequestsCalendar } from "../../components/RequestsCalendar";
 import type { RequestEdit } from "./types";
-import { useEditRequests } from "../../hooks/api/mutations/editRequests";
 
 export const EditRequestsPage = () => {
   const { data, isLoading, isError, refetch } = useRequests();

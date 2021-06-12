@@ -3,13 +3,12 @@ import { renderHook, act } from "@testing-library/react-hooks";
 import Auth from "@aws-amplify/auth";
 import { useAuthContext } from "..";
 import { AuthContextProvider } from "../../../../context/auth";
+import { getMockSession, getMockUser } from "../../../../context/auth/auth.dev";
 import { AuthenticationStatuses } from "../../../../context/auth/types";
 
 describe("useAuth", () => {
   const email = "__EMAIL__";
   const password = "__PASSWORD__";
-
-  const mockUser = { getSignInUserSession: () => true };
 
   const wrapper = ({ children }: { children: ReactNode }) => {
     return <AuthContextProvider>{children}</AuthContextProvider>;
@@ -52,7 +51,9 @@ describe("useAuth", () => {
   });
 
   it("sets the authentication status to signed in when there is a previously signed-in user", async () => {
-    Auth.currentAuthenticatedUser = jest.fn().mockResolvedValue(mockUser);
+    Auth.currentAuthenticatedUser = jest
+      .fn()
+      .mockResolvedValue(getMockUser("Normal"));
 
     const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
       wrapper,
@@ -82,7 +83,15 @@ describe("useAuth", () => {
     Auth.currentAuthenticatedUser = jest.fn().mockResolvedValue(null);
     Auth.signIn = jest.fn().mockResolvedValue(null);
 
-    const { result } = renderHook(() => useAuthContext(), { wrapper });
+    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+      wrapper,
+    });
+
+    await waitForNextUpdate();
+
+    expect(result.current.authenticationStatus).toBe(
+      AuthenticationStatuses.NotSignedIn
+    );
 
     await act(async () => {
       await result.current.signIn({ email, password });
@@ -95,9 +104,17 @@ describe("useAuth", () => {
 
   it("sets the authentication status to signed in when login succeeds", async () => {
     Auth.currentAuthenticatedUser = jest.fn().mockResolvedValue(null);
-    Auth.signIn = jest.fn().mockResolvedValue(mockUser);
+    Auth.signIn = jest.fn().mockResolvedValue(getMockUser("Normal"));
 
-    const { result } = renderHook(() => useAuthContext(), { wrapper });
+    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+      wrapper,
+    });
+
+    await waitForNextUpdate();
+
+    expect(result.current.authenticationStatus).toBe(
+      AuthenticationStatuses.NotSignedIn
+    );
 
     await act(async () => {
       await result.current.signIn({ email, password });
@@ -109,9 +126,20 @@ describe("useAuth", () => {
   });
 
   it("sets the authentication status to not signed in on logout", async () => {
-    Auth.currentAuthenticatedUser = jest.fn().mockResolvedValue(mockUser);
+    Auth.currentAuthenticatedUser = jest
+      .fn()
+      .mockResolvedValue(getMockUser("Normal"));
+    Auth.signOut = jest.fn();
 
-    const { result } = renderHook(() => useAuthContext(), { wrapper });
+    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+      wrapper,
+    });
+
+    await waitForNextUpdate();
+
+    expect(result.current.authenticationStatus).toBe(
+      AuthenticationStatuses.SignedIn
+    );
 
     await act(async () => {
       await result.current.signOut();
@@ -120,5 +148,70 @@ describe("useAuth", () => {
     expect(result.current.authenticationStatus).toBe(
       AuthenticationStatuses.NotSignedIn
     );
+  });
+
+  it("returns the user ID token for the current user's session", async () => {
+    Auth.currentAuthenticatedUser = jest
+      .fn()
+      .mockResolvedValue(getMockUser("Normal"));
+    Auth.currentSession = jest
+      .fn()
+      .mockResolvedValue(getMockSession("Normal"));
+
+    const { result } = renderHook(() => useAuthContext(), {
+      wrapper,
+    });
+
+    let token;
+    await act(async () => {
+      token = await result.current.getToken();
+    });
+
+    expect(token).not.toBeNull();
+  });
+
+  it("returns no groups for a normal user", async () => {
+    Auth.currentAuthenticatedUser = jest
+      .fn()
+      .mockResolvedValue(getMockUser("Normal"));
+
+    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+      wrapper,
+    });
+
+    await waitForNextUpdate();
+
+    const groups = result.current.getGroups();
+    expect(groups).toMatchObject([]);
+  });
+
+  it("returns team leader group for a team leader user", async () => {
+    Auth.currentAuthenticatedUser = jest
+      .fn()
+      .mockResolvedValue(getMockUser("TeamLeader"));
+
+    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+      wrapper,
+    });
+
+    await waitForNextUpdate();
+
+    const groups = result.current.getGroups();
+    expect(groups).toMatchObject(["TeamLeader"]);
+  });
+
+  it("returns user admin group for an admin user", async () => {
+    Auth.currentAuthenticatedUser = jest
+      .fn()
+      .mockResolvedValue(getMockUser("UserAdmin"));
+
+    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+      wrapper,
+    });
+
+    await waitForNextUpdate();
+
+    const groups = result.current.getGroups();
+    expect(groups).toMatchObject(["UserAdmin"]);
   });
 });

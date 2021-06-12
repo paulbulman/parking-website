@@ -6,11 +6,14 @@ import {
   useEffect,
 } from "react";
 import Auth, { CognitoUser } from "@aws-amplify/auth";
+import jwt_decode from "jwt-decode";
 import {
   AuthContextValues,
   AuthContextProviderProps,
   AuthenticationStatuses,
   SignInParameters,
+  CustomJwtPayload,
+  GroupName,
 } from "./types";
 
 if (process.env.NODE_ENV === "development") {
@@ -25,9 +28,8 @@ Auth.configure({
   },
 });
 
-export const AuthContext = createContext<AuthContextValues | undefined>(
-  undefined
-);
+export const AuthContext =
+  createContext<AuthContextValues | undefined>(undefined);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [isInitialising, setIsInitialising] = useState(true);
@@ -76,9 +78,44 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   }, [setUser]);
 
+  const getToken = useCallback(async () => {
+    try {
+      const result = await Auth.currentSession();
+      return result.getIdToken().getJwtToken();
+    } catch (error) {
+      setUser(null);
+      throw error;
+    }
+  }, [setUser]);
+
+  const getGroups = useCallback(() => {
+    try {
+      const result = user?.getSignInUserSession()?.getIdToken().getJwtToken();
+      if (!result) {
+        throw new Error("No current token");
+      }
+      const decoded = jwt_decode<CustomJwtPayload>(result);
+
+      const rawGroupNames = decoded["cognito:groups"] ?? [];
+      const groupNames: GroupName[] = [];
+
+      if (rawGroupNames.includes("TeamLeader")) {
+        groupNames.push("TeamLeader");
+      }
+      if (rawGroupNames.includes("UserAdmin")) {
+        groupNames.push("UserAdmin");
+      }
+
+      return groupNames;
+    } catch (error) {
+      setUser(null);
+      throw error;
+    }
+  }, [user, setUser]);
+
   const contextValue = useMemo(
-    () => ({ authenticationStatus, signIn, signOut }),
-    [authenticationStatus, signIn, signOut]
+    () => ({ authenticationStatus, signIn, signOut, getToken, getGroups }),
+    [authenticationStatus, signIn, signOut, getToken, getGroups]
   );
 
   return (

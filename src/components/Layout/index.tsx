@@ -10,7 +10,7 @@ export const Layout = ({ heading, subheading, children }: LayoutProps) => {
             <h4>{subheading}</h4>
             <hr />
           </div>
-          {children}
+          <div className="col-12">{children}</div>
         </div>
       </main>
     </div>

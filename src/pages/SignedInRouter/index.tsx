@@ -1,5 +1,5 @@
-import { HomePage } from "../Home";
+import { OverviewPage } from "../Overview";
 
 export const SignedInRouter = () => {
-  return <HomePage />;
+  return <OverviewPage />;
 };

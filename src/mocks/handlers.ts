@@ -214,6 +214,25 @@ const reservationsUsersData = [
   { userId: "user4", name: "User 4" },
 ];
 
+const usersData = [
+  {
+    userId: 1,
+    alternativeRegistrationNumber: "X123XYZ",
+    commuteDistance: 2,
+    firstName: "John",
+    lastName: "Doe",
+    registrationNumber: "AB123CDE",
+  },
+  {
+    userId: 2,
+    alternativeRegistrationNumber: "A789ABC",
+    commuteDistance: 3,
+    firstName: "Ann",
+    lastName: "Other",
+    registrationNumber: "XY789XYZ",
+  },
+];
+
 export const handlers = [
   rest.get(`${baseUrl}/overview`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ overview: overviewData }));
@@ -243,5 +262,8 @@ export const handlers = [
         users: reservationsUsersData,
       })
     );
+  }),
+  rest.get(`${baseUrl}/users`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.json({ users: usersData }));
   }),
 ];

@@ -1,8 +1,9 @@
 import { Switch, Route } from "react-router-dom";
+import { useAuthContext } from "../../hooks/context/auth";
 import { OverviewPage } from "../Overview";
 import { EditRequestsPage } from "../EditRequests";
 import { EditReservationsPage } from "../EditReservations";
-import { useAuthContext } from "../../hooks/context/auth";
+import { UsersPage } from "../Users";
 
 export const SignedInRouter = () => {
   const { getGroups } = useAuthContext();
@@ -19,6 +20,11 @@ export const SignedInRouter = () => {
       {groups.includes("TeamLeader") && (
         <Route path="/edit-reservations">
           <EditReservationsPage />
+        </Route>
+      )}
+      {groups.includes("UserAdmin") && (
+        <Route path="/users">
+          <UsersPage />
         </Route>
       )}
     </Switch>

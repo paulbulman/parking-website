@@ -17,9 +17,7 @@ const patch =
     const { data } = await axios.patch<EditReservationsRequestResult>(
       `${baseUrl}/${endpoint}`,
       patchData,
-      {
-        headers: { Authorization: "Bearer " + token },
-      }
+      { headers: { Authorization: "Bearer " + token } }
     );
     return data;
   };

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useUsers } from "../../hooks/api/queries/users";
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
@@ -15,7 +16,12 @@ export const UsersPage = () => {
   );
 
   return (
-    <Layout heading="Users" subheading="Create, update or delete users:">
+    <Layout heading="Users" subheading="Add, update or delete users:">
+      <p>
+        <Link className="btn btn-primary" to="/users/add">
+          Add new user
+        </Link>
+      </p>
       {content}
     </Layout>
   );

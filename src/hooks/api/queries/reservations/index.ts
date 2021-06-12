@@ -13,9 +13,7 @@ const getReservations = async (getToken: () => Promise<string>) => {
   const token = await getToken();
   const { data } = await axios.get<ReservationsRequestResult>(
     `${baseUrl}/${endpoint}`,
-    {
-      headers: { Authorization: "Bearer " + token },
-    }
+    { headers: { Authorization: "Bearer " + token } }
   );
   return data;
 };

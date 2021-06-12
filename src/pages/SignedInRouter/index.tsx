@@ -4,6 +4,7 @@ import { OverviewPage } from "../Overview";
 import { EditRequestsPage } from "../EditRequests";
 import { EditReservationsPage } from "../EditReservations";
 import { UsersPage } from "../Users";
+import { AddUserPage } from "../AddUser";
 
 export const SignedInRouter = () => {
   const { getGroups } = useAuthContext();
@@ -23,9 +24,14 @@ export const SignedInRouter = () => {
         </Route>
       )}
       {groups.includes("UserAdmin") && (
-        <Route path="/users">
-          <UsersPage />
-        </Route>
+        <>
+          <Route exact path="/users">
+            <UsersPage />
+          </Route>
+          <Route exact path="/users/add">
+            <AddUserPage />
+          </Route>
+        </>
       )}
     </Switch>
   );

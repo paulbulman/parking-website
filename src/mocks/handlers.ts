@@ -266,4 +266,7 @@ export const handlers = [
   rest.get(`${baseUrl}/users`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ users: usersData }));
   }),
+  rest.post(`${baseUrl}/users`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.json(usersData[0]));
+  }),
 ];

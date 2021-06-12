@@ -10,9 +10,7 @@ const getUsers = async (getToken: () => Promise<string>) => {
   const token = await getToken();
   const { data } = await axios.get<UsersRequestResult>(
     `${baseUrl}/${endpoint}`,
-    {
-      headers: { Authorization: "Bearer " + token },
-    }
+    { headers: { Authorization: "Bearer " + token } }
   );
   return data;
 };

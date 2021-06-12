@@ -1,5 +1,6 @@
 import axios from "axios";
 import Auth from "@aws-amplify/auth";
+import { MemoryRouter } from "react-router-dom";
 import { render, screen, act, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContextProvider } from "../../../context/auth";
@@ -30,11 +31,13 @@ describe("Users", () => {
 
     act(() => {
       render(
-        <AuthContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <UsersPage />
-          </QueryClientProvider>
-        </AuthContextProvider>
+        <MemoryRouter>
+          <AuthContextProvider>
+            <QueryClientProvider client={queryClient}>
+              <UsersPage />
+            </QueryClientProvider>
+          </AuthContextProvider>
+        </MemoryRouter>
       );
     });
 

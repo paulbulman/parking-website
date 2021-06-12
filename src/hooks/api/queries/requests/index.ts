@@ -10,9 +10,7 @@ const getRequests = async (getToken: () => Promise<string>) => {
   const token = await getToken();
   const { data } = await axios.get<RequestsRequestResult>(
     `${baseUrl}/${endpoint}`,
-    {
-      headers: { Authorization: "Bearer " + token },
-    }
+    { headers: { Authorization: "Bearer " + token } }
   );
   return data;
 };

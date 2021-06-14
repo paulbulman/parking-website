@@ -10,6 +10,7 @@ export const App = () => {
   switch (authenticationStatus) {
     case AuthenticationStatuses.Initialising:
       return <Loading />;
+    case AuthenticationStatuses.NewPasswordRequired:
     case AuthenticationStatuses.NotSignedIn:
       return <SignedOutApp />;
     case AuthenticationStatuses.SignedIn:

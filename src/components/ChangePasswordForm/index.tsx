@@ -1,35 +1,37 @@
 import { Formik, Field, Form } from "formik";
-import { LoginFormProps } from "./types";
+import { ChangePasswordFormProps } from "./types";
 
-export const LoginForm = ({ onSubmit }: LoginFormProps) => {
+export const ChangePasswordForm = ({ onSubmit }: ChangePasswordFormProps) => {
+  const initialValues = { password: "", confirmPassword: "" };
   return (
     <Formik
-      initialValues={{ email: "", password: "" }}
+      initialValues={initialValues}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
         await onSubmit(values);
         setSubmitting(false);
-        resetForm({ values: { email: values.email, password: "" } });
+        resetForm({ values: initialValues });
       }}
     >
       {({ isSubmitting }) => (
         <Form>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="password">Password</label>
             <Field
-              id="email"
-              name="email"
-              type="email"
+              id="password"
+              name="password"
+              type="password"
               required
               autoFocus
+              minLength="10"
               className="form-control"
               disabled={isSubmitting}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="confirmPassword">Confirm password</label>
             <Field
-              id="password"
-              name="password"
+              id="confirmPassword"
+              name="confirmPassword"
               type="password"
               required
               className="form-control"
@@ -42,7 +44,7 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
               className="btn btn-outline-primary"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Logging in" : "Log in"}
+              {isSubmitting ? "Setitng new password" : "Set new password"}
             </button>
           </div>
         </Form>

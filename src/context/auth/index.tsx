@@ -5,13 +5,15 @@ import {
   useState,
   useEffect,
 } from "react";
-import Auth, { CognitoUser } from "@aws-amplify/auth";
+import Auth from "@aws-amplify/auth";
 import jwt_decode from "jwt-decode";
 import {
+  AuthUser,
   AuthContextValues,
   AuthContextProviderProps,
   AuthenticationStatuses,
   SignInParameters,
+  CompleteNewPasswordParameters,
   CustomJwtPayload,
   GroupName,
 } from "./types";
@@ -33,7 +35,7 @@ export const AuthContext =
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [isInitialising, setIsInitialising] = useState(true);
-  const [user, setUser] = useState<CognitoUser | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
 
   useEffect(() => {
     const loadPreviousUser = async () => {
@@ -52,6 +54,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     ? AuthenticationStatuses.Initialising
     : user?.getSignInUserSession()
     ? AuthenticationStatuses.SignedIn
+    : user?.challengeName === "NEW_PASSWORD_REQUIRED"
+    ? AuthenticationStatuses.NewPasswordRequired
     : AuthenticationStatuses.NotSignedIn;
 
   const signIn = useCallback(
@@ -67,6 +71,22 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       }
     },
     [setUser]
+  );
+
+  const completeNewPassword = useCallback(
+    async ({ password }: CompleteNewPasswordParameters) => {
+      try {
+        const result = await Auth.completeNewPassword(user, password);
+        setUser(null);
+        setUser(result);
+        return true;
+      } catch (error) {
+        console.log({ error });
+        setUser(null);
+        return false;
+      }
+    },
+    [user, setUser]
   );
 
   const signOut = useCallback(async () => {
@@ -114,8 +134,22 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   }, [user, setUser]);
 
   const contextValue = useMemo(
-    () => ({ authenticationStatus, signIn, signOut, getToken, getGroups }),
-    [authenticationStatus, signIn, signOut, getToken, getGroups]
+    () => ({
+      authenticationStatus,
+      signIn,
+      completeNewPassword,
+      signOut,
+      getToken,
+      getGroups,
+    }),
+    [
+      authenticationStatus,
+      signIn,
+      completeNewPassword,
+      signOut,
+      getToken,
+      getGroups,
+    ]
   );
 
   return (

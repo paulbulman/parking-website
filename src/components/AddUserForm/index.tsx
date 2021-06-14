@@ -27,6 +27,7 @@ export const AddUserForm = ({ onSubmit }: AddUserFormProps) => {
               name="email"
               type="email"
               required
+              autoFocus
               className="form-control"
               disabled={isSubmitting}
             />

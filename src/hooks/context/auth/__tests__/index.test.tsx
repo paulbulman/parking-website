@@ -79,6 +79,41 @@ describe("useAuth", () => {
     expect(Auth.signIn).toBeCalledWith(email, password);
   });
 
+  it("calls Auth.completeNewPassword with the given values", async () => {
+    const user = {
+      getSignInUserSession: () => null,
+      challengeName: "NEW_PASSWORD_REQUIRED",
+    };
+
+    Auth.currentAuthenticatedUser = jest.fn().mockResolvedValue(null);
+    Auth.signIn = jest.fn().mockResolvedValue(user);
+    Auth.completeNewPassword = jest
+      .fn()
+      .mockResolvedValue(getMockUser("Normal"));
+
+    const { result } = renderHook(() => useAuthContext(), { wrapper });
+
+    await act(async () => {
+      await result.current.signIn({ email, password });
+    });
+
+    expect(result.current.authenticationStatus).toBe(
+      AuthenticationStatuses.NewPasswordRequired
+    );
+
+    await act(async () => {
+      await result.current.completeNewPassword({
+        password: "__NEW_PASSWORD__",
+      });
+    });
+
+    expect(Auth.completeNewPassword).toBeCalledWith(user, "__NEW_PASSWORD__");
+
+    expect(result.current.authenticationStatus).toBe(
+      AuthenticationStatuses.SignedIn
+    );
+  });
+
   it("sets the authentication status to not signed in when login fails", async () => {
     Auth.currentAuthenticatedUser = jest.fn().mockResolvedValue(null);
     Auth.signIn = jest.fn().mockResolvedValue(null);
@@ -154,9 +189,7 @@ describe("useAuth", () => {
     Auth.currentAuthenticatedUser = jest
       .fn()
       .mockResolvedValue(getMockUser("Normal"));
-    Auth.currentSession = jest
-      .fn()
-      .mockResolvedValue(getMockSession("Normal"));
+    Auth.currentSession = jest.fn().mockResolvedValue(getMockSession("Normal"));
 
     const { result } = renderHook(() => useAuthContext(), {
       wrapper,

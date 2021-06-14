@@ -10,6 +10,24 @@ export const SignedInRouter = () => {
   const { getGroups } = useAuthContext();
   const groups = getGroups();
 
+  const EditReservations = groups.includes("TeamLeader") ? (
+    <EditReservationsPage />
+  ) : (
+    <div>Not allowed.</div>
+  );
+
+  const Users = groups.includes("UserAdmin") ? (
+    <UsersPage />
+  ) : (
+    <div>Not allowed.</div>
+  );
+
+  const AddUser = groups.includes("UserAdmin") ? (
+    <AddUserPage />
+  ) : (
+    <div>Not allowed.</div>
+  );
+
   return (
     <Switch>
       <Route exact path="/">
@@ -18,21 +36,13 @@ export const SignedInRouter = () => {
       <Route path="/edit-requests">
         <EditRequestsPage />
       </Route>
-      {groups.includes("TeamLeader") && (
-        <Route path="/edit-reservations">
-          <EditReservationsPage />
-        </Route>
-      )}
-      {groups.includes("UserAdmin") && (
-        <>
-          <Route exact path="/users">
-            <UsersPage />
-          </Route>
-          <Route exact path="/users/add">
-            <AddUserPage />
-          </Route>
-        </>
-      )}
+      <Route path="/edit-reservations">{EditReservations}</Route>
+      <Route exact path="/users">
+        {Users}
+      </Route>
+      <Route exact path="/users/add">
+        {AddUser}
+      </Route>
     </Switch>
   );
 };

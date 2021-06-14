@@ -1,7 +1,7 @@
 import axios from "axios";
 import Auth from "@aws-amplify/auth";
 import { MemoryRouter } from "react-router-dom";
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContextProvider } from "../../../context/auth";
@@ -40,13 +40,22 @@ describe("AddUser", () => {
       </MemoryRouter>
     );
 
-    userEvent.type(screen.getByLabelText(/First name/i), "__FIRST_NAME__");
-    userEvent.type(screen.getByLabelText(/Last name/i), "__LAST_NAME__");
     userEvent.type(screen.getByLabelText(/^Email$/i), "__EMAIL@ADDRESS__");
     userEvent.type(
-      screen.getByLabelText(/^Confirm email$/i),
+      screen.getByLabelText(/Confirm email/i),
       "__EMAIL@ADDRESS__"
     );
+    userEvent.type(screen.getByLabelText(/First name/i), "__FIRST_NAME__");
+    userEvent.type(screen.getByLabelText(/Last name/i), "__LAST_NAME__");
+    userEvent.type(
+      screen.getByLabelText(/^Registration number$/i),
+      "__REGISTRATION_NUMBER__"
+    );
+    userEvent.type(
+      screen.getByLabelText(/Alternative registration number/i),
+      "__ALTERNATIVE_REGISTRATION_NUMBER__"
+    );
+    userEvent.type(screen.getByLabelText(/Commute distance/i), "12.3");
 
     userEvent.click(screen.getByRole("button", { name: "Save" }));
 
@@ -54,9 +63,12 @@ describe("AddUser", () => {
       expect(axios.post).toHaveBeenCalledWith(
         expect.stringMatching(/\/users$/),
         {
+          emailAddress: "__EMAIL@ADDRESS__",
           firstName: "__FIRST_NAME__",
           lastName: "__LAST_NAME__",
-          emailAddress: "__EMAIL@ADDRESS__",
+          registrationNumber: "__REGISTRATION_NUMBER__",
+          alternativeRegistrationNumber: "__ALTERNATIVE_REGISTRATION_NUMBER__",
+          commuteDistance: 12.3,
         },
         expect.objectContaining({
           headers: { Authorization: expect.stringContaining("Bearer") },

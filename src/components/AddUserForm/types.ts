@@ -3,6 +3,9 @@ export interface AddUserFormValues {
   lastName: string;
   email: string;
   confirmEmail: string;
+  registrationNumber: string;
+  alternativeRegistrationNumber: string;
+  commuteDistance: string;
 }
 
 export interface AddUserFormProps {

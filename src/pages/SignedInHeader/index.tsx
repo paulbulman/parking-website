@@ -36,7 +36,7 @@ export const SignedInHeader = () => {
           )}
           {groups.includes("UserAdmin") && (
             <li className="navbar-item">
-              <NavigationLink to="/users" caption="Edit Users" />
+              <NavigationLink to="/users" caption="Users" />
             </li>
           )}
         </ul>

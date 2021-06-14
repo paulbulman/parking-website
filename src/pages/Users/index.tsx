@@ -18,7 +18,7 @@ export const UsersPage = () => {
   return (
     <Layout heading="Users" subheading="Add, update or delete users:">
       <p>
-        <Link className="btn btn-primary" to="/users/add">
+        <Link className="btn btn-outline-primary" to="/users/add">
           Add new user
         </Link>
       </p>

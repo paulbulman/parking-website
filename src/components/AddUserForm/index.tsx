@@ -5,10 +5,13 @@ export const AddUserForm = ({ onSubmit }: AddUserFormProps) => {
   return (
     <Formik
       initialValues={{
-        firstName: "",
-        lastName: "",
         email: "",
         confirmEmail: "",
+        firstName: "",
+        lastName: "",
+        registrationNumber: "",
+        alternativeRegistrationNumber: "",
+        commuteDistance: ""
       }}
       onSubmit={async (values, { setSubmitting }) => {
         await onSubmit(values);
@@ -17,6 +20,28 @@ export const AddUserForm = ({ onSubmit }: AddUserFormProps) => {
     >
       {({ isSubmitting }) => (
         <Form>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <Field
+              id="email"
+              name="email"
+              type="email"
+              required
+              className="form-control"
+              disabled={isSubmitting}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="confirmEmail">Confirm email</label>
+            <Field
+              id="confirmEmail"
+              name="confirmEmail"
+              type="email"
+              required
+              className="form-control"
+              disabled={isSubmitting}
+            />
+          </div>
           <div className="form-group">
             <label htmlFor="firstName">First name</label>
             <Field
@@ -38,23 +63,31 @@ export const AddUserForm = ({ onSubmit }: AddUserFormProps) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="registrationNumber">Registration number</label>
             <Field
-              id="email"
-              name="email"
-              type="email"
-              required
+              id="registrationNumber"
+              name="registrationNumber"
               className="form-control"
               disabled={isSubmitting}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="confirmEmail">Confirm email</label>
+            <label htmlFor="alternativeRegistrationNumber">
+              Alternative registration number
+            </label>
             <Field
-              id="confirmEmail"
-              name="confirmEmail"
-              type="email"
-              required
+              id="alternativeRegistrationNumber"
+              name="alternativeRegistrationNumber"
+              className="form-control"
+              disabled={isSubmitting}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="commuteDistance">Commute distance (mi)</label>
+            <Field
+              id="commuteDistance"
+              name="commuteDistance"
+              type="number"
               className="form-control"
               disabled={isSubmitting}
             />

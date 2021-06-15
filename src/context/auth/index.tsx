@@ -14,6 +14,8 @@ import {
   AuthenticationStatuses,
   SignInParameters,
   CompleteNewPasswordParameters,
+  ForgotPasswordParameters,
+  ForgotPasswordSubmitParameters,
   CustomJwtPayload,
   GroupName,
 } from "./types";
@@ -89,6 +91,32 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     [user, setUser]
   );
 
+  const forgotPassword = useCallback(
+    async ({ email }: ForgotPasswordParameters) => {
+      try {
+        await Auth.forgotPassword(email);
+        return true;
+      } catch (error) {
+        console.log({ error });
+        return false;
+      }
+    },
+    []
+  );
+
+  const forgotPasswordSubmit = useCallback(
+    async ({ email, code, password }: ForgotPasswordSubmitParameters) => {
+      try {
+        await Auth.forgotPasswordSubmit(email, code, password);
+        return true;
+      } catch (error) {
+        console.log({ error });
+        return false;
+      }
+    },
+    []
+  );
+
   const signOut = useCallback(async () => {
     try {
       await Auth.signOut({ global: true });
@@ -138,6 +166,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       authenticationStatus,
       signIn,
       completeNewPassword,
+      forgotPassword,
+      forgotPasswordSubmit,
       signOut,
       getToken,
       getGroups,
@@ -146,6 +176,8 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       authenticationStatus,
       signIn,
       completeNewPassword,
+      forgotPassword,
+      forgotPasswordSubmit,
       signOut,
       getToken,
       getGroups,

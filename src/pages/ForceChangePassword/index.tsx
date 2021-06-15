@@ -22,7 +22,7 @@ export const ForceChangePasswordPage = () => {
       return;
     }
 
-    const completeNewPasswordResult = completeNewPassword({
+    const completeNewPasswordResult = await completeNewPassword({
       password: values.password,
     });
 

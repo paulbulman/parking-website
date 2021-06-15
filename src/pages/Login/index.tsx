@@ -20,7 +20,7 @@ export const LoginPage = () => {
     <Layout heading="Log in" subheading="Enter your details below to log in.">
       <div className="col-md-6">
         <LoginForm onSubmit={handleLogin} />
-        <Link to="/">Forgotten password</Link>
+        <Link to="/forgot-password">Forgot password</Link>
       </div>
     </Layout>
   );

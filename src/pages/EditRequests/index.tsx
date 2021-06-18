@@ -8,7 +8,7 @@ import { RequestsCalendar } from "../../components/RequestsCalendar";
 import type { RequestEdit } from "./types";
 
 export const EditRequestsPage = () => {
-  const { data, isLoading, isError, refetch } = useRequests();
+  const { data, isLoading, isError } = useRequests();
   const { editRequests, isSaving } = useEditRequests();
 
   const [requestEdits, setRequestEdits] = useState<RequestEdit[]>([]);
@@ -20,7 +20,6 @@ export const EditRequestsPage = () => {
     const parameters = { requests: requestEdits };
     try {
       await editRequests(parameters);
-      await refetch();
       setRequestEdits([]);
       toast("Requests saved successfully.");
     } catch {

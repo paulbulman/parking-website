@@ -248,7 +248,7 @@ export interface operations {
   Requests_GetById: {
     parameters: {
       path: {
-        userId: string | null;
+        userId: string;
       };
     };
     responses: {
@@ -267,7 +267,7 @@ export interface operations {
   Requests_PatchById: {
     parameters: {
       path: {
-        userId: string | null;
+        userId: string;
       };
     };
     responses: {
@@ -342,7 +342,7 @@ export interface operations {
   Users_GetById: {
     parameters: {
       path: {
-        userId: string | null;
+        userId: string;
       };
     };
     responses: {
@@ -361,7 +361,7 @@ export interface operations {
   Users_Patch: {
     parameters: {
       path: {
-        userId: string | null;
+        userId: string;
       };
     };
     responses: {

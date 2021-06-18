@@ -8,7 +8,7 @@ import { ReservationsCalendar } from "../../components/ReservationsCalendar";
 import type { ReservationEdit } from "./types";
 
 export const EditReservationsPage = () => {
-  const { data, isLoading, isError, refetch } = useReservations();
+  const { data, isLoading, isError } = useReservations();
   const { editReservations, isSaving } = useEditReservations();
 
   const [reservationEdits, setReservationEdits] = useState<ReservationEdit[]>(
@@ -25,7 +25,6 @@ export const EditReservationsPage = () => {
     const parameters = { reservations: reservationEdits };
     try {
       await editReservations(parameters);
-      await refetch();
       setReservationEdits([]);
       toast("Reservations saved successfully.");
     } catch {

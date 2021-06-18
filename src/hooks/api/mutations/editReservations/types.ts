@@ -1,6 +1,6 @@
 import type { operations } from "../../types";
 
-export type EditReservationsRequestParameters =
+export type EditReservationsRequestBody =
   operations["Reservations_Patch"]["requestBody"]["content"]["application/json"];
 export type EditReservationsRequestResult =
   operations["Reservations_Patch"]["responses"]["200"]["content"]["application/json"];

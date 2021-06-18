@@ -2,7 +2,7 @@ import axios from "axios";
 import { useMutation } from "react-query";
 import { useAuthContext } from "../../../context/auth";
 import type {
-  AddUserRequestParameters,
+  AddUserRequestBody,
   AddUserRequestError,
   AddUserRequestResult,
 } from "./types";
@@ -11,7 +11,7 @@ const endpoint = "users";
 
 const post =
   (getToken: () => Promise<string>) =>
-  async (postData: AddUserRequestParameters) => {
+  async (postData: AddUserRequestBody) => {
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
     const token = await getToken();
     const { data } = await axios.post<AddUserRequestResult>(
@@ -27,7 +27,7 @@ export const useAddUser = () => {
   const mutation = useMutation<
     AddUserRequestResult,
     AddUserRequestError,
-    AddUserRequestParameters
-  >(endpoint, post(getToken));
+    AddUserRequestBody
+  >(post(getToken));
   return { addUser: mutation.mutateAsync };
 };

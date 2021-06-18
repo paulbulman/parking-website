@@ -233,16 +233,23 @@ const usersData = [
   },
 ];
 
+const getUser = (userId: string) => {
+  const user = usersData[0];
+  return { ...user, userId };
+};
+
 export const handlers = [
   rest.get(`${baseUrl}/overview`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ overview: overviewData }));
   }),
+
   rest.get(`${baseUrl}/requests`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ requests: requestsData }));
   }),
   rest.patch(`${baseUrl}/requests`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ requests: requestsData }));
   }),
+
   rest.get(`${baseUrl}/reservations`, (req, res, ctx) => {
     return res(
       ctx.delay(500),
@@ -263,10 +270,18 @@ export const handlers = [
       })
     );
   }),
+
   rest.get(`${baseUrl}/users`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ users: usersData }));
   }),
   rest.post(`${baseUrl}/users`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json(usersData[0]));
+  }),
+
+  rest.get(`${baseUrl}/users/:userId`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.json({ user: getUser(req.params.userId) }));
+  }),
+  rest.patch(`${baseUrl}/users/:userId`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.json({ user: getUser(req.params.userId) }));
   }),
 ];

@@ -5,6 +5,7 @@ import { EditRequestsPage } from "../EditRequests";
 import { EditReservationsPage } from "../EditReservations";
 import { UsersPage } from "../Users";
 import { AddUserPage } from "../AddUser";
+import { EditUserPage } from "../EditUser";
 
 export const SignedInRouter = () => {
   const { getGroups } = useAuthContext();
@@ -28,6 +29,12 @@ export const SignedInRouter = () => {
     <div>Not allowed.</div>
   );
 
+  const EditUser = groups.includes("UserAdmin") ? (
+    <EditUserPage />
+  ) : (
+    <div>Not allowed.</div>
+  );
+
   return (
     <Switch>
       <Route exact path="/">
@@ -40,8 +47,11 @@ export const SignedInRouter = () => {
       <Route exact path="/users">
         {Users}
       </Route>
-      <Route exact path="/users/add">
+      <Route path="/users/add">
         {AddUser}
+      </Route>
+      <Route path="/users/edit/:userId">
+        {EditUser}
       </Route>
     </Switch>
   );

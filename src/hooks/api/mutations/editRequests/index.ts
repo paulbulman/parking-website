@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../../context/auth";
 import type {
-  EditRequestsRequestParameters,
+  EditRequestsRequestBody,
   EditRequestsRequestError,
   EditRequestsRequestResult,
 } from "./types";
@@ -11,7 +11,7 @@ const endpoint = "requests";
 
 const patch =
   (getToken: () => Promise<string>) =>
-  async (patchData: EditRequestsRequestParameters) => {
+  async (patchData: EditRequestsRequestBody) => {
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
     const token = await getToken();
     const { data } = await axios.patch<EditRequestsRequestResult>(
@@ -23,12 +23,18 @@ const patch =
   };
 
 export const useEditRequests = () => {
+  const queryClient = useQueryClient();
   const { getToken } = useAuthContext();
+
   const mutation = useMutation<
     EditRequestsRequestResult,
     EditRequestsRequestError,
-    EditRequestsRequestParameters
-  >(endpoint, patch(getToken));
+    EditRequestsRequestBody
+  >(endpoint, patch(getToken), {
+    onSuccess: (data) => {
+      queryClient.setQueryData([endpoint], data);
+    },
+  });
   const { mutateAsync: editRequests, isLoading: isSaving } = mutation;
   return { editRequests, isSaving };
 };

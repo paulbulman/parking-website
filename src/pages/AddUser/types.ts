@@ -1,7 +1,7 @@
-import { AddUserRequestParameters } from "../../hooks/api/mutations/addUser/types";
+import { AddUserRequestBody } from "../../hooks/api/mutations/addUser/types";
 
 export interface ValidateFormValuesResult {
   success: boolean;
-  postValues?: AddUserRequestParameters;
+  postValues?: AddUserRequestBody;
   errorMessage?: string;
 }

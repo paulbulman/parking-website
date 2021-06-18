@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../../context/auth";
 import type {
-  EditReservationsRequestParameters,
+  EditReservationsRequestBody,
   EditReservationsRequestError,
   EditReservationsRequestResult,
 } from "./types";
@@ -11,7 +11,7 @@ const endpoint = "reservations";
 
 const patch =
   (getToken: () => Promise<string>) =>
-  async (patchData: EditReservationsRequestParameters) => {
+  async (patchData: EditReservationsRequestBody) => {
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
     const token = await getToken();
     const { data } = await axios.patch<EditReservationsRequestResult>(
@@ -23,12 +23,18 @@ const patch =
   };
 
 export const useEditReservations = () => {
+  const queryClient = useQueryClient();
   const { getToken } = useAuthContext();
+
   const mutation = useMutation<
     EditReservationsRequestResult,
     EditReservationsRequestError,
-    EditReservationsRequestParameters
-  >(endpoint, patch(getToken));
+    EditReservationsRequestBody
+  >(endpoint, patch(getToken), {
+    onSuccess: (data) => {
+      queryClient.setQueryData(endpoint, data);
+    },
+  });
   const { mutateAsync: editReservations, isLoading: isSaving } = mutation;
   return { editReservations, isSaving };
 };

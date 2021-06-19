@@ -10,4 +10,5 @@ export interface AddUserFormValues {
 
 export interface AddUserFormProps {
   onSubmit: (parameters: AddUserFormValues) => Promise<void>;
+  onCancel: () => void;
 }

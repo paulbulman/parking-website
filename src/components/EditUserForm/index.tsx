@@ -1,9 +1,11 @@
 import { Formik, Field, Form } from "formik";
 import { EditUserFormProps } from "./types";
+import styles from "./styles.module.css";
 
 export const EditUserForm = ({
   initialValues,
   onSubmit,
+  onCancel
 }: EditUserFormProps) => {
   return (
     <Formik
@@ -66,13 +68,20 @@ export const EditUserForm = ({
               disabled={isSubmitting}
             />
           </div>
-          <div className="form-group">
+          <div className={styles.buttons}>
             <button
               type="submit"
               className="btn btn-outline-primary"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Saving" : "Save"}
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-secondary"
+              onClick={onCancel}
+            >
+              Cancel
             </button>
           </div>
         </Form>

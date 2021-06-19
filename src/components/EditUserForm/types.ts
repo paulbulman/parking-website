@@ -9,4 +9,5 @@ export interface EditUserFormValues {
 export interface EditUserFormProps {
   initialValues: EditUserFormValues;
   onSubmit: (parameters: EditUserFormValues) => Promise<void>;
+  onCancel: () => void;
 }

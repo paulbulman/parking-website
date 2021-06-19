@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { UsersTableProps } from "./types";
+import styles from "./styles.module.css";
 
-export const UsersTable = ({ users }: UsersTableProps) => {
+export const UsersTable = ({ users, onEdit }: UsersTableProps) => {
   const rows = users.map((user) => (
     <tr key={user.userId}>
       <td>{user.firstName}</td>
@@ -10,12 +12,13 @@ export const UsersTable = ({ users }: UsersTableProps) => {
       <td>{user.alternativeRegistrationNumber}</td>
       <td>{user.commuteDistance}</td>
       <td>
-        <Link
-          className="btn btn-link btn-sm"
-          to={`/users/edit/${user.userId}`}
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => onEdit(user.userId)}
         >
-          Edit
-        </Link>
+          <FontAwesomeIcon icon={faEdit} title="Edit user" />
+        </button>
       </td>
     </tr>
   ));

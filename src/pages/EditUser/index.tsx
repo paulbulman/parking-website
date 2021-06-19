@@ -32,6 +32,10 @@ export const EditUserPage = () => {
     }
   };
 
+  const handleCancel = () => {
+    history.push("/users");
+  };
+
   var content = isLoading ? (
     <Loading />
   ) : isError ? (
@@ -41,6 +45,7 @@ export const EditUserPage = () => {
       <EditUserForm
         initialValues={createInitialFormValues(data)}
         onSubmit={handleSubmit}
+        onCancel={handleCancel}
       />
     )
   );

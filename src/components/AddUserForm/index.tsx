@@ -1,6 +1,6 @@
 import { Formik, Field, Form } from "formik";
+import { FormButtons } from "../FormButtons";
 import { AddUserFormProps } from "./types";
-import styles from "./styles.module.css";
 
 export const AddUserForm = ({ onSubmit, onCancel }: AddUserFormProps) => {
   return (
@@ -94,22 +94,7 @@ export const AddUserForm = ({ onSubmit, onCancel }: AddUserFormProps) => {
               disabled={isSubmitting}
             />
           </div>
-          <div className={styles.buttons}>
-            <button
-              type="submit"
-              className="btn btn-outline-primary"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Saving" : "Save"}
-            </button>
-            <button
-              type="button"
-              className="btn btn-outline-secondary"
-              onClick={onCancel}
-            >
-              Cancel
-            </button>
-          </div>
+          <FormButtons isSubmitting={isSubmitting} onCancel={onCancel} />
         </Form>
       )}
     </Formik>

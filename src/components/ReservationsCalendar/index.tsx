@@ -1,12 +1,12 @@
 import { ReservationsWeek } from "../ReservationsWeek";
-import type { ReservationsCalendarProps } from "./types";
+import { ReservationsCalendarProps } from "./types";
 
 export const ReservationsCalendar = ({
   reservationEdits,
   weeks,
   shortLeadTimeSpaces,
   users,
-  onChange
+  onChange,
 }: ReservationsCalendarProps) => {
   return (
     <table className="table table-top table-striped table-bordered">

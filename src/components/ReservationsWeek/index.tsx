@@ -1,12 +1,12 @@
 import { ReservationsDay } from "../ReservationsDay";
-import type { ReservationsWeekProps } from "./types";
+import { ReservationsWeekProps } from "./types";
 
 export const ReservationsWeek = ({
   reservationEdits,
   days,
   shortLeadTimeSpaces,
   users,
-  onChange
+  onChange,
 }: ReservationsWeekProps) => {
   return (
     <tr>

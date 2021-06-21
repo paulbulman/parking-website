@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useAuthContext } from "../../../context/auth";
-import type { RequestsRequestError, RequestsRequestResult } from "./types";
+import { RequestsRequestError, RequestsRequestResult } from "./types";
 
 const endpoint = "requests";
 

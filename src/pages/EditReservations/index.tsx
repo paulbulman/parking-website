@@ -5,7 +5,7 @@ import { useEditReservations } from "../../hooks/api/mutations/editReservations"
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
 import { ReservationsCalendar } from "../../components/ReservationsCalendar";
-import type { ReservationEdit } from "./types";
+import { ReservationEdit } from "./types";
 
 export const EditReservationsPage = () => {
   const { data, isLoading, isError } = useReservations();

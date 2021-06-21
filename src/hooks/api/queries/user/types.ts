@@ -1,6 +1,6 @@
 import { UseQueryOptions } from "react-query";
-import type { operations } from "../../types";
-import type { AxiosError } from "axios";
+import { operations } from "../../types";
+import { AxiosError } from "axios";
 
 export type UserRequestParameters =
   operations["Users_GetById"]["parameters"]["path"];

@@ -1,5 +1,5 @@
-import type { ReservationsRequestResult } from "../../hooks/api/queries/reservations/types";
-import type { ReservationEdit } from "../../pages/EditReservations/types";
+import { ReservationsRequestResult } from "../../hooks/api/queries/reservations/types";
+import { ReservationEdit } from "../../pages/EditReservations/types";
 
 export interface ReservationsWeekProps {
   reservationEdits: ReservationEdit[];

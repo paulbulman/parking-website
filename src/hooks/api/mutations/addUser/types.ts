@@ -1,4 +1,4 @@
-import type { operations } from "../../types";
+import { operations } from "../../types";
 
 export type AddUserRequestBody =
   operations["Users_Post"]["requestBody"]["content"]["application/json"];

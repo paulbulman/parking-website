@@ -6,6 +6,8 @@ import { EditReservationsPage } from "../EditReservations";
 import { UsersPage } from "../Users";
 import { AddUserPage } from "../AddUser";
 import { EditUserPage } from "../EditUser";
+import { EditProfilePage } from "../EditProfile";
+import { RegistrationNumbersPage } from "../RegistrationNumbers";
 
 export const SignedInRouter = () => {
   const { getGroups } = useAuthContext();
@@ -47,12 +49,14 @@ export const SignedInRouter = () => {
       <Route exact path="/users">
         {Users}
       </Route>
-      <Route path="/users/add">
-        {AddUser}
+      <Route path="/profile">
+        <EditProfilePage />
       </Route>
-      <Route path="/users/edit/:userId">
-        {EditUser}
+      <Route path="/registration-numbers">
+        <RegistrationNumbersPage />
       </Route>
+      <Route path="/users/add">{AddUser}</Route>
+      <Route path="/users/edit/:userId">{EditUser}</Route>
     </Switch>
   );
 };

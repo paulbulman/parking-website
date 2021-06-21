@@ -1,5 +1,5 @@
-import type { CognitoUser } from "@aws-amplify/auth";
-import type { JwtPayload } from "jwt-decode";
+import { CognitoUser } from "@aws-amplify/auth";
+import { JwtPayload } from "jwt-decode";
 
 export type AuthUser = CognitoUser & {
   challengeName: string;

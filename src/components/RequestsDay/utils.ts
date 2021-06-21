@@ -1,4 +1,4 @@
-import type { RequestEdit } from "../../pages/EditRequests/types";
+import { RequestEdit } from "../../pages/EditRequests/types";
 
 export const getCurrentValue = (
   localDate: string,

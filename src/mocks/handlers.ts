@@ -81,6 +81,17 @@ const overviewData = {
   ],
 };
 
+const registrationNumbersData = [
+  {
+    registrationNumber: "AB123CDE",
+    name: "John Doe",
+  },
+  {
+    registrationNumber: "XY789XYZ",
+    name: "Ann Other",
+  },
+];
+
 const requestsData = {
   weeks: [
     {
@@ -238,9 +249,31 @@ const getUser = (userId: string) => {
   return { ...user, userId };
 };
 
+const getProfile = () => {
+  const user = usersData[0];
+  return {
+    registrationNumber: user.registrationNumber,
+    alternativeRegistrationNumber: user.alternativeRegistrationNumber,
+  };
+};
+
 export const handlers = [
   rest.get(`${baseUrl}/overview`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ overview: overviewData }));
+  }),
+
+  rest.get(`${baseUrl}/profiles`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.json({ profile: getProfile() }));
+  }),
+  rest.patch(`${baseUrl}/profiles`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.json({ profile: getProfile() }));
+  }),
+
+  rest.get(`${baseUrl}/registrationNumbers`, (req, res, ctx) => {
+    return res(
+      ctx.delay(500),
+      ctx.json({ registrationNumbers: registrationNumbersData })
+    );
   }),
 
   rest.get(`${baseUrl}/requests`, (req, res, ctx) => {

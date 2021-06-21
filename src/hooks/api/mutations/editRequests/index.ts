@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../../context/auth";
-import type {
+import {
   EditRequestsRequestBody,
   EditRequestsRequestError,
   EditRequestsRequestResult,
@@ -32,7 +32,7 @@ export const useEditRequests = () => {
     EditRequestsRequestBody
   >(endpoint, patch(getToken), {
     onSuccess: (data) => {
-      queryClient.setQueryData([endpoint], data);
+      queryClient.setQueryData(endpoint, data);
     },
   });
   const { mutateAsync: editRequests, isLoading: isSaving } = mutation;

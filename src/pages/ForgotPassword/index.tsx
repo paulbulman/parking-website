@@ -8,7 +8,7 @@ import { ForgotPasswordForm } from "../../components/ForgotPasswordForm";
 import { ForgotPasswordFormValues } from "../../components/ForgotPasswordForm/types";
 import { ForgotPasswordSubmitFormValues } from "../../components/ForgotPasswordSubmitForm/types";
 import { ForgotPasswordSubmitForm } from "../../components/ForgotPasswordSubmitForm";
-import type { StageName } from "./types";
+import { StageName } from "./types";
 
 export const ForgotPasswordPage = () => {
   const history = useHistory();

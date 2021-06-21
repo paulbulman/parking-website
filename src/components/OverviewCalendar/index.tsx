@@ -1,5 +1,5 @@
 import { OverviewWeek } from "../OverviewWeek";
-import type { OverviewCalendarProps } from "./types";
+import { OverviewCalendarProps } from "./types";
 
 export const OverviewCalendar = ({ weeks }: OverviewCalendarProps) => {
   return (

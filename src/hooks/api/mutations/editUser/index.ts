@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../../context/auth";
-import type {
+import {
   EditUserRequestParameters,
   EditUserRequestBody,
   EditUserRequestError,
@@ -33,6 +33,7 @@ export const useEditUser = ({ userId }: EditUserRequestParameters) => {
     EditUserRequestBody
   >([endpoint, userId], patch(userId, getToken), {
     onSuccess: (data) => {
+      queryClient.invalidateQueries("registrationNumbers");
       queryClient.setQueryData([endpoint, userId], data);
     },
   });

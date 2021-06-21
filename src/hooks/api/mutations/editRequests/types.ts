@@ -1,4 +1,4 @@
-import type { operations } from "../../types";
+import { operations } from "../../types";
 
 export type EditRequestsRequestBody =
   operations["Requests_Patch"]["requestBody"]["content"]["application/json"];

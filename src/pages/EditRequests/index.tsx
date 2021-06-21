@@ -5,7 +5,7 @@ import { useEditRequests } from "../../hooks/api/mutations/editRequests";
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
 import { RequestsCalendar } from "../../components/RequestsCalendar";
-import type { RequestEdit } from "./types";
+import { RequestEdit } from "./types";
 
 export const EditRequestsPage = () => {
   const { data, isLoading, isError } = useRequests();

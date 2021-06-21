@@ -1,5 +1,5 @@
 import { RequestsDay } from "../RequestsDay";
-import type { RequestsWeekProps } from "./types";
+import { RequestsWeekProps } from "./types";
 
 export const RequestsWeek = ({
   days,

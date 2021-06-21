@@ -1,10 +1,7 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useAuthContext } from "../../../context/auth";
-import type {
-  ReservationsRequestError,
-  ReservationsRequestResult,
-} from "./types";
+import { ReservationsRequestError, ReservationsRequestResult } from "./types";
 
 const endpoint = "reservations";
 

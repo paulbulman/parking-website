@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../../context/auth";
-import type {
+import {
   EditReservationsRequestBody,
   EditReservationsRequestError,
   EditReservationsRequestResult,

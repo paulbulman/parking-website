@@ -1,4 +1,4 @@
-import type { ReservationEdit } from "../../pages/EditReservations/types";
+import { ReservationEdit } from "../../pages/EditReservations/types";
 
 export const getCurrentValue = (
   localDate: string,

@@ -19,6 +19,17 @@ export const SignedInHeader = () => {
   return (
     <Header>
       <HomeLink />
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
       <div className="navbar-collapse d-sm-inline-flex flex-sm-row-reverse collapse">
         <ul className="navbar-nav">
           <li className="navbar-item">

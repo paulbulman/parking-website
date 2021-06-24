@@ -1,8 +1,10 @@
 import { useAuthContext } from "./hooks/context/auth";
 import { AuthenticationStatuses } from "./context/auth/types";
 import { Loading } from "./components/Loading";
-import { SignedOutApp } from "./pages/SignedOutApp";
-import { SignedInApp } from "./pages/SignedInApp";
+import { SignedOutHeader } from "./pages/SignedOutHeader";
+import { SignedOutRouter } from "./pages/SignedOutRouter";
+import { SignedInHeader } from "./pages/SignedInHeader";
+import { SignedInRouter } from "./pages/SignedInRouter";
 
 export const App = () => {
   const { authenticationStatus } = useAuthContext();
@@ -12,8 +14,18 @@ export const App = () => {
       return <Loading />;
     case AuthenticationStatuses.NewPasswordRequired:
     case AuthenticationStatuses.NotSignedIn:
-      return <SignedOutApp />;
+      return (
+        <>
+          <SignedOutHeader />
+          <SignedOutRouter />
+        </>
+      );
     case AuthenticationStatuses.SignedIn:
-      return <SignedInApp />;
+      return (
+        <>
+          <SignedInHeader />
+          <SignedInRouter />
+        </>
+      );
   }
 };

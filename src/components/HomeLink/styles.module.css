@@ -1,0 +1,14 @@
+.link,
+.link:hover {
+  font-size: 1.25rem;
+  margin-top: -0.25rem;
+  font-weight: 400;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 767px) {
+  .home {
+    margin-bottom: 0.3rem;
+  }
+}

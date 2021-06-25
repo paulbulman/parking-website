@@ -1,5 +1,5 @@
-import { Header } from "../../components/Header";
-import { HomeLink } from "../../components/HomeLink";
+import { Header } from "../Header";
+import { HomeLink } from "../HomeLink";
 
 export const SignedOutHeader = () => {
   return (

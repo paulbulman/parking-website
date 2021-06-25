@@ -1,18 +1,15 @@
 import { Switch, Route } from "react-router-dom";
-import { useAuthContext } from "../../hooks/context/auth";
-import { OverviewPage } from "../Overview";
-import { EditRequestsPage } from "../EditRequests";
-import { EditReservationsPage } from "../EditReservations";
-import { UsersPage } from "../Users";
-import { AddUserPage } from "../AddUser";
-import { EditUserPage } from "../EditUser";
-import { EditProfilePage } from "../EditProfile";
-import { RegistrationNumbersPage } from "../RegistrationNumbers";
+import { OverviewPage } from "../../pages/Overview";
+import { EditRequestsPage } from "../../pages/EditRequests";
+import { EditReservationsPage } from "../../pages/EditReservations";
+import { UsersPage } from "../../pages/Users";
+import { AddUserPage } from "../../pages/AddUser";
+import { EditUserPage } from "../../pages/EditUser";
+import { EditProfilePage } from "../../pages/EditProfile";
+import { RegistrationNumbersPage } from "../../pages/RegistrationNumbers";
+import { SignedInRouterProps } from "./types";
 
-export const SignedInRouter = () => {
-  const { getGroups } = useAuthContext();
-  const groups = getGroups();
-
+export const SignedInRouter = ({ groups }: SignedInRouterProps) => {
   const EditReservations = groups.includes("TeamLeader") ? (
     <EditReservationsPage />
   ) : (

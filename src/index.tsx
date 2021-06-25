@@ -5,7 +5,6 @@ import { ToastContainer, Zoom } from "react-toastify";
 import { AuthContextProvider } from "./context/auth";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { App } from "./App";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./index.css";

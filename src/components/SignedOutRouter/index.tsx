@@ -1,13 +1,13 @@
 import { Switch, Route } from "react-router-dom";
-import { useAuthContext } from "../../hooks/context/auth";
 import { AuthenticationStatuses } from "../../context/auth/types";
-import { LoginPage } from "../Login";
-import { ForceChangePasswordPage } from "../ForceChangePassword";
-import { ForgotPasswordPage } from "../ForgotPassword";
+import { LoginPage } from "../../pages/Login";
+import { ForceChangePasswordPage } from "../../pages/ForceChangePassword";
+import { ForgotPasswordPage } from "../../pages/ForgotPassword";
+import { SignedOutRouterProps } from "./types";
 
-export const SignedOutRouter = () => {
-  const { authenticationStatus } = useAuthContext();
-
+export const SignedOutRouter = ({
+  authenticationStatus,
+}: SignedOutRouterProps) => {
   const getDefaultPage = () => {
     switch (authenticationStatus) {
       case AuthenticationStatuses.NotSignedIn:

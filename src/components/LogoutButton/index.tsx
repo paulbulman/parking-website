@@ -1,8 +1,9 @@
 import { LogoutButtonProps } from "./types";
+import styles from "./styles.module.css";
 
 export const LogoutButton = ({ onClick }: LogoutButtonProps) => {
   return (
-    <button onClick={onClick} className="nav-link btn btn-link text-dark">
+    <button className={styles.button} onClick={onClick}>
       Log out
     </button>
   );

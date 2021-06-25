@@ -1,0 +1,16 @@
+.listItem {
+  list-style: none;
+  margin: 0 0.5rem;
+}
+
+.link,
+.link:hover {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 767px) {
+  .listItem {
+    margin: 0.3rem 0;
+  }
+}

@@ -22,6 +22,7 @@ export const SignedInHeader = ({ groups, onSignout }: SignedInHeaderProps) => {
       />
       <HomeLink />
       <NavigationSection expanded={toggleExpanded}>
+        <NavigationLink to="/overview" caption="Overview" />
         <NavigationLink to="/edit-requests" caption="Edit Requests" />
         <NavigationLink
           to="/registration-numbers"

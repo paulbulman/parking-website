@@ -225,6 +225,69 @@ const reservationsUsersData = [
   { userId: "user4", name: "User 4" },
 ];
 
+const summaryData = {
+  weeks: [
+    {
+      days: [
+        {
+          localDate: "2021-05-17",
+          data: { status: "allocated", isProblem: false },
+          hidden: false,
+        },
+        {
+          localDate: "2021-05-18",
+          data: { status: "allocated", isProblem: false },
+          hidden: false,
+        },
+        {
+          localDate: "2021-05-19",
+          data: { status: "interrupted", isProblem: true },
+          hidden: false,
+        },
+        {
+          localDate: "2021-05-20",
+          data: { status: null, isProblem: false },
+          hidden: false,
+        },
+        {
+          localDate: "2021-05-21",
+          data: null,
+          hidden: true,
+        },
+      ],
+    },
+    {
+      days: [
+        {
+          localDate: "2021-05-24",
+          data: null,
+          hidden: true,
+        },
+        {
+          localDate: "2021-05-25",
+          data: { status: "allocated", isProblem: false },
+          hidden: false,
+        },
+        {
+          localDate: "2021-05-26",
+          data: { status: "allocated", isProblem: false },
+          hidden: false,
+        },
+        {
+          localDate: "2021-05-27",
+          data: { status: "requested", isProblem: false },
+          hidden: false,
+        },
+        {
+          localDate: "2021-05-28",
+          data: { status: "requested", isProblem: false },
+          hidden: false,
+        },
+      ],
+    },
+  ],
+};
+
 const usersData = [
   {
     userId: 1,
@@ -302,6 +365,10 @@ export const handlers = [
         users: reservationsUsersData,
       })
     );
+  }),
+
+  rest.get(`${baseUrl}/summary`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.json({ summary: summaryData }));
   }),
 
   rest.get(`${baseUrl}/users`, (req, res, ctx) => {

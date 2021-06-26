@@ -1,4 +1,5 @@
 import { Switch, Route } from "react-router-dom";
+import { SummaryPage } from "../../pages/Summary";
 import { OverviewPage } from "../../pages/Overview";
 import { EditRequestsPage } from "../../pages/EditRequests";
 import { EditReservationsPage } from "../../pages/EditReservations";
@@ -37,6 +38,9 @@ export const SignedInRouter = ({ groups }: SignedInRouterProps) => {
   return (
     <Switch>
       <Route exact path="/">
+        <SummaryPage />
+      </Route>
+      <Route path="/overview">
         <OverviewPage />
       </Route>
       <Route path="/edit-requests">

@@ -24,6 +24,9 @@ export interface paths {
   "/Status": {
     get: operations["Status_Get"];
   };
+  "/Summary": {
+    get: operations["Summary_Get"];
+  };
   "/Users": {
     get: operations["Users_Get"];
     post: operations["Users_Post"];
@@ -141,6 +144,25 @@ export interface components {
       localDate: string;
       userIds: string[];
     };
+    SummaryResponse: {
+      summary: components["schemas"]["CalendarOfSummaryData"];
+    };
+    CalendarOfSummaryData: {
+      weeks: components["schemas"]["WeekOfSummaryData"][];
+    };
+    WeekOfSummaryData: {
+      days: components["schemas"]["DayOfSummaryData"][];
+    };
+    DayOfSummaryData: {
+      localDate: string;
+      data?: components["schemas"]["SummaryData"] | null;
+      hidden: boolean;
+    };
+    SummaryData: {
+      status?: components["schemas"]["SummaryStatus"] | null;
+      isProblem: boolean;
+    };
+    SummaryStatus: "allocated" | "interrupted" | "requested";
     MultipleUsersResponse: {
       users: components["schemas"]["UsersData"][];
     };
@@ -314,6 +336,15 @@ export interface operations {
   Status_Get: {
     responses: {
       200: unknown;
+    };
+  };
+  Summary_Get: {
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["SummaryResponse"];
+        };
+      };
     };
   };
   Users_Get: {

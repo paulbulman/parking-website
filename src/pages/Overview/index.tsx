@@ -16,8 +16,8 @@ export const OverviewPage = () => {
 
   return (
     <Layout
-      heading="Summary"
-      subheading="Requests up to the end of next month:"
+      heading="Overview"
+      subheading="All requests up to the end of next month:"
     >
       {content}
     </Layout>

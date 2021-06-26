@@ -1,0 +1,15 @@
+.date {
+  font-weight: bold;
+}
+
+.allocated {
+  color: green;
+}
+
+.interrupted {
+  color: salmon;
+}
+
+.requested {
+  color: lightgrey;
+}

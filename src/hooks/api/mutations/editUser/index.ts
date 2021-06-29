@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../../context/auth";
+import { patch } from "../../helpers";
 import {
   EditUserRequestParameters,
   EditUserRequestBody,
@@ -8,22 +8,8 @@ import {
   EditUserRequestResult,
 } from "./types";
 
-const endpoint = "users";
-
-const patch =
-  (userId: string, getToken: () => Promise<string>) =>
-  async (patchData: EditUserRequestBody) => {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
-    const token = await getToken();
-    const { data } = await axios.patch<EditUserRequestResult>(
-      `${baseUrl}/${endpoint}/${userId}`,
-      patchData,
-      { headers: { Authorization: "Bearer " + token } }
-    );
-    return data;
-  };
-
 export const useEditUser = ({ userId }: EditUserRequestParameters) => {
+  const endpoint = "users";
   const queryClient = useQueryClient();
   const { getToken } = useAuthContext();
 
@@ -31,7 +17,7 @@ export const useEditUser = ({ userId }: EditUserRequestParameters) => {
     EditUserRequestResult,
     EditUserRequestError,
     EditUserRequestBody
-  >([endpoint, userId], patch(userId, getToken), {
+  >([endpoint, userId], patch(getToken, `${endpoint}/${userId}`), {
     onSuccess: (data) => {
       queryClient.invalidateQueries("registrationNumbers");
       queryClient.setQueryData([endpoint, userId], data);

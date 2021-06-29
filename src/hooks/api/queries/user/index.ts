@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { useAuthContext } from "../../../context/auth";
-import { get } from "../helpers";
+import { get } from "../../helpers";
 import {
   UserRequestError,
   UserRequestResult,

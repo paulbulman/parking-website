@@ -1,28 +1,14 @@
-import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../../context/auth";
+import { patch } from "../../helpers";
 import {
   EditRequestsRequestBody,
   EditRequestsRequestError,
   EditRequestsRequestResult,
 } from "./types";
 
-const endpoint = "requests";
-
-const patch =
-  (getToken: () => Promise<string>) =>
-  async (patchData: EditRequestsRequestBody) => {
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
-    const token = await getToken();
-    const { data } = await axios.patch<EditRequestsRequestResult>(
-      `${baseUrl}/${endpoint}`,
-      patchData,
-      { headers: { Authorization: "Bearer " + token } }
-    );
-    return data;
-  };
-
 export const useEditRequests = () => {
+  const endpoint = "requests";
   const queryClient = useQueryClient();
   const { getToken } = useAuthContext();
 
@@ -30,7 +16,7 @@ export const useEditRequests = () => {
     EditRequestsRequestResult,
     EditRequestsRequestError,
     EditRequestsRequestBody
-  >(endpoint, patch(getToken), {
+  >(endpoint, patch(getToken, endpoint), {
     onSuccess: (data) => {
       queryClient.setQueryData(endpoint, data);
     },

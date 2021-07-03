@@ -6,21 +6,22 @@ describe("log in page", () => {
   });
 
   it("redirects to the home page when login is successful", () => {
-    cy.findByLabelText(/Email/i).type("user@example");
-    cy.findByLabelText(/Password/i).type("pass");
-    cy.findByRole("button", { name: /Log in/i }).click();
+    cy.findByLabelText(/email/i).type("user@example");
+    cy.findByLabelText(/password/i).type("pass");
+    cy.findByRole("button", { name: /log in/i }).click();
 
-    cy.findByRole("button", { name: /Log in/i }).should("not.exist");
+    cy.findByRole("heading", { name: /summary/i }).should("exist");
   });
 
   it("displays a notification when login is unsuccessful", () => {
-    cy.findByLabelText(/Email/i).type("user@example");
-    cy.findByLabelText(/Password/i).type("incorrect");
-    cy.findByRole("button", { name: /Log in/i }).click();
+    cy.findByLabelText(/email/i).type("user@example");
+    cy.findByLabelText(/password/i).type("incorrect");
+    cy.findByRole("button", { name: /log in/i }).click();
 
-    cy.findByText(
-      /Your login details were incorrect. Please try again./i
-    ).should("exist");
-    cy.findByRole("button", { name: /Log in/i }).should("exist");
+    cy.findByRole("alert").should(
+      "have.text",
+      "Your login details were incorrect. Please try again."
+    );
+    cy.findByRole("heading", { name: /log in/i }).should("exist");
   });
 });

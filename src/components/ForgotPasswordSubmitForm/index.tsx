@@ -17,44 +17,56 @@ export const ForgotPasswordSubmitForm = ({
     >
       {({ isSubmitting }) => (
         <Form>
-          <div className="form-group">
-            <label htmlFor="code">Code</label>
-            <Field
-              id="code"
-              name="code"
-              required
-              autoFocus
-              className="form-control"
-              disabled={isSubmitting}
-            />
+          <div className="field">
+            <label className="label" htmlFor="code">
+              Code
+            </label>
+            <div className="control">
+              <Field
+                id="code"
+                name="code"
+                required
+                autoFocus
+                className="input"
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <Field
-              id="password"
-              name="password"
-              type="password"
-              required
-              minLength="10"
-              className="form-control"
-              disabled={isSubmitting}
-            />
+          <div className="field">
+            <label className="label" htmlFor="password">
+              Password
+            </label>
+            <div className="control">
+              <Field
+                id="password"
+                name="password"
+                type="password"
+                required
+                minLength="10"
+                className="input"
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm password</label>
-            <Field
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              required
-              className="form-control"
-              disabled={isSubmitting}
-            />
+          <div className="field">
+            <label className="label" htmlFor="confirmPassword">
+              Confirm password
+            </label>
+            <div className="control">
+              <Field
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                required
+                className="input"
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
-          <div className="form-group">
+          <div className="field">
             <button
               type="submit"
-              className="btn btn-outline-primary"
+              className="button is-link"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Resetting password" : "Reset password"}

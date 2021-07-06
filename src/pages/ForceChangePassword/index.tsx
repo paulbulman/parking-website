@@ -36,8 +36,10 @@ export const ForceChangePasswordPage = () => {
       heading="Set new password"
       subheading="Your password needs to be changed."
     >
-      <div className="col-md-6">
-        <ChangePasswordForm onSubmit={handleSetPassword} />
+      <div className="columns">
+        <div className="column is-half">
+          <ChangePasswordForm onSubmit={handleSetPassword} />
+        </div>
       </div>
     </Layout>
   );

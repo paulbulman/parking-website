@@ -4,7 +4,9 @@ import { HomeLink } from "../HomeLink";
 export const SignedOutHeader = () => {
   return (
     <Header>
-      <HomeLink />
+      <div className="navbar-brand">
+        <HomeLink />
+      </div>
     </Header>
   );
 };

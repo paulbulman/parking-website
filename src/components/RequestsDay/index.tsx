@@ -25,7 +25,7 @@ export const RequestsDay = ({
     <td></td>
   ) : (
     <td>
-      <label>
+      <label className="checkbox">
         <input
           type="checkbox"
           checked={checked}

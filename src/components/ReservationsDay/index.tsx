@@ -1,7 +1,5 @@
 import { format } from "date-fns";
-import classNames from "classnames";
 import { ReservationsDayProps } from "./types";
-import styles from "./styles.module.css";
 import { getCurrentValue, createNewValue } from "./utils";
 
 export const ReservationsDay = ({
@@ -21,11 +19,7 @@ export const ReservationsDay = ({
   const handleChange = (updatedIndex: number, updatedUserId: string) => {
     const reservationEdit = {
       localDate: day.localDate,
-      userIds: createNewValue(
-        selectedUserIds,
-        updatedIndex,
-        updatedUserId
-      ),
+      userIds: createNewValue(selectedUserIds, updatedIndex, updatedUserId),
     };
     onChange(reservationEdit);
   };
@@ -36,19 +30,20 @@ export const ReservationsDay = ({
     users: ReservationsDayProps["users"]
   ) => {
     return [...Array(shortLeadTimeSpaces).keys()].map((index) => (
-      <div key={index}>
-        <select
-          className={classNames("form-control", styles.select)}
-          value={selectedUserIds[index]}
-          onChange={(event) => handleChange(index, event.target.value)}
-        >
-          <option value="">Select</option>
-          {users.map((u) => (
-            <option key={u.userId} value={u.userId}>
-              {u.name}
-            </option>
-          ))}
-        </select>
+      <div key={index} className="field">
+        <div className="select" key={index}>
+          <select
+            value={selectedUserIds[index]}
+            onChange={(event) => handleChange(index, event.target.value)}
+          >
+            <option value="">Select</option>
+            {users.map((u) => (
+              <option key={u.userId} value={u.userId}>
+                {u.name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
     ));
   };
@@ -57,7 +52,7 @@ export const ReservationsDay = ({
     <td></td>
   ) : (
     <td>
-      <div className={styles.date}>
+      <div className="has-text-weight-bold pb-2">
         {format(new Date(day.localDate), "dd MMM")}
       </div>
       {day.data && createSelects(selectedUserIds, shortLeadTimeSpaces, users)}

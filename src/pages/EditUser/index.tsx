@@ -52,7 +52,9 @@ export const EditUserPage = () => {
 
   return (
     <Layout heading="Edit user" subheading="Update details for existing user:">
-      {content}
+      <div className="columns">
+        <div className="column is-half">{content}</div>
+      </div>
     </Layout>
   );
 };

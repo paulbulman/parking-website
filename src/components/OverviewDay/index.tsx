@@ -1,12 +1,11 @@
 import { format } from "date-fns";
 import classNames from "classnames";
 import { OverviewDayProps } from "./types";
-import styles from "./styles.module.css";
 
 export const OverviewDay = ({ day }: OverviewDayProps) => {
   const createListItem = (user: { name: string; isHighlighted: boolean }) => {
     var userClasses = classNames({
-      [styles.highlighted]: user.isHighlighted,
+      "has-text-weight-bold": user.isHighlighted,
     });
     return (
       <li key={user.name} className={userClasses}>
@@ -19,13 +18,13 @@ export const OverviewDay = ({ day }: OverviewDayProps) => {
     <td></td>
   ) : (
     <td>
-      <div className={styles.date}>
+      <div className="has-text-weight-bold">
         {format(new Date(day.localDate), "dd MMM")}
       </div>
-      <ul className={classNames(styles.userList, styles.allocated)}>
+      <ul className="has-list-style-type-none has-text-success-dark pt-2">
         {day.data?.allocatedUsers.map((user) => createListItem(user))}
       </ul>
-      <ul className={classNames(styles.userList, styles.interrupted)}>
+      <ul className="has-list-style-type-none has-text-danger pt-2">
         {day.data?.interruptedUsers.map((user) => createListItem(user))}
       </ul>
     </td>

@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
 import { useProfile } from "../../hooks/api/queries/profile";
 import { useEditProfile } from "../../hooks/api/mutations/editProfile";
 import { createInitialFormValues, createPatchValues } from "./utils";
@@ -9,7 +8,6 @@ import { Layout } from "../../components/Layout";
 import { EditProfileFormValues } from "../../components/EditProfileForm/types";
 
 export const EditProfilePage = () => {
-  const history = useHistory();
   const { data, isLoading, isError } = useProfile();
   const { editProfile } = useEditProfile();
 
@@ -19,14 +17,9 @@ export const EditProfilePage = () => {
     try {
       await editProfile(patchValues);
       toast("Profile updated successfully.");
-      history.push("/registration-numbers");
     } catch {
       toast("Something went wrong. Please try again.");
     }
-  };
-
-  const handleCancel = () => {
-    history.push("/registration-numbers");
   };
 
   var content = isLoading ? (
@@ -38,14 +31,15 @@ export const EditProfilePage = () => {
       <EditProfileForm
         initialValues={createInitialFormValues(data)}
         onSubmit={handleSubmit}
-        onCancel={handleCancel}
       />
     )
   );
 
   return (
     <Layout heading="Edit profile" subheading="Update your details below:">
-      {content}
+      <div className="columns">
+        <div className="column is-half">{content}</div>
+      </div>
     </Layout>
   );
 };

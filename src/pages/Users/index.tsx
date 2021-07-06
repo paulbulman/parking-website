@@ -22,12 +22,12 @@ export const UsersPage = () => {
 
   return (
     <Layout heading="Users" subheading="Add new or update existing users:">
-      <p>
-        <Link className="btn btn-outline-primary" to="/users/add">
+      <div>
+        <Link className="button" to="/users/add">
           Add new user
         </Link>
-      </p>
-      {content}
+      </div>
+      <div className="pt-5">{content}</div>
     </Layout>
   );
 };

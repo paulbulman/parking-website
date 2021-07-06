@@ -22,6 +22,6 @@ describe("log in page", () => {
       "have.text",
       "Your login details were incorrect. Please try again."
     );
-    cy.findByRole("heading", { name: /log in/i }).should("exist");
+    cy.findByRole("heading", { name: /^Log in$/i }).should("exist");
   });
 });

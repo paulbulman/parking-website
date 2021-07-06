@@ -1,7 +1,6 @@
 import { format } from "date-fns";
 import classNames from "classnames";
 import { SummaryDayProps } from "./types";
-import styles from "./styles.module.css";
 
 export const SummaryDay = ({ day }: SummaryDayProps) => {
   const getStatusCaption = (status: string | null | undefined) => {
@@ -19,9 +18,9 @@ export const SummaryDay = ({ day }: SummaryDayProps) => {
 
   const getStatusClass = (status: string | null | undefined) => {
     return classNames({
-      [styles.allocated]: status === "allocated",
-      [styles.interrupted]: status === "interrupted",
-      [styles.requested]: status === "requested",
+      "has-text-success-dark": status === "allocated",
+      "has-text-danger": status === "interrupted",
+      "has-text-grey-light": status === "requested",
     });
   };
 
@@ -29,7 +28,7 @@ export const SummaryDay = ({ day }: SummaryDayProps) => {
     <td></td>
   ) : (
     <td>
-      <div className={styles.date}>
+      <div className="has-text-weight-bold">
         {format(new Date(day.localDate), "dd MMM")}
       </div>
       <div className={getStatusClass(day.data?.status)}>

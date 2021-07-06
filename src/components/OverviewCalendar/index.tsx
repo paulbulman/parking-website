@@ -1,10 +1,11 @@
+import { Table } from "../Table";
 import { OverviewWeek } from "../OverviewWeek";
 import { OverviewCalendarProps } from "./types";
 
 export const OverviewCalendar = ({ weeks }: OverviewCalendarProps) => {
   return (
-    <table className="table table-top table-striped table-bordered">
-      <thead className="thead-dark">
+    <Table>
+      <thead>
         <tr>
           <th>Mon</th>
           <th>Tue</th>
@@ -18,6 +19,6 @@ export const OverviewCalendar = ({ weeks }: OverviewCalendarProps) => {
           <OverviewWeek key={week.days[0].localDate} days={week.days} />
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 };

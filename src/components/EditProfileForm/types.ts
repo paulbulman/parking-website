@@ -6,5 +6,4 @@ export interface EditProfileFormValues {
 export interface EditProfileFormProps {
   initialValues: EditProfileFormValues;
   onSubmit: (parameters: EditProfileFormValues) => Promise<void>;
-  onCancel: () => void;
 }

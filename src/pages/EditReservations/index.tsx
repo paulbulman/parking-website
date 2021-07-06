@@ -48,7 +48,7 @@ export const EditReservationsPage = () => {
         />
         <button
           onClick={handleSave}
-          className="btn btn-outline-primary"
+          className="button is-link"
           disabled={isSaving}
         >
           {isSaving ? "Saving" : "Save"}

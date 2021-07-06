@@ -1,24 +1,27 @@
-import styles from "./styles.module.css";
 import { FormButtonsProps } from "./types";
 
 export const FormButtons = ({ isSubmitting, onCancel }: FormButtonsProps) => {
   return (
-    <div className={styles.buttons}>
-      <button
-        type="submit"
-        className="btn btn-outline-primary"
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? "Saving" : "Save"}
-      </button>
-      <button
-        type="button"
-        className="btn btn-outline-secondary"
-        disabled={isSubmitting}
-        onClick={onCancel}
-      >
-        Cancel
-      </button>
+    <div className="field is-grouped">
+      <div className="control">
+        <button
+          type="submit"
+          className="button is-link"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Saving" : "Save"}
+        </button>
+      </div>
+      <div className="control">
+        <button
+          type="button"
+          className="button is-link is-light"
+          disabled={isSubmitting}
+          onClick={onCancel}
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };

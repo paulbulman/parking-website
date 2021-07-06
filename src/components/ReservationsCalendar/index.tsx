@@ -1,3 +1,4 @@
+import { Table } from "../Table";
 import { ReservationsWeek } from "../ReservationsWeek";
 import { ReservationsCalendarProps } from "./types";
 
@@ -9,8 +10,8 @@ export const ReservationsCalendar = ({
   onChange,
 }: ReservationsCalendarProps) => {
   return (
-    <table className="table table-top table-striped table-bordered">
-      <thead className="thead-dark">
+    <Table>
+      <thead>
         <tr>
           <th>Mon</th>
           <th>Tue</th>
@@ -31,6 +32,6 @@ export const ReservationsCalendar = ({
           />
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 };

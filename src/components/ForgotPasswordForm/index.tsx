@@ -12,22 +12,26 @@ export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <Field
-              id="email"
-              name="email"
-              type="email"
-              required
-              autoFocus
-              className="form-control"
-              disabled={isSubmitting}
-            />
+          <div className="field">
+            <label className="label" htmlFor="email">
+              Email
+            </label>
+            <div className="control">
+              <Field
+                id="email"
+                name="email"
+                type="email"
+                required
+                autoFocus
+                className="input"
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
-          <div className="form-group">
+          <div className="field">
             <button
               type="submit"
-              className="btn btn-outline-primary"
+              className="button is-link"
               disabled={isSubmitting}
             >
               Continue

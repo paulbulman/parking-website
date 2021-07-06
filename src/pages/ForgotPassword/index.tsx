@@ -72,9 +72,13 @@ export const ForgotPasswordPage = () => {
 
   return (
     <Layout heading="Forgot password" subheading={subheading}>
-      <div className="col-md-6">
-        {content}
-        <Link to="/">Cancel</Link>
+      <div className="columns">
+        <div className="column is-half">
+          {content}
+          <div className="pt-5">
+            <Link to="/">Cancel</Link>
+          </div>
+        </div>
       </div>
     </Layout>
   );

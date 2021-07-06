@@ -1,11 +1,9 @@
 import { Formik, Field, Form } from "formik";
 import { EditProfileFormProps } from "./types";
-import { FormButtons } from "../FormButtons";
 
 export const EditProfileForm = ({
   initialValues,
   onSubmit,
-  onCancel,
 }: EditProfileFormProps) => {
   return (
     <Formik
@@ -17,27 +15,41 @@ export const EditProfileForm = ({
     >
       {({ isSubmitting }) => (
         <Form>
-          <div className="form-group">
-            <label htmlFor="registrationNumber">Registration number</label>
-            <Field
-              id="registrationNumber"
-              name="registrationNumber"
-              className="form-control"
-              disabled={isSubmitting}
-            />
+          <div className="field">
+            <label className="label" htmlFor="registrationNumber">
+              Registration number
+            </label>
+            <div className="control">
+              <Field
+                id="registrationNumber"
+                name="registrationNumber"
+                className="input"
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="alternativeRegistrationNumber">
+          <div className="field">
+            <label className="label" htmlFor="alternativeRegistrationNumber">
               Alternative registration number
             </label>
-            <Field
-              id="alternativeRegistrationNumber"
-              name="alternativeRegistrationNumber"
-              className="form-control"
-              disabled={isSubmitting}
-            />
+            <div className="control">
+              <Field
+                id="alternativeRegistrationNumber"
+                name="alternativeRegistrationNumber"
+                className="input"
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
-          <FormButtons isSubmitting={isSubmitting} onCancel={onCancel} />
+          <div className="control">
+            <button
+              type="submit"
+              className="button is-link"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Saving" : "Save"}
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

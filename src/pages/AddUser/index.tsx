@@ -33,8 +33,10 @@ export const AddUserPage = () => {
 
   return (
     <Layout heading="Add new user" subheading="Add a new user to the system:">
-      <div className="col-md-6">
-        <AddUserForm onSubmit={handleSubmit} onCancel={handleCancel} />
+      <div className="columns">
+        <div className="column is-half">
+          <AddUserForm onSubmit={handleSubmit} onCancel={handleCancel} />
+        </div>
       </div>
     </Layout>
   );

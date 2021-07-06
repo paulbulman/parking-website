@@ -1,10 +1,10 @@
+import { Link } from "react-router-dom";
 import { LogoutButtonProps } from "./types";
-import styles from "./styles.module.css";
 
 export const LogoutButton = ({ onClick }: LogoutButtonProps) => {
   return (
-    <button className={styles.button} onClick={onClick}>
+    <Link className="navbar-item" to="#" onClick={onClick}>
       Log out
-    </button>
+    </Link>
   );
 };

@@ -1,7 +1,7 @@
 import { useState } from "react";
+import classNames from "classnames";
 import { Header } from "../Header";
 import { HomeLink } from "../HomeLink";
-import { NavigationSection } from "../NavigationSection";
 import { NavigationLink } from "../NavigationLink";
 import { LogoutButton } from "../LogoutButton";
 import { NavigationToggle } from "../NavigationToggle";
@@ -14,31 +14,45 @@ export const SignedInHeader = ({ groups, onSignout }: SignedInHeaderProps) => {
     setToggleExpanded((value) => !value);
   };
 
+  const menuClasses = classNames({
+    "navbar-menu": true,
+    "is-active": toggleExpanded,
+  });
+
   return (
     <Header>
-      <NavigationToggle
-        onClick={handleNavigationToggleClick}
-        expanded={toggleExpanded}
-      />
-      <HomeLink />
-      <NavigationSection expanded={toggleExpanded}>
-        <NavigationLink to="/overview" caption="Overview" />
-        <NavigationLink to="/edit-requests" caption="Edit Requests" />
-        <NavigationLink
-          to="/registration-numbers"
-          caption="Registration Numbers"
+      <div className="navbar-brand">
+        <HomeLink />
+
+        <NavigationToggle
+          onClick={handleNavigationToggleClick}
+          expanded={toggleExpanded}
         />
-        {groups.includes("TeamLeader") && (
-          <NavigationLink to="/edit-reservations" caption="Edit Reservations" />
-        )}
-        {groups.includes("UserAdmin") && (
-          <NavigationLink to="/users" caption="Users" />
-        )}
-      </NavigationSection>
-      <NavigationSection expanded={toggleExpanded}>
-        <NavigationLink to="/profile" caption="Profile" />
-        <LogoutButton onClick={onSignout} />
-      </NavigationSection>
+      </div>
+
+      <div className={menuClasses}>
+        <div className="navbar-start">
+          <NavigationLink to="/overview" caption="Overview" />
+          <NavigationLink to="/edit-requests" caption="Edit Requests" />
+          <NavigationLink
+            to="/registration-numbers"
+            caption="Registration Numbers"
+          />
+          {groups.includes("TeamLeader") && (
+            <NavigationLink
+              to="/edit-reservations"
+              caption="Edit Reservations"
+            />
+          )}
+          {groups.includes("UserAdmin") && (
+            <NavigationLink to="/users" caption="Users" />
+          )}
+        </div>
+        <div className="navbar-end">
+          <NavigationLink to="/profile" caption="Profile" />
+          <LogoutButton onClick={onSignout} />
+        </div>
+      </div>
     </Header>
   );
 };

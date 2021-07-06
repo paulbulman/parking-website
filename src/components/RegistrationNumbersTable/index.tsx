@@ -1,3 +1,4 @@
+import { Table } from "../Table";
 import { RegistrationNumbersTableProps } from "./types";
 
 export const RegistrationNumbersTable = ({
@@ -11,14 +12,14 @@ export const RegistrationNumbersTable = ({
   ));
 
   return (
-    <table className="table table-top table-striped table-bordered">
-      <thead className="thead-dark">
+    <Table>
+      <thead>
         <tr>
           <th>Registration number</th>
           <th>Name</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
-    </table>
+    </Table>
   );
 };

@@ -1,3 +1,4 @@
+import { Table } from "../Table";
 import { RequestsWeek } from "../RequestsWeek";
 import { RequestsCalendarProps } from "./types";
 
@@ -7,8 +8,8 @@ export const RequestsCalendar = ({
   onChange,
 }: RequestsCalendarProps) => {
   return (
-    <table className="table table-top table-striped table-bordered">
-      <thead className="thead-dark">
+    <Table>
+      <thead>
         <tr>
           <th>Mon</th>
           <th>Tue</th>
@@ -27,6 +28,6 @@ export const RequestsCalendar = ({
           />
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 };

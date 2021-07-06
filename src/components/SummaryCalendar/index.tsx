@@ -1,10 +1,11 @@
+import { Table } from "../Table";
 import { SummaryWeek } from "../SummaryWeek";
 import { SummaryCalendarProps } from "./types";
 
 export const SummaryCalendar = ({ weeks }: SummaryCalendarProps) => {
   return (
-    <table className="table table-top table-striped table-bordered">
-      <thead className="thead-dark">
+    <Table>
+      <thead>
         <tr>
           <th>Mon</th>
           <th>Tue</th>
@@ -18,6 +19,6 @@ export const SummaryCalendar = ({ weeks }: SummaryCalendarProps) => {
           <SummaryWeek key={week.days[0].localDate} days={week.days} />
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 };

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { Table } from "../Table";
 import { UsersTableProps } from "./types";
-import styles from "./styles.module.css";
 
 export const UsersTable = ({ users, onEdit }: UsersTableProps) => {
   const rows = users.map((user) => (
@@ -14,7 +14,7 @@ export const UsersTable = ({ users, onEdit }: UsersTableProps) => {
       <td>
         <button
           type="button"
-          className={styles.button}
+          className="button is-small is-ghost"
           onClick={() => onEdit(user.userId)}
         >
           <FontAwesomeIcon icon={faEdit} title="Edit user" />
@@ -24,8 +24,8 @@ export const UsersTable = ({ users, onEdit }: UsersTableProps) => {
   ));
 
   return (
-    <table className="table table-top table-striped table-bordered">
-      <thead className="thead-dark">
+    <Table>
+      <thead>
         <tr>
           <th>First Name</th>
           <th>Last Name</th>
@@ -36,6 +36,6 @@ export const UsersTable = ({ users, onEdit }: UsersTableProps) => {
         </tr>
       </thead>
       <tbody>{rows}</tbody>
-    </table>
+    </Table>
   );
 };

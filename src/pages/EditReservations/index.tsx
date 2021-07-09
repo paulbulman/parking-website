@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { useReservations } from "../../hooks/api/queries/reservations";
 import { useEditReservations } from "../../hooks/api/mutations/editReservations";
+import { error, success } from "../../utils/notifications";
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
 import { ReservationsCalendar } from "../../components/ReservationsCalendar";
@@ -26,9 +26,9 @@ export const EditReservationsPage = () => {
     try {
       await editReservations(parameters);
       setReservationEdits([]);
-      toast("Reservations saved successfully.");
+      success("Reservations saved successfully.");
     } catch {
-      toast("Something went wrong. Please try again.");
+      error("Something went wrong. Please try again.");
     }
   };
 

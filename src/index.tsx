@@ -5,6 +5,7 @@ import { ToastContainer, Zoom } from "react-toastify";
 import { AuthContextProvider } from "./context/auth";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { App } from "./App";
+import { CloseButton } from "./components/CloseButton";
 import "bulma/css/bulma.min.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./index.css";
@@ -27,7 +28,11 @@ ReactDOM.render(
     <AuthContextProvider>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <ToastContainer hideProgressBar transition={Zoom} />
+          <ToastContainer
+            transition={Zoom}
+            hideProgressBar={true}
+            closeButton={CloseButton}
+          />
           <App />
         </BrowserRouter>
       </QueryClientProvider>

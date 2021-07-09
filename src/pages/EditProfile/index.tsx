@@ -1,6 +1,6 @@
-import { toast } from "react-toastify";
 import { useProfile } from "../../hooks/api/queries/profile";
 import { useEditProfile } from "../../hooks/api/mutations/editProfile";
+import { error, success } from "../../utils/notifications";
 import { createInitialFormValues, createPatchValues } from "./utils";
 import { EditProfileForm } from "../../components/EditProfileForm";
 import { Loading } from "../../components/Loading";
@@ -16,9 +16,9 @@ export const EditProfilePage = () => {
 
     try {
       await editProfile(patchValues);
-      toast("Profile updated successfully.");
+      success("Profile updated successfully.");
     } catch {
-      toast("Something went wrong. Please try again.");
+      error("Something went wrong. Please try again.");
     }
   };
 

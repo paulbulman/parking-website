@@ -1,7 +1,7 @@
-import { toast } from "react-toastify";
 import { useParams, useHistory } from "react-router-dom";
 import { useUser } from "../../hooks/api/queries/user";
 import { useEditUser } from "../../hooks/api/mutations/editUser";
+import { error, success } from "../../utils/notifications";
 import { createInitialFormValues, validateFormValues } from "./utils";
 import { EditUserForm } from "../../components/EditUserForm";
 import { Loading } from "../../components/Loading";
@@ -19,16 +19,16 @@ export const EditUserPage = () => {
     const validationResult = validateFormValues(values);
 
     if (!validationResult.success || !validationResult.patchValues) {
-      toast(validationResult.errorMessage);
+      error(validationResult.errorMessage);
       return;
     }
 
     try {
       await editUser(validationResult.patchValues);
-      toast("User updated successfully.");
+      success("User updated successfully.");
       history.push("/users");
     } catch {
-      toast("Something went wrong. Please try again.");
+      error("Something went wrong. Please try again.");
     }
   };
 

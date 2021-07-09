@@ -1,6 +1,6 @@
 import { pwnedPassword } from "hibp";
-import { toast } from "react-toastify";
 import { useAuthContext } from "../../hooks/context/auth";
+import { error } from "../../utils/notifications";
 import { Layout } from "../../components/Layout";
 import { ChangePasswordForm } from "../../components/ChangePasswordForm";
 import { ChangePasswordFormValues } from "../../components/ChangePasswordForm/types";
@@ -10,14 +10,14 @@ export const ForceChangePasswordPage = () => {
 
   const handleSetPassword = async (values: ChangePasswordFormValues) => {
     if (values.password !== values.confirmPassword) {
-      toast("The password values do not match. Please correct and try again.");
+      error("The password values do not match. Please correct and try again.");
       return;
     }
 
     const pwnedCount = await pwnedPassword(values.password);
     if (pwnedCount > 0) {
-      toast(
-        "The password is known to have been compromised in a public data breach. Please correct and try again."
+      error(
+        "The password is known to have been compromised in a public data breach. Please choose a different password."
       );
       return;
     }
@@ -27,7 +27,7 @@ export const ForceChangePasswordPage = () => {
     });
 
     if (!completeNewPasswordResult) {
-      toast("Something went wrong. Please try again.");
+      error("Something went wrong. Please try again.");
     }
   };
 

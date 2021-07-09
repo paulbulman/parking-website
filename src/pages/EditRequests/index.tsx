@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
 import { useRequests } from "../../hooks/api/queries/requests";
 import { useEditRequests } from "../../hooks/api/mutations/editRequests";
+import { success, error } from "../../utils/notifications";
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
 import { RequestsCalendar } from "../../components/RequestsCalendar";
@@ -21,9 +21,9 @@ export const EditRequestsPage = () => {
     try {
       await editRequests(parameters);
       setRequestEdits([]);
-      toast("Requests saved successfully.");
+      success("Requests saved successfully.");
     } catch {
-      toast("Something went wrong. Please try again.");
+      error("Something went wrong. Please try again.");
     }
   };
 

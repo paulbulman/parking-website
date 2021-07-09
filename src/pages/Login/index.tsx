@@ -1,9 +1,9 @@
-import { toast } from "react-toastify";
+import { useAuthContext } from "../../hooks/context/auth";
 import { Layout } from "../../components/Layout";
 import { LoginForm } from "../../components/LoginForm";
 import { Link } from "react-router-dom";
+import { error } from "../../utils/notifications";
 import { LoginFormValues } from "../../components/LoginForm/types";
-import { useAuthContext } from "../../hooks/context/auth";
 
 export const LoginPage = () => {
   const { signIn } = useAuthContext();
@@ -12,7 +12,7 @@ export const LoginPage = () => {
     const signInResult = await signIn(values);
 
     if (!signInResult) {
-      toast("Your login details were incorrect. Please try again.");
+      error("Your login details were incorrect. Please try again.");
     }
   };
 

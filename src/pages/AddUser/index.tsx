@@ -1,10 +1,10 @@
-import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import { useAddUser } from "../../hooks/api/mutations/addUser";
+import { error, success } from "../../utils/notifications";
+import { validateFormValues } from "./utils";
 import { Layout } from "../../components/Layout";
 import { AddUserForm } from "../../components/AddUserForm";
 import { AddUserFormValues } from "../../components/AddUserForm/types";
-import { validateFormValues } from "./utils";
 
 export const AddUserPage = () => {
   const history = useHistory();
@@ -14,16 +14,16 @@ export const AddUserPage = () => {
     const validationResult = validateFormValues(values);
 
     if (!validationResult.success || !validationResult.postValues) {
-      toast(validationResult.errorMessage);
+      error(validationResult.errorMessage);
       return;
     }
 
     try {
       await addUser(validationResult.postValues);
-      toast("User added successfully.");
+      success("User added successfully.");
       history.push("/users");
     } catch {
-      toast("Something went wrong. Please try again.");
+      error("Something went wrong. Please try again.");
     }
   };
 

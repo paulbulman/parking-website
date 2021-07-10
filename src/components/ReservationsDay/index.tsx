@@ -31,10 +31,11 @@ export const ReservationsDay = ({
   ) => {
     return [...Array(shortLeadTimeSpaces).keys()].map((index) => (
       <div key={index} className="field">
-        <div className="select" key={index}>
+        <div className="select is-small is-fullwidth" key={index}>
           <select
             value={selectedUserIds[index]}
             onChange={(event) => handleChange(index, event.target.value)}
+            title={`Reservation ${index + 1}`}
           >
             <option value="">Select</option>
             {users.map((u) => (

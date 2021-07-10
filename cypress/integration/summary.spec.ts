@@ -3,17 +3,21 @@
 describe("summary page", () => {
   beforeEach(() => {
     cy.visit("/");
-    cy.mockLogin();
+    cy.mockLogin("Normal");
   });
 
   it("displays the request statuses for the current user", () => {
-    cy.findByRole("cell", { name: /17 may allocated/i }).should("exist");
-    cy.findByRole("cell", { name: /18 may allocated/i }).should("exist");
-    cy.findByRole("cell", { name: /19 may interrupted/i }).should("exist");
+    checkCellText(/17 may/i, "Allocated");
+    checkCellText(/18 may/i, "Allocated");
+    checkCellText(/19 may/i, "Interrupted");
 
-    cy.findByRole("cell", { name: /25 may allocated/i }).should("exist");
-    cy.findByRole("cell", { name: /26 may allocated/i }).should("exist");
-    cy.findByRole("cell", { name: /27 may requested/i }).should("exist");
-    cy.findByRole("cell", { name: /28 may requested/i }).should("exist");
+    checkCellText(/25 may/i, "Allocated");
+    checkCellText(/26 may/i, "Allocated");
+    checkCellText(/27 may/i, "Requested");
+    checkCellText(/28 may/i, "Requested");
   });
+
+  const checkCellText = (name: RegExp, expectedText: string) => {
+    cy.findByRole("cell", { name: name }).should("contain.text", expectedText);
+  };
 });

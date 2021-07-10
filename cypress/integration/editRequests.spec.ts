@@ -36,13 +36,4 @@ describe("edit requests page", () => {
         ],
       });
   });
-
-  it("displays a message when the edited requests are saved", () => {
-    cy.findByRole("checkbox", { name: /17 may/i }).check();
-    cy.findByRole("checkbox", { name: /18 may/i }).uncheck();
-
-    cy.findByRole("button", { name: /save/i }).click();
-
-    cy.findByRole("alert").should("have.text", "Requests saved successfully.");
-  });
 });

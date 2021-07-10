@@ -1,0 +1,44 @@
+/// <reference types="cypress" />
+
+describe("users page", () => {
+  beforeEach(() => {
+    cy.visit("/users");
+    cy.mockLogin("UserAdmin");
+  });
+
+  it("displays the existing users", () => {
+    cy.findByRole("cell", { name: /John/ })
+      .parent()
+      .within(() => {
+        cy.findByRole("cell", { name: /Doe/ }).should("exist");
+        cy.findByRole("cell", { name: /AB123CDE/ }).should("exist");
+        cy.findByRole("cell", { name: /X123XYZ/ }).should("exist");
+        cy.findByRole("cell", { name: /^2$/ }).should("exist");
+      });
+
+    cy.findByRole("cell", { name: /Ann/ })
+      .parent()
+      .within(() => {
+        cy.findByRole("cell", { name: /Other/ }).should("exist");
+        cy.findByRole("cell", { name: /XY789XYZ/ }).should("exist");
+        cy.findByRole("cell", { name: /A789ABC/ }).should("exist");
+        cy.findByRole("cell", { name: /^3$/ }).should("exist");
+      });
+  });
+
+  it("redirects to the add new user page when the button is clicked", () => {
+    cy.findByRole("link", { name: /add new user/i }).click();
+    cy.findByRole("heading", { name: /add new user/i }).should("exist");
+  });
+
+  it("redirects to the edit user page when the button is clicked", () => {
+    cy.findByRole("cell", { name: /John/ })
+      .parent()
+      .within(() => {
+        cy.findByRole("img", { name: /edit user/i }).click();
+      });
+
+    cy.findByRole("heading", { name: /edit user/i }).should("exist");
+    cy.findByLabelText(/first name/i).should("have.value", "John");
+  });
+});

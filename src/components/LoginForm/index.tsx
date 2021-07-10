@@ -1,4 +1,6 @@
 import { Formik, Field, Form } from "formik";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
 import { LoginFormProps } from "./types";
 
 export const LoginForm = ({ onSubmit }: LoginFormProps) => {
@@ -17,7 +19,7 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
             <label className="label" htmlFor="email">
               Email
             </label>
-            <div className="control">
+            <div className="control has-icons-left">
               <Field
                 id="email"
                 name="email"
@@ -27,13 +29,16 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
                 className="input"
                 disabled={isSubmitting}
               />
+              <span className="icon is-left">
+                <FontAwesomeIcon icon={faUser} title="Email icon" />
+              </span>
             </div>
           </div>
           <div className="field">
             <label className="label" htmlFor="password">
               Password
             </label>
-            <div className="control">
+            <div className="control has-icons-left">
               <Field
                 id="password"
                 name="password"
@@ -42,6 +47,9 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
                 className="input"
                 disabled={isSubmitting}
               />
+              <span className="icon is-left">
+                <FontAwesomeIcon icon={faKey} title="Password icon" />
+              </span>
             </div>
           </div>
           <div className="field">

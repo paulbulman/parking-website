@@ -7,9 +7,9 @@ describe("change password form", () => {
     const onSubmit = jest.fn();
     render(<ChangePasswordForm onSubmit={onSubmit} />);
 
-    userEvent.type(screen.getByLabelText(/^Password$/i), "__PASSWORD__");
+    userEvent.type(screen.getByLabelText("Password"), "__PASSWORD__");
     userEvent.type(
-      screen.getByLabelText(/Confirm password/i),
+      screen.getByLabelText("Confirm password"),
       "__CONFIRM_PASSWORD__"
     );
     userEvent.click(screen.getByRole("button", { name: "Set new password" }));
@@ -25,8 +25,8 @@ describe("change password form", () => {
   it("clears passwords after form is submitted", async () => {
     render(<ChangePasswordForm onSubmit={jest.fn()} />);
 
-    const passwordInput = screen.getByLabelText(/^Password$/i);
-    const confirmPasswordInput = screen.getByLabelText(/Confirm password/i);
+    const passwordInput = screen.getByLabelText("Password");
+    const confirmPasswordInput = screen.getByLabelText("Confirm password");
 
     userEvent.type(passwordInput, "__PASSWORD__");
     userEvent.type(confirmPasswordInput, "__CONFIRM_PASSWORD__");

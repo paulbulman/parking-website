@@ -7,11 +7,8 @@ describe("profile page", () => {
   });
 
   it("displays the current user's profile", () => {
-    cy.findByLabelText(/^registration number$/i).should(
-      "have.value",
-      "AB123CDE"
-    );
-    cy.findByLabelText(/alternative registration number/i).should(
+    cy.findByLabelText("Registration number").should("have.value", "AB123CDE");
+    cy.findByLabelText("Alternative registration number").should(
       "have.value",
       "X123XYZ"
     );
@@ -21,10 +18,10 @@ describe("profile page", () => {
     cy.server();
     cy.route("PATCH", "/profiles").as("profiles");
 
-    cy.findByLabelText(/^registration number$/i)
+    cy.findByLabelText("Registration number")
       .clear()
       .type("__REGISTRATION_NUMBER__");
-    cy.findByLabelText(/alternative registration number/i)
+    cy.findByLabelText("Alternative registration number")
       .clear()
       .type("__ALTERNATIVE_REGISTRATION_NUMBER__");
 

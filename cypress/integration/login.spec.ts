@@ -6,16 +6,16 @@ describe("log in page", () => {
   });
 
   it("redirects to the home page when login is successful", () => {
-    cy.findByLabelText(/email/i).type("user@example");
-    cy.findByLabelText(/password/i).type("pass");
+    cy.findByLabelText("Email").type("user@example");
+    cy.findByLabelText("Password").type("pass");
     cy.findByRole("button", { name: /log in/i }).click();
 
     cy.findByRole("heading", { name: /summary/i }).should("exist");
   });
 
   it("displays a notification when login is unsuccessful", () => {
-    cy.findByLabelText(/email/i).type("user@example");
-    cy.findByLabelText(/password/i).type("incorrect");
+    cy.findByLabelText("Email").type("user@example");
+    cy.findByLabelText("Password").type("incorrect");
     cy.findByRole("button", { name: /log in/i }).click();
 
     cy.findByRole("alert").should(

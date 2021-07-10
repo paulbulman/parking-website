@@ -40,22 +40,19 @@ describe("AddUser", () => {
       </MemoryRouter>
     );
 
-    userEvent.type(screen.getByLabelText(/^Email$/i), "__EMAIL@ADDRESS__");
+    userEvent.type(screen.getByLabelText("Email"), "__EMAIL@ADDRESS__");
+    userEvent.type(screen.getByLabelText("Confirm email"), "__EMAIL@ADDRESS__");
+    userEvent.type(screen.getByLabelText("First name"), "__FIRST_NAME__");
+    userEvent.type(screen.getByLabelText("Last name"), "__LAST_NAME__");
     userEvent.type(
-      screen.getByLabelText(/Confirm email/i),
-      "__EMAIL@ADDRESS__"
-    );
-    userEvent.type(screen.getByLabelText(/First name/i), "__FIRST_NAME__");
-    userEvent.type(screen.getByLabelText(/Last name/i), "__LAST_NAME__");
-    userEvent.type(
-      screen.getByLabelText(/^Registration number$/i),
+      screen.getByLabelText("Registration number"),
       "__REGISTRATION_NUMBER__"
     );
     userEvent.type(
-      screen.getByLabelText(/Alternative registration number/i),
+      screen.getByLabelText("Alternative registration number"),
       "__ALTERNATIVE_REGISTRATION_NUMBER__"
     );
-    userEvent.type(screen.getByLabelText(/Commute distance/i), "12.3");
+    userEvent.type(screen.getByLabelText("Commute distance (mi)"), "12.3");
 
     userEvent.click(screen.getByRole("button", { name: "Save" }));
 

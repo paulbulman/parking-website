@@ -1,4 +1,6 @@
 import { Formik, Field, Form } from "formik";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { ForgotPasswordFormProps } from "./types";
 
 export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
@@ -16,7 +18,7 @@ export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
             <label className="label" htmlFor="email">
               Email
             </label>
-            <div className="control">
+            <div className="control has-icons-left">
               <Field
                 id="email"
                 name="email"
@@ -26,6 +28,9 @@ export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
                 className="input"
                 disabled={isSubmitting}
               />
+              <span className="icon is-left">
+                <FontAwesomeIcon icon={faUser} title="Email icon" />
+              </span>
             </div>
           </div>
           <div className="field">

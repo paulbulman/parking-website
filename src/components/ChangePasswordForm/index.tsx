@@ -1,4 +1,6 @@
 import { Formik, Field, Form } from "formik";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { ChangePasswordFormProps } from "./types";
 
 export const ChangePasswordForm = ({ onSubmit }: ChangePasswordFormProps) => {
@@ -18,7 +20,7 @@ export const ChangePasswordForm = ({ onSubmit }: ChangePasswordFormProps) => {
             <label className="label" htmlFor="password">
               Password
             </label>
-            <div className="control">
+            <div className="control has-icons-left">
               <Field
                 id="password"
                 name="password"
@@ -29,13 +31,16 @@ export const ChangePasswordForm = ({ onSubmit }: ChangePasswordFormProps) => {
                 className="input"
                 disabled={isSubmitting}
               />
+              <span className="icon is-left">
+                <FontAwesomeIcon icon={faKey} title="Password icon" />
+              </span>
             </div>
           </div>
           <div className="field">
             <label className="label" htmlFor="confirmPassword">
               Confirm password
             </label>
-            <div className="control">
+            <div className="control has-icons-left">
               <Field
                 id="confirmPassword"
                 name="confirmPassword"
@@ -44,6 +49,9 @@ export const ChangePasswordForm = ({ onSubmit }: ChangePasswordFormProps) => {
                 className="input"
                 disabled={isSubmitting}
               />
+              <span className="icon is-left">
+                <FontAwesomeIcon icon={faKey} title="Confirm password icon" />
+              </span>
             </div>
           </div>
           <div className="field">

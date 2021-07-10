@@ -7,8 +7,8 @@ describe("login form", () => {
     const onSubmit = jest.fn();
     render(<LoginForm onSubmit={onSubmit} />);
 
-    userEvent.type(screen.getByLabelText(/Email/i), "someone@example.com");
-    userEvent.type(screen.getByLabelText(/Password/i), "secret");
+    userEvent.type(screen.getByLabelText("Email"), "someone@example.com");
+    userEvent.type(screen.getByLabelText("Password"), "secret");
     userEvent.click(screen.getByRole("button", { name: "Log in" }));
 
     await waitFor(() => {
@@ -23,9 +23,9 @@ describe("login form", () => {
     const onSubmit = jest.fn();
     render(<LoginForm onSubmit={onSubmit} />);
 
-    const passwordInput = screen.getByLabelText(/Password/i);
+    const passwordInput = screen.getByLabelText("Password");
 
-    userEvent.type(screen.getByLabelText(/Email/i), "someone@example.com");
+    userEvent.type(screen.getByLabelText("Email"), "someone@example.com");
     userEvent.type(passwordInput, "secret");
     userEvent.click(screen.getByRole("button", { name: "Log in" }));
 
@@ -38,8 +38,8 @@ describe("login form", () => {
     const onSubmit = jest.fn();
     render(<LoginForm onSubmit={onSubmit} />);
 
-    const emailInput = screen.getByLabelText(/Email/i);
-    const passwordInput = screen.getByLabelText(/Password/i);
+    const emailInput = screen.getByLabelText("Email");
+    const passwordInput = screen.getByLabelText("Password");
     const loginButton = screen.getByRole("button", { name: "Log in" });
 
     expect(emailInput).toBeEnabled();

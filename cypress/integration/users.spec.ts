@@ -39,6 +39,6 @@ describe("users page", () => {
       });
 
     cy.findByRole("heading", { name: /edit user/i }).should("exist");
-    cy.findByLabelText(/first name/i).should("have.value", "John");
+    cy.findByLabelText("First name").should("have.value", "John");
   });
 });

@@ -4,10 +4,12 @@ import { BrowserRouter } from "react-router-dom";
 import { ToastContainer, Zoom } from "react-toastify";
 import { AuthContextProvider } from "./context/auth";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { config as FontAwesome } from "@fortawesome/fontawesome-svg-core";
 import { App } from "./App";
 import { CloseButton } from "./components/CloseButton";
 import "bulma/css/bulma.min.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import "./index.css";
 
 if (process.env.NODE_ENV === "development") {
@@ -22,6 +24,8 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+FontAwesome.autoAddCss = false;
 
 ReactDOM.render(
   <React.StrictMode>

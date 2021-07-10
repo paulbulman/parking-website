@@ -10,17 +10,15 @@ describe("add user page", () => {
     cy.server();
     cy.route("POST", "/users").as("users");
 
-    cy.findByLabelText(/^email$/i).type("EMAIL@ADDRESS");
-    cy.findByLabelText(/confirm email/i).type("EMAIL@ADDRESS");
-    cy.findByLabelText(/first name/i).type("__FIRST_NAME__");
-    cy.findByLabelText(/last name/i).type("__LAST_NAME__");
-    cy.findByLabelText(/^registration number$/i).type(
-      "__REGISTRATION_NUMBER__"
-    );
-    cy.findByLabelText(/alternative registration number/i).type(
+    cy.findByLabelText("Email").type("EMAIL@ADDRESS");
+    cy.findByLabelText("Confirm email").type("EMAIL@ADDRESS");
+    cy.findByLabelText("First name").type("__FIRST_NAME__");
+    cy.findByLabelText("Last name").type("__LAST_NAME__");
+    cy.findByLabelText("Registration number").type("__REGISTRATION_NUMBER__");
+    cy.findByLabelText("Alternative registration number").type(
       "__ALTERNATIVE_REGISTRATION_NUMBER__"
     );
-    cy.findByLabelText(/commute distance/i).type("12.3");
+    cy.findByLabelText("Commute distance (mi)").type("12.3");
 
     cy.findByRole("button", { name: /save/i }).click();
 

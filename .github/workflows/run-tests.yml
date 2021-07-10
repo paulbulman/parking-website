@@ -1,5 +1,6 @@
 name: Run tests
-
+env:
+  CHOKIDAR_USEPOLLING: 1
 on:
   push:
     branches: ['*']

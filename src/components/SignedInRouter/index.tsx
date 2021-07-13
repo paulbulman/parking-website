@@ -9,6 +9,7 @@ import { EditUserPage } from "../../pages/EditUser";
 import { EditProfilePage } from "../../pages/EditProfile";
 import { RegistrationNumbersPage } from "../../pages/RegistrationNumbers";
 import { SignedInRouterProps } from "./types";
+import { DailyDetailsPage } from "../../pages/DailyDetails";
 
 export const SignedInRouter = ({ groups }: SignedInRouterProps) => {
   const EditReservations = groups.includes("TeamLeader") ? (
@@ -52,6 +53,9 @@ export const SignedInRouter = ({ groups }: SignedInRouterProps) => {
       </Route>
       <Route path="/profile">
         <EditProfilePage />
+      </Route>
+      <Route path="/daily-details">
+        <DailyDetailsPage />
       </Route>
       <Route path="/registration-numbers">
         <RegistrationNumbersPage />

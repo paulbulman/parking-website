@@ -2,6 +2,60 @@ import { rest } from "msw";
 
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
+const dailyDetailsData = [
+  {
+    localDate: "2021-05-17",
+    data: {
+      allocatedUsers: [
+        { name: "User 1", isHighlighted: false },
+        { name: "User 3", isHighlighted: false },
+      ],
+      interruptedUsers: [
+        { name: "User 2", isHighlighted: false },
+        { name: "User 4", isHighlighted: true },
+      ],
+      requestedUsers: [],
+    },
+  },
+  {
+    localDate: "2021-05-18",
+    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+  },
+  {
+    localDate: "2021-05-19",
+    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+  },
+  {
+    localDate: "2021-05-20",
+    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+  },
+  {
+    localDate: "2021-05-25",
+    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+  },
+  {
+    localDate: "2021-05-26",
+    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+  },
+  {
+    localDate: "2021-05-27",
+    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+  },
+  {
+    localDate: "2021-05-28",
+    data: {
+      allocatedUsers: [],
+      interruptedUsers: [],
+      requestedUsers: [
+        { name: "User 1", isHighlighted: false },
+        { name: "User 2", isHighlighted: false },
+        { name: "User 3", isHighlighted: false },
+        { name: "User 4", isHighlighted: true },
+      ],
+    },
+  },
+];
+
 const overviewData = {
   weeks: [
     {
@@ -321,6 +375,10 @@ const getProfile = () => {
 };
 
 export const handlers = [
+  rest.get(`${baseUrl}/dailyDetails`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.json({ details: dailyDetailsData }));
+  }),
+
   rest.get(`${baseUrl}/overview`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ overview: overviewData }));
   }),

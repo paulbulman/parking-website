@@ -8,6 +8,7 @@ import { config as FontAwesome } from "@fortawesome/fontawesome-svg-core";
 import { App } from "./App";
 import { CloseButton } from "./components/CloseButton";
 import "bulma/css/bulma.min.css";
+import "react-day-picker/lib/style.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "./index.css";

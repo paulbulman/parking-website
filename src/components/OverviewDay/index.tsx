@@ -21,10 +21,10 @@ export const OverviewDay = ({ day }: OverviewDayProps) => {
       <div className="has-text-weight-bold">
         {format(new Date(day.localDate), "dd MMM")}
       </div>
-      <ul className="has-list-style-type-none has-text-success-dark pt-2">
+      <ul className="has-text-success-dark pt-2">
         {day.data?.allocatedUsers.map((user) => createListItem(user))}
       </ul>
-      <ul className="has-list-style-type-none has-text-danger pt-2">
+      <ul className="has-text-danger pt-2">
         {day.data?.interruptedUsers.map((user) => createListItem(user))}
       </ul>
     </td>

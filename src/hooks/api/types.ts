@@ -1,4 +1,7 @@
 export interface paths {
+  "/DailyDetails": {
+    get: operations["DailyDetails_Get"];
+  };
   "/Overview": {
     get: operations["Overview_Get"];
   };
@@ -42,6 +45,23 @@ export interface paths {
 
 export interface components {
   schemas: {
+    DailyDetailsResponse: {
+      details: components["schemas"]["DayOfDailyDetailsData"][];
+    };
+    DayOfDailyDetailsData: {
+      localDate: string;
+      data?: components["schemas"]["DailyDetailsData"] | null;
+      hidden: boolean;
+    };
+    DailyDetailsData: {
+      allocatedUsers: components["schemas"]["DailyDetailsUser"][];
+      interruptedUsers: components["schemas"]["DailyDetailsUser"][];
+      requestedUsers: components["schemas"]["DailyDetailsUser"][];
+    };
+    DailyDetailsUser: {
+      name: string;
+      isHighlighted: boolean;
+    };
     OverviewResponse: {
       overview: components["schemas"]["CalendarOfOverviewData"];
     };
@@ -106,7 +126,7 @@ export interface components {
       detail?: string | null;
       instance?: string | null;
       extensions?: { [key: string]: any } | null;
-    } & { [key: string]: { [key: string]: any } | null };
+    } & { [key: string]: { [key: string]: unknown } | null };
     RequestsPatchRequest: {
       requests: components["schemas"]["RequestsPatchRequestDailyData"][];
     };
@@ -203,6 +223,15 @@ export interface components {
 }
 
 export interface operations {
+  DailyDetails_Get: {
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["DailyDetailsResponse"];
+        };
+      };
+    };
+  };
   Overview_Get: {
     responses: {
       200: {

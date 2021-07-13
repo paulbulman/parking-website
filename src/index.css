@@ -7,6 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.has-list-style-type-none {
-  list-style-type: none;
+.DayPicker-Day {
+  line-height: 1;
 }

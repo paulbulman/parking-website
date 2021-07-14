@@ -23,6 +23,11 @@ describe("summary page", () => {
     cy.findByLabelText("Date").should("have.value", "17 May 2021");
   });
 
+  it("redirects to the edit requests page when the link is clicked", () => {
+    cy.findByRole("link", { name: "Edit requests" }).click();
+    cy.findByRole("heading", { name: "Edit requests" }).should("exist");
+  });
+
   const checkCellText = (name: RegExp, expectedText: string) => {
     cy.findByRole("cell", { name: name }).should("contain.text", expectedText);
   };

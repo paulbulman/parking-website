@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useSummary } from "../../hooks/api/queries/summary";
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
@@ -19,7 +20,12 @@ export const SummaryPage = () => {
       heading="Summary"
       subheading="Your requests up to the end of next month:"
     >
-      {content}
+      <div>
+        <Link className="button" to="/edit-requests">
+          Edit requests
+        </Link>
+      </div>
+      <div className="pt-5">{content}</div>
     </Layout>
   );
 };

@@ -10,30 +10,32 @@ import { EditProfilePage } from "../../pages/EditProfile";
 import { RegistrationNumbersPage } from "../../pages/RegistrationNumbers";
 import { SignedInRouterProps } from "./types";
 import { DailyDetailsPage } from "../../pages/DailyDetails";
+import { NotFoundPage } from "../../pages/NotFound";
+import { NotAllowedPage } from "../../pages/NotAllowed";
 
 export const SignedInRouter = ({ groups }: SignedInRouterProps) => {
   const EditReservations = groups.includes("TeamLeader") ? (
     <EditReservationsPage />
   ) : (
-    <div>Not allowed.</div>
+    <NotAllowedPage />
   );
 
   const Users = groups.includes("UserAdmin") ? (
     <UsersPage />
   ) : (
-    <div>Not allowed.</div>
+    <NotAllowedPage />
   );
 
   const AddUser = groups.includes("UserAdmin") ? (
     <AddUserPage />
   ) : (
-    <div>Not allowed.</div>
+    <NotAllowedPage />
   );
 
   const EditUser = groups.includes("UserAdmin") ? (
     <EditUserPage />
   ) : (
-    <div>Not allowed.</div>
+    <NotAllowedPage />
   );
 
   return (
@@ -62,6 +64,9 @@ export const SignedInRouter = ({ groups }: SignedInRouterProps) => {
       </Route>
       <Route path="/users/add">{AddUser}</Route>
       <Route path="/users/edit/:userId">{EditUser}</Route>
+      <Route path="*">
+        <NotFoundPage />
+      </Route>
     </Switch>
   );
 };

@@ -11,20 +11,20 @@ const getMockToken = (userType: UserType) => {
     case "Normal":
       return (
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
-        "eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJjb2duaXRvOnVzZXJuYW1lIjoiVXNlcjEifQ." +
-        "zB45sGOz6fmJHpJBVtRZQDa1rZHMi-MpjAcOCvjkC5E"
+        "eyJzdWIiOiIxMjM0NTY3ODkwIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJpYXQiOjE1MTYyMzkwMjIsImNvZ25pdG86dXNlcm5hbWUiOiJVc2VyMSJ9." +
+        "En3Pd9nbOf_LWbFLgprT1ml7imh8Sb2N6j-EB-JJekA"
       );
     case "TeamLeader":
       return (
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
-        "eyJzdWIiOiIxMjM0NTY3ODkwIiwiY29nbml0bzpncm91cHMiOlsiVGVhbUxlYWRlciJdLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjIsImNvZ25pdG86dXNlcm5hbWUiOiJVc2VyMSJ9." +
-        "VL5oFUXkXfpoJlZozpiNMXFAYAttq2iCYFaCqryOdzU"
+        "eyJzdWIiOiIxMjM0NTY3ODkwIiwiY29nbml0bzpncm91cHMiOlsiVGVhbUxlYWRlciJdLCJnaXZlbl9uYW1lIjoiSm9obiIsImlhdCI6MTUxNjIzOTAyMiwiY29nbml0bzp1c2VybmFtZSI6IlVzZXIxIn0." +
+        "vRzKqpZ2FThjbClrZOfxPmlcenQcNtnEfNwBSaSNJb0"
       );
     case "UserAdmin":
       return (
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
-        "eyJzdWIiOiIxMjM0NTY3ODkwIiwiY29nbml0bzpncm91cHMiOlsiVXNlckFkbWluIl0sIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTUxNjIzOTAyMiwiY29nbml0bzp1c2VybmFtZSI6IlVzZXIxIn0." +
-        "pTwF5BPkgUHfEhkhybB7GuCh_4aTfa3jeF0VbLq7gMM"
+        "eyJzdWIiOiIxMjM0NTY3ODkwIiwiY29nbml0bzpncm91cHMiOlsiVXNlckFkbWluIl0sImdpdmVuX25hbWUiOiJKb2huIiwiaWF0IjoxNTE2MjM5MDIyLCJjb2duaXRvOnVzZXJuYW1lIjoiVXNlcjEifQ." +
+        "8x5J5jQLhwnBLhgprGSYex_QDknGyfHfjWrIrTDV2R8"
       );
   }
 };

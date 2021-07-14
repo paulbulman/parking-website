@@ -36,6 +36,7 @@ export type ForgotPasswordSubmitParameters = {
 };
 
 export type CustomJwtPayload = JwtPayload & {
+  given_name: string;
   "cognito:groups": string[] | undefined;
 };
 
@@ -51,5 +52,6 @@ export interface AuthContextValues {
   ) => Promise<boolean>;
   getToken: () => Promise<string>;
   getGroups: () => GroupName[];
+  getFirstName: () => string;
   signOut: () => Promise<void>;
 }

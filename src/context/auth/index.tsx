@@ -32,8 +32,9 @@ Auth.configure({
   },
 });
 
-export const AuthContext =
-  createContext<AuthContextValues | undefined>(undefined);
+export const AuthContext = createContext<AuthContextValues | undefined>(
+  undefined
+);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [isInitialising, setIsInitialising] = useState(true);
@@ -161,6 +162,21 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
   }, [user, setUser]);
 
+  const getFirstName = useCallback(() => {
+    try {
+      const result = user?.getSignInUserSession()?.getIdToken().getJwtToken();
+      if (!result) {
+        throw new Error("No current token");
+      }
+      const decoded = jwt_decode<CustomJwtPayload>(result);
+
+      return decoded["given_name"];
+    } catch (error) {
+      setUser(null);
+      throw error;
+    }
+  }, [user, setUser]);
+
   const contextValue = useMemo(
     () => ({
       authenticationStatus,
@@ -171,6 +187,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       signOut,
       getToken,
       getGroups,
+      getFirstName,
     }),
     [
       authenticationStatus,
@@ -181,6 +198,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       signOut,
       getToken,
       getGroups,
+      getFirstName,
     ]
   );
 

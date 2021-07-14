@@ -7,7 +7,8 @@ import { SignedInHeader } from "./components/SignedInHeader";
 import { SignedInRouter } from "./components/SignedInRouter";
 
 export const App = () => {
-  const { authenticationStatus, getGroups, signOut } = useAuthContext();
+  const { authenticationStatus, getGroups, getFirstName, signOut } =
+    useAuthContext();
 
   const handleSignout = async () => {
     await signOut();
@@ -26,9 +27,14 @@ export const App = () => {
       );
     case AuthenticationStatuses.SignedIn:
       const groups = getGroups();
+      const firstName = getFirstName();
       return (
         <>
-          <SignedInHeader groups={groups} onSignout={handleSignout} />
+          <SignedInHeader
+            groups={groups}
+            firstName={firstName}
+            onSignout={handleSignout}
+          />
           <SignedInRouter groups={groups} />
         </>
       );

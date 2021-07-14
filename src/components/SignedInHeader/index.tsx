@@ -7,7 +7,11 @@ import { LogoutButton } from "../LogoutButton";
 import { NavigationToggle } from "../NavigationToggle";
 import { SignedInHeaderProps } from "./types";
 
-export const SignedInHeader = ({ groups, onSignout }: SignedInHeaderProps) => {
+export const SignedInHeader = ({
+  groups,
+  firstName,
+  onSignout,
+}: SignedInHeaderProps) => {
   const [toggleExpanded, setToggleExpanded] = useState(false);
 
   const handleNavigationToggleClick = () => {
@@ -32,8 +36,6 @@ export const SignedInHeader = ({ groups, onSignout }: SignedInHeaderProps) => {
 
       <div className={menuClasses}>
         <div className="navbar-start">
-          <NavigationLink to="/overview" caption="Overview" />
-          <NavigationLink to="/edit-requests" caption="Edit Requests" />
           <NavigationLink
             to="/registration-numbers"
             caption="Registration Numbers"
@@ -49,7 +51,7 @@ export const SignedInHeader = ({ groups, onSignout }: SignedInHeaderProps) => {
           )}
         </div>
         <div className="navbar-end">
-          <NavigationLink to="/profile" caption="Profile" />
+          <NavigationLink to="/profile" caption={firstName} />
           <LogoutButton onClick={onSignout} />
         </div>
       </div>

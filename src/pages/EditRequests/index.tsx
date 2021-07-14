@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useRequests } from "../../hooks/api/queries/requests";
 import { useEditRequests } from "../../hooks/api/mutations/editRequests";
 import { success, error } from "../../utils/notifications";
@@ -6,8 +7,11 @@ import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
 import { RequestsCalendar } from "../../components/RequestsCalendar";
 import { RequestEdit } from "./types";
+import { FormButtons } from "../../components/FormButtons";
 
 export const EditRequestsPage = () => {
+  const history = useHistory();
+
   const { data, isLoading, isError } = useRequests();
   const { editRequests, isSaving } = useEditRequests();
 
@@ -16,15 +20,22 @@ export const EditRequestsPage = () => {
   const handleChange = (requestEdit: RequestEdit) => {
     setRequestEdits((requestEdits) => [...requestEdits, requestEdit]);
   };
-  const handleSave = async () => {
+  const handleSave = async (event: FormEvent) => {
+    event.preventDefault();
+
     const parameters = { requests: requestEdits };
     try {
       await editRequests(parameters);
       setRequestEdits([]);
       success("Requests saved successfully.");
+      history.push("/");
     } catch {
       error("Something went wrong. Please try again.");
     }
+  };
+
+  const handleCancel = () => {
+    history.push("/");
   };
 
   var content = isLoading ? (
@@ -34,18 +45,14 @@ export const EditRequestsPage = () => {
   ) : (
     data && (
       <>
-        <RequestsCalendar
-          weeks={data.requests.weeks}
-          requestEdits={requestEdits}
-          onChange={handleChange}
-        />
-        <button
-          onClick={handleSave}
-          className="button is-link"
-          disabled={isSaving}
-        >
-          {isSaving ? "Saving" : "Save"}
-        </button>
+        <form onSubmit={handleSave}>
+          <RequestsCalendar
+            weeks={data.requests.weeks}
+            requestEdits={requestEdits}
+            onChange={handleChange}
+          />
+          <FormButtons isSubmitting={isSaving} onCancel={handleCancel} />
+        </form>
       </>
     )
   );

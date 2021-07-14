@@ -2,12 +2,11 @@
 
 describe("navigation", () => {
   const homeRegex = /home/i;
-  const overviewRegex = /overview/i;
   const editRequestsRegex = /edit requests/i;
   const registrationNumbersRegex = /registration numbers/i;
   const editReservationsRegex = /edit reservations/i;
   const usersRegex = /users/i;
-  const profileRegex = /profile/i;
+  const profileRegex = /john/i;
   const logOutRegex = /log out/i;
 
   context("when the user is on a desktop device", () => {
@@ -27,11 +26,6 @@ describe("navigation", () => {
 
         cy.findByRole("link", { name: homeRegex }).click();
         cy.findByRole("heading", { name: /summary/i }).should("exist");
-      });
-
-      it("redirects to the overview page when the link is clicked", () => {
-        cy.findByRole("link", { name: overviewRegex }).click();
-        cy.findByRole("heading", { name: /overview/i }).should("exist");
       });
 
       it("redirects to the edit requests page when the link is clicked", () => {
@@ -119,19 +113,21 @@ describe("navigation", () => {
       cy.mockLogin();
 
       ensureNavigationBarIsLoaded();
-      cy.findByRole("link", { name: overviewRegex }).should("not.exist");
+      cy.findByRole("link", { name: registrationNumbersRegex }).should(
+        "not.exist"
+      );
 
       cy.findByRole("button", { name: /menu/i }).click();
 
-      cy.findByRole("link", { name: overviewRegex }).should("exist");
-      cy.findByRole("link", { name: editRequestsRegex }).should("exist");
       cy.findByRole("link", { name: registrationNumbersRegex }).should("exist");
       cy.findByRole("link", { name: profileRegex }).should("exist");
       cy.findByRole("link", { name: logOutRegex }).should("exist");
 
       cy.findByRole("button", { name: /menu/i }).click();
 
-      cy.findByRole("link", { name: overviewRegex }).should("not.exist");
+      cy.findByRole("link", { name: registrationNumbersRegex }).should(
+        "not.exist"
+      );
     });
   });
 

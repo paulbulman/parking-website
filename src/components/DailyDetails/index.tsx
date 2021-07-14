@@ -11,7 +11,9 @@ export const DailyDetails = ({ details }: DailyDetailsProps) => {
     allocatedUsers.length || interruptedUsers.length || requestedUsers.length;
 
   if (!requestsExist) {
-    return <div className="pb-5">No requests exist for the selected date.</div>;
+    return (
+      <div className="pb-5">There are no requests for the selected date.</div>
+    );
   }
 
   const createSection = (

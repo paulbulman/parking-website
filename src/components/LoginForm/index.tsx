@@ -1,6 +1,7 @@
 import { Formik, Field, Form } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
+import { FormSubmit } from "../FormSubmit";
 import { LoginFormProps } from "./types";
 
 export const LoginForm = ({ onSubmit }: LoginFormProps) => {
@@ -53,13 +54,7 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
             </div>
           </div>
           <div className="field">
-            <button
-              type="submit"
-              className="button is-link"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Logging in" : "Log in"}
-            </button>
+            <FormSubmit isLoading={isSubmitting}>Log in</FormSubmit>
           </div>
         </Form>
       )}

@@ -1,17 +1,10 @@
+import { FormSubmit } from "../FormSubmit";
 import { FormButtonsProps } from "./types";
 
 export const FormButtons = ({ isSubmitting, onCancel }: FormButtonsProps) => {
   return (
     <div className="field is-grouped">
-      <div className="control">
-        <button
-          type="submit"
-          className="button is-link"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Saving" : "Save"}
-        </button>
-      </div>
+      <FormSubmit isLoading={isSubmitting}>Save</FormSubmit>
       <div className="control">
         <button
           type="button"

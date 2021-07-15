@@ -10,6 +10,7 @@ import { FormButtons } from "../FormButtons";
 
 export const EditUserForm = ({
   initialValues,
+  onChange,
   onSubmit,
   onCancel,
 }: EditUserFormProps) => {
@@ -22,7 +23,7 @@ export const EditUserForm = ({
       }}
     >
       {({ isSubmitting }) => (
-        <Form>
+        <Form onChange={onChange}>
           <div className="field">
             <label className="label" htmlFor="firstName">
               First name

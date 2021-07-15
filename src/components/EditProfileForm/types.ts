@@ -5,5 +5,6 @@ export interface EditProfileFormValues {
 
 export interface EditProfileFormProps {
   initialValues: EditProfileFormValues;
+  onChange: React.FormEventHandler<HTMLFormElement>;
   onSubmit: (parameters: EditProfileFormValues) => Promise<void>;
 }

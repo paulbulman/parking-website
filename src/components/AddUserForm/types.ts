@@ -9,6 +9,7 @@ export interface AddUserFormValues {
 }
 
 export interface AddUserFormProps {
+  onChange: React.FormEventHandler<HTMLFormElement>;
   onSubmit: (parameters: AddUserFormValues) => Promise<void>;
   onCancel: () => void;
 }

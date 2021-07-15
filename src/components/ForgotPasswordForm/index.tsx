@@ -1,6 +1,7 @@
 import { Formik, Field, Form } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FormSubmit } from "../FormSubmit";
 import { ForgotPasswordFormProps } from "./types";
 
 export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
@@ -34,13 +35,7 @@ export const ForgotPasswordForm = ({ onSubmit }: ForgotPasswordFormProps) => {
             </div>
           </div>
           <div className="field">
-            <button
-              type="submit"
-              className="button is-link"
-              disabled={isSubmitting}
-            >
-              Continue
-            </button>
+            <FormSubmit isLoading={isSubmitting}>Continue</FormSubmit>
           </div>
         </Form>
       )}

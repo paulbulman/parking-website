@@ -2,6 +2,7 @@ import axios from "axios";
 import Auth from "@aws-amplify/auth";
 import { render, screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContextProvider } from "../../../context/auth";
 import { getMockSession } from "../../../context/auth/auth.dev";
@@ -34,7 +35,9 @@ describe("Edit requests", () => {
       render(
         <AuthContextProvider>
           <QueryClientProvider client={queryClient}>
-            <EditRequestsPage />
+            <MemoryRouter>
+              <EditRequestsPage />
+            </MemoryRouter>
           </QueryClientProvider>
         </AuthContextProvider>
       );
@@ -57,7 +60,9 @@ describe("Edit requests", () => {
       render(
         <AuthContextProvider>
           <QueryClientProvider client={queryClient}>
-            <EditRequestsPage />
+            <MemoryRouter>
+              <EditRequestsPage />
+            </MemoryRouter>
           </QueryClientProvider>
         </AuthContextProvider>
       );

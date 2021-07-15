@@ -34,7 +34,7 @@ describe("login form", () => {
     });
   });
 
-  it("temporarily disables controls and changes button text whilst form is submitting", async () => {
+  it("temporarily disables controls whilst form is submitting", async () => {
     const onSubmit = jest.fn();
     render(<LoginForm onSubmit={onSubmit} />);
 
@@ -51,15 +51,11 @@ describe("login form", () => {
     await waitFor(() => {
       expect(emailInput).toBeDisabled();
       expect(passwordInput).toBeDisabled();
-      expect(loginButton).toBeDisabled();
-      expect(loginButton).toHaveTextContent("Logging in");
     });
 
     await waitFor(() => {
       expect(emailInput).toBeEnabled();
       expect(passwordInput).toBeEnabled();
-      expect(loginButton).toBeEnabled();
-      expect(loginButton).toHaveTextContent("Log in");
     });
   });
 });

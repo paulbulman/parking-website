@@ -3,6 +3,7 @@ import Auth from "@aws-amplify/auth";
 import { render, screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { MemoryRouter } from "react-router-dom";
 import { AuthContextProvider } from "../../../context/auth";
 import { getMockSession } from "../../../context/auth/auth.dev";
 import { EditReservationsPage } from "..";
@@ -41,7 +42,9 @@ describe("Edit reservations", () => {
       render(
         <AuthContextProvider>
           <QueryClientProvider client={queryClient}>
-            <EditReservationsPage />
+            <MemoryRouter>
+              <EditReservationsPage />
+            </MemoryRouter>
           </QueryClientProvider>
         </AuthContextProvider>
       );
@@ -67,7 +70,9 @@ describe("Edit reservations", () => {
       render(
         <AuthContextProvider>
           <QueryClientProvider client={queryClient}>
-            <EditReservationsPage />
+            <MemoryRouter>
+              <EditReservationsPage />
+            </MemoryRouter>
           </QueryClientProvider>
         </AuthContextProvider>
       );

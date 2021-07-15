@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { Prompt } from "react-router-dom";
 import { useReservations } from "../../hooks/api/queries/reservations";
 import { useEditReservations } from "../../hooks/api/mutations/editReservations";
 import { error, success } from "../../utils/notifications";
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
 import { ReservationsCalendar } from "../../components/ReservationsCalendar";
+import { FormSubmit } from "../../components/FormSubmit";
 import { ReservationEdit } from "./types";
 
 export const EditReservationsPage = () => {
@@ -21,7 +23,8 @@ export const EditReservationsPage = () => {
     );
     setReservationEdits([...otherReservationEdits, reservationEdit]);
   };
-  const handleSave = async () => {
+  const handleSave = async (event: FormEvent) => {
+    event.preventDefault();
     const parameters = { reservations: reservationEdits };
     try {
       await editReservations(parameters);
@@ -39,29 +42,31 @@ export const EditReservationsPage = () => {
   ) : (
     data && (
       <>
-        <ReservationsCalendar
-          reservationEdits={reservationEdits}
-          weeks={data.reservations.weeks}
-          shortLeadTimeSpaces={data.shortLeadTimeSpaces}
-          users={data.users}
-          onChange={handleChange}
-        />
-        <button
-          onClick={handleSave}
-          className="button is-link"
-          disabled={isSaving}
-        >
-          {isSaving ? "Saving" : "Save"}
-        </button>
+        <form onSubmit={handleSave}>
+          <ReservationsCalendar
+            reservationEdits={reservationEdits}
+            weeks={data.reservations.weeks}
+            shortLeadTimeSpaces={data.shortLeadTimeSpaces}
+            users={data.users}
+            onChange={handleChange}
+          />
+          <FormSubmit isLoading={isSaving}>Save</FormSubmit>
+        </form>
       </>
     )
   );
   return (
-    <Layout
-      heading="Edit reservations"
-      subheading="Edit reservations up to the end of next month:"
-    >
-      {content}
-    </Layout>
+    <>
+      <Prompt
+        when={reservationEdits.length > 0}
+        message="Are you sure? You currently have unsaved changes."
+      />
+      <Layout
+        heading="Edit reservations"
+        subheading="Edit reservations up to the end of next month:"
+      >
+        {content}
+      </Layout>
+    </>
   );
 };

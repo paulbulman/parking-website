@@ -8,6 +8,7 @@ export interface EditUserFormValues {
 
 export interface EditUserFormProps {
   initialValues: EditUserFormValues;
+  onChange: React.FormEventHandler<HTMLFormElement>;
   onSubmit: (parameters: EditUserFormValues) => Promise<void>;
   onCancel: () => void;
 }

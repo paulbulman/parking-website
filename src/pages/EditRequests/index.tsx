@@ -1,5 +1,5 @@
-import { FormEvent, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { FormEvent, useState, useEffect } from "react";
+import { useHistory, Prompt } from "react-router-dom";
 import { useRequests } from "../../hooks/api/queries/requests";
 import { useEditRequests } from "../../hooks/api/mutations/editRequests";
 import { success, error } from "../../utils/notifications";
@@ -10,16 +10,18 @@ import { RequestEdit } from "./types";
 import { FormButtons } from "../../components/FormButtons";
 
 export const EditRequestsPage = () => {
+  const [isCancelling, setIsCancelling] = useState(false);
+  const [requestEdits, setRequestEdits] = useState<RequestEdit[]>([]);
+
   const history = useHistory();
 
   const { data, isLoading, isError } = useRequests();
   const { editRequests, isSaving } = useEditRequests();
 
-  const [requestEdits, setRequestEdits] = useState<RequestEdit[]>([]);
-
   const handleChange = (requestEdit: RequestEdit) => {
     setRequestEdits((requestEdits) => [...requestEdits, requestEdit]);
   };
+
   const handleSave = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -35,8 +37,15 @@ export const EditRequestsPage = () => {
   };
 
   const handleCancel = () => {
-    history.push("/");
+    setRequestEdits([]);
+    setIsCancelling(true);
   };
+
+  useEffect(() => {
+    if (isCancelling) {
+      history.push("/");
+    }
+  }, [isCancelling, history]);
 
   var content = isLoading ? (
     <Loading />
@@ -58,11 +67,17 @@ export const EditRequestsPage = () => {
   );
 
   return (
-    <Layout
-      heading="Edit requests"
-      subheading="Edit requests up to the end of next month:"
-    >
-      {content}
-    </Layout>
+    <>
+      <Prompt
+        when={requestEdits.length > 0}
+        message="Are you sure? You currently have unsaved changes."
+      />
+      <Layout
+        heading="Edit requests"
+        subheading="Edit requests up to the end of next month:"
+      >
+        {content}
+      </Layout>
+    </>
   );
 };

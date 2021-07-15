@@ -13,7 +13,7 @@ export const SummaryDay = ({ day }: SummaryDayProps) => {
       case "requested":
         return "Requested";
       default:
-        return null;
+        return "\u00A0";
     }
   };
 

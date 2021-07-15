@@ -1,10 +1,12 @@
 import { Formik, Field, Form } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCar } from "@fortawesome/free-solid-svg-icons";
+import { FormSubmit } from "../FormSubmit";
 import { EditProfileFormProps } from "./types";
 
 export const EditProfileForm = ({
   initialValues,
+  onChange,
   onSubmit,
 }: EditProfileFormProps) => {
   return (
@@ -16,7 +18,7 @@ export const EditProfileForm = ({
       }}
     >
       {({ isSubmitting }) => (
-        <Form>
+        <Form onChange={onChange}>
           <div className="field">
             <label className="label" htmlFor="registrationNumber">
               Registration number
@@ -55,14 +57,8 @@ export const EditProfileForm = ({
               </span>
             </div>
           </div>
-          <div className="control">
-            <button
-              type="submit"
-              className="button is-link"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Saving" : "Save"}
-            </button>
+          <div className="field">
+            <FormSubmit isLoading={isSubmitting}>Save</FormSubmit>
           </div>
         </Form>
       )}

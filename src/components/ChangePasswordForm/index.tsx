@@ -1,6 +1,7 @@
 import { Formik, Field, Form } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { FormSubmit } from "../FormSubmit";
 import { ChangePasswordFormProps } from "./types";
 
 export const ChangePasswordForm = ({ onSubmit }: ChangePasswordFormProps) => {
@@ -55,13 +56,7 @@ export const ChangePasswordForm = ({ onSubmit }: ChangePasswordFormProps) => {
             </div>
           </div>
           <div className="field">
-            <button
-              type="submit"
-              className="button is-link"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Setitng new password" : "Set new password"}
-            </button>
+            <FormSubmit isLoading={isSubmitting}>Set new password</FormSubmit>
           </div>
         </Form>
       )}

@@ -9,7 +9,11 @@ import {
 import { FormButtons } from "../FormButtons";
 import { AddUserFormProps } from "./types";
 
-export const AddUserForm = ({ onSubmit, onCancel }: AddUserFormProps) => {
+export const AddUserForm = ({
+  onChange,
+  onSubmit,
+  onCancel,
+}: AddUserFormProps) => {
   return (
     <Formik
       initialValues={{
@@ -27,7 +31,7 @@ export const AddUserForm = ({ onSubmit, onCancel }: AddUserFormProps) => {
       }}
     >
       {({ isSubmitting }) => (
-        <Form>
+        <Form onChange={onChange}>
           <div className="field">
             <label className="label" htmlFor="email">
               Email

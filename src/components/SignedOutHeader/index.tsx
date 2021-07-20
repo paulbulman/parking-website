@@ -1,11 +1,12 @@
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Header } from "../Header";
-import { HomeLink } from "../HomeLink";
+import { NavigationLink } from "../NavigationLink";
 
 export const SignedOutHeader = () => {
   return (
     <Header>
       <div className="navbar-brand">
-        <HomeLink />
+        <NavigationLink to="/" caption="Home" icon={faUser} />
       </div>
     </Header>
   );

@@ -1,10 +1,20 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavigationLinkProps } from "./types";
 
-export const NavigationLink = ({ to, caption }: NavigationLinkProps) => {
+export const NavigationLink = ({ to, caption, icon }: NavigationLinkProps) => {
+  const isHome = to === "/";
   return (
-    <Link className="navbar-item" to={to}>
+    <NavLink
+      activeClassName="is-active"
+      exact={isHome}
+      className="navbar-item is-tab"
+      to={to}
+    >
+      <span className="mr-2">
+        <FontAwesomeIcon icon={icon} />
+      </span>
       {caption}
-    </Link>
+    </NavLink>
   );
 };

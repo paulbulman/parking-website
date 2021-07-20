@@ -1,7 +1,13 @@
 import { useState } from "react";
 import classNames from "classnames";
+import {
+  faHome,
+  faCar,
+  faCalendarAlt,
+  faUsers,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { Header } from "../Header";
-import { HomeLink } from "../HomeLink";
 import { NavigationLink } from "../NavigationLink";
 import { LogoutButton } from "../LogoutButton";
 import { NavigationToggle } from "../NavigationToggle";
@@ -26,7 +32,7 @@ export const SignedInHeader = ({
   return (
     <Header>
       <div className="navbar-brand">
-        <HomeLink />
+        <NavigationLink to="/" caption="Home" icon={faHome} />
 
         <NavigationToggle
           onClick={handleNavigationToggleClick}
@@ -39,19 +45,21 @@ export const SignedInHeader = ({
           <NavigationLink
             to="/registration-numbers"
             caption="Registration Numbers"
+            icon={faCar}
           />
           {groups.includes("TeamLeader") && (
             <NavigationLink
               to="/edit-reservations"
               caption="Edit Reservations"
+              icon={faCalendarAlt}
             />
           )}
           {groups.includes("UserAdmin") && (
-            <NavigationLink to="/users" caption="Users" />
+            <NavigationLink to="/users" caption="Users" icon={faUsers} />
           )}
         </div>
         <div className="navbar-end">
-          <NavigationLink to="/profile" caption={firstName} />
+          <NavigationLink to="/profile" caption={firstName} icon={faUser} />
           <LogoutButton onClick={onSignout} />
         </div>
       </div>

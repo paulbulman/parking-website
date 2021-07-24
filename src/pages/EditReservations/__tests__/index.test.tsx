@@ -1,16 +1,15 @@
 import axios from "axios";
 import Auth from "@aws-amplify/auth";
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { MemoryRouter } from "react-router-dom";
-import { AuthContextProvider } from "../../../context/auth";
 import { getMockSession } from "../../../context/auth/auth.dev";
 import { EditReservationsPage } from "..";
+import {
+  ensureLoadingIsComplete,
+  renderInProvider,
+} from "../../../testHelpers";
 
 describe("Edit reservations", () => {
-  const queryClient = new QueryClient();
-
   const data = {
     reservations: {
       weeks: [
@@ -39,20 +38,10 @@ describe("Edit reservations", () => {
     axios.get = jest.fn().mockReturnValueOnce({ data });
 
     act(() => {
-      render(
-        <AuthContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <MemoryRouter>
-              <EditReservationsPage />
-            </MemoryRouter>
-          </QueryClientProvider>
-        </AuthContextProvider>
-      );
+      renderInProvider(<EditReservationsPage />);
     });
 
-    await waitFor(() => {
-      expect(screen.queryByText("Loading")).not.toBeInTheDocument();
-    });
+    await ensureLoadingIsComplete();
 
     const reservationSelect = screen.getAllByRole("combobox")[0];
 
@@ -67,20 +56,10 @@ describe("Edit reservations", () => {
     axios.patch = jest.fn().mockReturnValueOnce({ data });
 
     act(() => {
-      render(
-        <AuthContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <MemoryRouter>
-              <EditReservationsPage />
-            </MemoryRouter>
-          </QueryClientProvider>
-        </AuthContextProvider>
-      );
+      renderInProvider(<EditReservationsPage />);
     });
 
-    await waitFor(() => {
-      expect(screen.queryByText("Loading")).not.toBeInTheDocument();
-    });
+    await ensureLoadingIsComplete();
 
     const reservationSelect = screen.getAllByRole("combobox")[0];
     const saveButton = screen.getByRole("button", { name: "Save" });

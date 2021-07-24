@@ -1,16 +1,15 @@
 import axios from "axios";
 import Auth from "@aws-amplify/auth";
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { screen, act, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { AuthContextProvider } from "../../../context/auth";
 import { getMockSession } from "../../../context/auth/auth.dev";
 import { EditRequestsPage } from "..";
+import {
+  ensureLoadingIsComplete,
+  renderInProvider,
+} from "../../../testHelpers";
 
 describe("Edit requests", () => {
-  const queryClient = new QueryClient();
-
   const data = {
     requests: {
       weeks: [
@@ -32,20 +31,10 @@ describe("Edit requests", () => {
     axios.get = jest.fn().mockReturnValueOnce({ data });
 
     act(() => {
-      render(
-        <AuthContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <MemoryRouter>
-              <EditRequestsPage />
-            </MemoryRouter>
-          </QueryClientProvider>
-        </AuthContextProvider>
-      );
+      renderInProvider(<EditRequestsPage />);
     });
 
-    await waitFor(() => {
-      expect(screen.queryByText("Loading")).not.toBeInTheDocument();
-    });
+    await ensureLoadingIsComplete();
 
     const requestCheckbox = screen.getByRole("checkbox", { name: "17 May" });
     expect(requestCheckbox).toBeInTheDocument();
@@ -57,20 +46,10 @@ describe("Edit requests", () => {
     axios.patch = jest.fn().mockReturnValueOnce({ data });
 
     act(() => {
-      render(
-        <AuthContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <MemoryRouter>
-              <EditRequestsPage />
-            </MemoryRouter>
-          </QueryClientProvider>
-        </AuthContextProvider>
-      );
+      renderInProvider(<EditRequestsPage />);
     });
 
-    await waitFor(() => {
-      expect(screen.queryByText("Loading")).not.toBeInTheDocument();
-    });
+    await ensureLoadingIsComplete();
 
     const requestCheckbox = screen.getByRole("checkbox", { name: "17 May" });
     const saveButton = screen.getByRole("button", { name: "Save" });

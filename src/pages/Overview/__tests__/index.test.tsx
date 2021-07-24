@@ -1,14 +1,14 @@
 import axios from "axios";
 import Auth from "@aws-amplify/auth";
-import { render, screen, act, waitFor } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { AuthContextProvider } from "../../../context/auth";
+import { screen, act } from "@testing-library/react";
 import { getMockSession } from "../../../context/auth/auth.dev";
 import { OverviewPage } from "..";
+import {
+  ensureLoadingIsComplete,
+  renderInProvider,
+} from "../../../testHelpers";
 
 describe("Overview", () => {
-  const queryClient = new QueryClient();
-
   const data = {
     overview: {
       weeks: [
@@ -33,18 +33,10 @@ describe("Overview", () => {
     axios.get = jest.fn().mockReturnValueOnce({ data });
 
     act(() => {
-      render(
-        <AuthContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <OverviewPage />
-          </QueryClientProvider>
-        </AuthContextProvider>
-      );
+      renderInProvider(<OverviewPage />);
     });
 
-    await waitFor(() => {
-      expect(screen.queryByText("Loading")).not.toBeInTheDocument();
-    });
+    await ensureLoadingIsComplete();
 
     expect(screen.getByText("User 1")).toBeInTheDocument();
   });

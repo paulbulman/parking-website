@@ -1,15 +1,12 @@
 import axios from "axios";
 import Auth from "@aws-amplify/auth";
-import { MemoryRouter } from "react-router-dom";
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { AuthContextProvider } from "../../../context/auth";
 import { getMockSession } from "../../../context/auth/auth.dev";
 import { AddUserPage } from "..";
+import { renderInProvider } from "../../../testHelpers";
 
 describe("AddUser", () => {
-  const queryClient = new QueryClient();
 
   const data = {
     users: [
@@ -30,15 +27,7 @@ describe("AddUser", () => {
       .mockResolvedValue(getMockSession("UserAdmin"));
     axios.post = jest.fn().mockReturnValueOnce({ data });
 
-    render(
-      <MemoryRouter>
-        <AuthContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <AddUserPage />
-          </QueryClientProvider>
-        </AuthContextProvider>
-      </MemoryRouter>
-    );
+    renderInProvider(<AddUserPage />)
 
     userEvent.type(screen.getByLabelText("Email"), "__EMAIL@ADDRESS__");
     userEvent.type(screen.getByLabelText("Confirm email"), "__EMAIL@ADDRESS__");

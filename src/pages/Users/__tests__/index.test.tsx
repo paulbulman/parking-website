@@ -1,15 +1,14 @@
 import axios from "axios";
 import Auth from "@aws-amplify/auth";
-import { MemoryRouter } from "react-router-dom";
-import { render, screen, act, waitFor } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { AuthContextProvider } from "../../../context/auth";
+import { screen, act } from "@testing-library/react";
 import { getMockSession } from "../../../context/auth/auth.dev";
 import { UsersPage } from "..";
+import {
+  ensureLoadingIsComplete,
+  renderInProvider,
+} from "../../../testHelpers";
 
 describe("Users", () => {
-  const queryClient = new QueryClient();
-
   const data = {
     users: [
       {
@@ -30,20 +29,10 @@ describe("Users", () => {
     axios.get = jest.fn().mockReturnValueOnce({ data });
 
     act(() => {
-      render(
-        <MemoryRouter>
-          <AuthContextProvider>
-            <QueryClientProvider client={queryClient}>
-              <UsersPage />
-            </QueryClientProvider>
-          </AuthContextProvider>
-        </MemoryRouter>
-      );
+      renderInProvider(<UsersPage />);
     });
 
-    await waitFor(() => {
-      expect(screen.queryByText("Loading")).not.toBeInTheDocument();
-    });
+    await ensureLoadingIsComplete();
 
     const [, dataRow] = screen.getAllByRole("row");
 

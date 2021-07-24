@@ -285,7 +285,7 @@ const summaryData = {
       days: [
         {
           localDate: "2021-05-17",
-          data: { status: "allocated", isProblem: false },
+          data: { status: "interrupted", isProblem: true },
           hidden: false,
         },
         {
@@ -425,8 +425,32 @@ export const handlers = [
     );
   }),
 
+  rest.patch(`${baseUrl}/stayInterrupted`, (req, res, ctx) => {
+    return res(
+      ctx.delay(500),
+      ctx.json({
+        summary: summaryData,
+        stayInterruptedStatus: {
+          localDate: "2021-05-17",
+          isAllowed: true,
+          isSet: true,
+        },
+      })
+    );
+  }),
+
   rest.get(`${baseUrl}/summary`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ summary: summaryData }));
+    return res(
+      ctx.delay(500),
+      ctx.json({
+        summary: summaryData,
+        stayInterruptedStatus: {
+          localDate: "2021-05-17",
+          isAllowed: true,
+          isSet: false,
+        },
+      })
+    );
   }),
 
   rest.get(`${baseUrl}/users`, (req, res, ctx) => {

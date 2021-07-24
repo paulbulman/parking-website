@@ -28,7 +28,13 @@ export interface paths {
     get: operations["Status_Get"];
   };
   "/Summary": {
-    get: operations["Summary_Get"];
+    get: operations["Summary_GetSummary"];
+  };
+  "/StayInterrupted": {
+    patch: operations["Summary_UpdateStayInterrupted"];
+  };
+  "/Triggers": {
+    post: operations["Triggers_Post"];
   };
   "/Users": {
     get: operations["Users_Get"];
@@ -166,6 +172,7 @@ export interface components {
     };
     SummaryResponse: {
       summary: components["schemas"]["CalendarOfSummaryData"];
+      stayInterruptedStatus: components["schemas"]["StayInterruptedStatus"];
     };
     CalendarOfSummaryData: {
       weeks: components["schemas"]["WeekOfSummaryData"][];
@@ -183,6 +190,15 @@ export interface components {
       isProblem: boolean;
     };
     SummaryStatus: "allocated" | "interrupted" | "requested";
+    StayInterruptedStatus: {
+      localDate: string;
+      isAllowed: boolean;
+      isSet: boolean;
+    };
+    StayInterruptedPatchRequest: {
+      localDate: string;
+      stayInterrupted: boolean;
+    };
     MultipleUsersResponse: {
       users: components["schemas"]["UsersData"][];
     };
@@ -367,13 +383,42 @@ export interface operations {
       200: unknown;
     };
   };
-  Summary_Get: {
+  Summary_GetSummary: {
     responses: {
       200: {
         content: {
           "application/json": components["schemas"]["SummaryResponse"];
         };
       };
+    };
+  };
+  Summary_UpdateStayInterrupted: {
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["SummaryResponse"];
+        };
+      };
+      400: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"];
+        };
+      };
+      404: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["StayInterruptedPatchRequest"];
+      };
+    };
+  };
+  Triggers_Post: {
+    responses: {
+      200: unknown;
     };
   };
   Users_Get: {

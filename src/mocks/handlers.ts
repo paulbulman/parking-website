@@ -14,39 +14,39 @@ const dailyDetailsData = [
         { name: "User 2", isHighlighted: false },
         { name: "User 4", isHighlighted: true },
       ],
-      requestedUsers: [],
+      pendingUsers: [],
     },
   },
   {
     localDate: "2021-05-18",
-    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
   },
   {
     localDate: "2021-05-19",
-    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
   },
   {
     localDate: "2021-05-20",
-    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
   },
   {
     localDate: "2021-05-25",
-    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
   },
   {
     localDate: "2021-05-26",
-    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
   },
   {
     localDate: "2021-05-27",
-    data: { allocatedUsers: [], interruptedUsers: [], requestedUsers: [] },
+    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
   },
   {
     localDate: "2021-05-28",
     data: {
       allocatedUsers: [],
       interruptedUsers: [],
-      requestedUsers: [
+      pendingUsers: [
         { name: "User 1", isHighlighted: false },
         { name: "User 2", isHighlighted: false },
         { name: "User 3", isHighlighted: false },
@@ -329,12 +329,12 @@ const summaryData = {
         },
         {
           localDate: "2021-05-27",
-          data: { status: "requested", isProblem: false },
+          data: { status: "pending", isProblem: false },
           hidden: false,
         },
         {
           localDate: "2021-05-28",
-          data: { status: "requested", isProblem: false },
+          data: { status: "pending", isProblem: false },
           hidden: false,
         },
       ],

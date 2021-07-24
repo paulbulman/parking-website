@@ -13,8 +13,8 @@ describe("summary page", () => {
 
     checkCellText(/25 may/i, "Allocated");
     checkCellText(/26 may/i, "Allocated");
-    checkCellText(/27 may/i, "Requested");
-    checkCellText(/28 may/i, "Requested");
+    checkCellText(/27 may/i, "Pending");
+    checkCellText(/28 may/i, "Pending");
   });
 
   it("sends the stay interrupted request to the server", () => {

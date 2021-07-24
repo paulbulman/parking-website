@@ -62,7 +62,7 @@ export interface components {
     DailyDetailsData: {
       allocatedUsers: components["schemas"]["DailyDetailsUser"][];
       interruptedUsers: components["schemas"]["DailyDetailsUser"][];
-      requestedUsers: components["schemas"]["DailyDetailsUser"][];
+      pendingUsers: components["schemas"]["DailyDetailsUser"][];
     };
     DailyDetailsUser: {
       name: string;
@@ -189,7 +189,7 @@ export interface components {
       status?: components["schemas"]["SummaryStatus"] | null;
       isProblem: boolean;
     };
-    SummaryStatus: "allocated" | "interrupted" | "requested";
+    SummaryStatus: "allocated" | "interrupted" | "pending";
     StayInterruptedStatus: {
       localDate: string;
       isAllowed: boolean;

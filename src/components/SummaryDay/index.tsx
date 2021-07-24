@@ -10,8 +10,8 @@ export const SummaryDay = ({ day }: SummaryDayProps) => {
         return "Allocated";
       case "interrupted":
         return "Interrupted";
-      case "requested":
-        return "Requested";
+      case "pending":
+        return "Pending";
       default:
         return "\u00A0";
     }
@@ -21,7 +21,7 @@ export const SummaryDay = ({ day }: SummaryDayProps) => {
     return classNames({
       "has-text-success-dark": status === "allocated",
       "has-text-danger": status === "interrupted",
-      "has-text-grey-light": status === "requested",
+      "has-text-grey-light": status === "pending",
     });
   };
 

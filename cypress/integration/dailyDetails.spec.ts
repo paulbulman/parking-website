@@ -26,7 +26,7 @@ describe("daily details page", () => {
     cy.findByLabelText("Date").click();
     cy.findByLabelText("Fri May 28 2021").click();
 
-    cy.findByText("Requested")
+    cy.findByText("Pending")
       .parent()
       .within(() => {
         cy.findByText("User 1").should("exist");

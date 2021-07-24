@@ -5,10 +5,10 @@ export const DailyDetails = ({ details }: DailyDetailsProps) => {
     return <div>No data.</div>;
   }
 
-  const { allocatedUsers, interruptedUsers, requestedUsers } = details;
+  const { allocatedUsers, interruptedUsers, pendingUsers } = details;
 
   const requestsExist =
-    allocatedUsers.length || interruptedUsers.length || requestedUsers.length;
+    allocatedUsers.length || interruptedUsers.length || pendingUsers.length;
 
   if (!requestsExist) {
     return (
@@ -45,7 +45,7 @@ export const DailyDetails = ({ details }: DailyDetailsProps) => {
     <>
       {createSection("Allocated", "has-text-success-dark", allocatedUsers)}
       {createSection("Interrupted", "has-text-danger", interruptedUsers)}
-      {createSection("Requested", "has-text-grey-light", requestedUsers)}
+      {createSection("Pending", "has-text-grey-light", pendingUsers)}
     </>
   );
 };

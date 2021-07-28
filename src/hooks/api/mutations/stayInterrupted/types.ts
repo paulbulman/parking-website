@@ -1,7 +1,7 @@
 import { operations } from "../../types";
 
 export type StayInterruptedRequestBody =
-  operations["Summary_UpdateStayInterrupted"]["requestBody"]["content"]["application/json"];
+  operations["DailyDetails_Patch"]["requestBody"]["content"]["application/json"];
 export type StayInterruptedRequestResult =
-  operations["Summary_UpdateStayInterrupted"]["responses"]["200"]["content"]["application/json"];
+  operations["DailyDetails_Patch"]["responses"]["200"]["content"]["application/json"];
 export type StayInterruptedRequestError = Error | null;

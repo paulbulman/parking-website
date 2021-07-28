@@ -2,7 +2,9 @@ import { rest } from "msw";
 
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const dailyDetailsData = [
+let stayInterruptedIsSet = false;
+
+const getDailyDetailsData = (stayInterruptedIsSet: boolean) => [
   {
     localDate: "2021-05-17",
     data: {
@@ -15,31 +17,65 @@ const dailyDetailsData = [
         { name: "User 4", isHighlighted: true },
       ],
       pendingUsers: [],
+      stayInterruptedStatus: {
+        isAllowed: true,
+        isSet: stayInterruptedIsSet,
+      },
     },
   },
   {
     localDate: "2021-05-18",
-    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
+    data: {
+      allocatedUsers: [],
+      interruptedUsers: [],
+      pendingUsers: [],
+      stayInterruptedStatus: { isAllowed: false, isSet: false },
+    },
   },
   {
     localDate: "2021-05-19",
-    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
+    data: {
+      allocatedUsers: [],
+      interruptedUsers: [],
+      pendingUsers: [],
+      stayInterruptedStatus: { isAllowed: false, isSet: false },
+    },
   },
   {
     localDate: "2021-05-20",
-    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
+    data: {
+      allocatedUsers: [],
+      interruptedUsers: [],
+      pendingUsers: [],
+      stayInterruptedStatus: { isAllowed: false, isSet: false },
+    },
   },
   {
     localDate: "2021-05-25",
-    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
+    data: {
+      allocatedUsers: [],
+      interruptedUsers: [],
+      pendingUsers: [],
+      stayInterruptedStatus: { isAllowed: false, isSet: false },
+    },
   },
   {
     localDate: "2021-05-26",
-    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
+    data: {
+      allocatedUsers: [],
+      interruptedUsers: [],
+      pendingUsers: [],
+      stayInterruptedStatus: { isAllowed: false, isSet: false },
+    },
   },
   {
     localDate: "2021-05-27",
-    data: { allocatedUsers: [], interruptedUsers: [], pendingUsers: [] },
+    data: {
+      allocatedUsers: [],
+      interruptedUsers: [],
+      pendingUsers: [],
+      stayInterruptedStatus: { isAllowed: false, isSet: false },
+    },
   },
   {
     localDate: "2021-05-28",
@@ -52,6 +88,7 @@ const dailyDetailsData = [
         { name: "User 3", isHighlighted: false },
         { name: "User 4", isHighlighted: true },
       ],
+      stayInterruptedStatus: { isAllowed: false, isSet: false },
     },
   },
 ];
@@ -285,7 +322,7 @@ const summaryData = {
       days: [
         {
           localDate: "2021-05-17",
-          data: { status: "interrupted", isProblem: true },
+          data: { status: "hardInterrupted", isProblem: true },
           hidden: false,
         },
         {
@@ -376,7 +413,10 @@ const getProfile = () => {
 
 export const handlers = [
   rest.get(`${baseUrl}/dailyDetails`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ details: dailyDetailsData }));
+    return res(
+      ctx.delay(500),
+      ctx.json({ details: getDailyDetailsData(stayInterruptedIsSet) })
+    );
   }),
 
   rest.get(`${baseUrl}/overview`, (req, res, ctx) => {
@@ -426,31 +466,15 @@ export const handlers = [
   }),
 
   rest.patch(`${baseUrl}/stayInterrupted`, (req, res, ctx) => {
+    stayInterruptedIsSet = !stayInterruptedIsSet;
     return res(
       ctx.delay(500),
-      ctx.json({
-        summary: summaryData,
-        stayInterruptedStatus: {
-          localDate: "2021-05-17",
-          isAllowed: true,
-          isSet: true,
-        },
-      })
+      ctx.json({ details: getDailyDetailsData(stayInterruptedIsSet) })
     );
   }),
 
   rest.get(`${baseUrl}/summary`, (req, res, ctx) => {
-    return res(
-      ctx.delay(500),
-      ctx.json({
-        summary: summaryData,
-        stayInterruptedStatus: {
-          localDate: "2021-05-17",
-          isAllowed: true,
-          isSet: false,
-        },
-      })
-    );
+    return res(ctx.delay(500), ctx.json({ summary: summaryData }));
   }),
 
   rest.get(`${baseUrl}/users`, (req, res, ctx) => {

@@ -10,6 +10,8 @@ export const SummaryDay = ({ day }: SummaryDayProps) => {
         return "Allocated";
       case "interrupted":
         return "Interrupted";
+      case "hardInterrupted":
+        return "Stay interrupted";
       case "pending":
         return "Pending";
       default:
@@ -20,7 +22,8 @@ export const SummaryDay = ({ day }: SummaryDayProps) => {
   const getStatusClass = (status: string | null | undefined) => {
     return classNames({
       "has-text-success-dark": status === "allocated",
-      "has-text-danger": status === "interrupted",
+      "has-text-danger":
+        status === "interrupted" || status === "hardInterrupted",
       "has-text-grey-light": status === "pending",
     });
   };

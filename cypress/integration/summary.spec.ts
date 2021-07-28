@@ -7,7 +7,7 @@ describe("summary page", () => {
   });
 
   it("displays the request statuses for the current user", () => {
-    checkCellText(/17 may/i, "Interrupted");
+    checkCellText(/17 may/i, "Stay interrupted");
     checkCellText(/18 may/i, "Allocated");
     checkCellText(/19 may/i, "Interrupted");
 
@@ -15,34 +15,6 @@ describe("summary page", () => {
     checkCellText(/26 may/i, "Allocated");
     checkCellText(/27 may/i, "Pending");
     checkCellText(/28 may/i, "Pending");
-  });
-
-  it("sends the stay interrupted request to the server", () => {
-    cy.server();
-    cy.route("PATCH", "/stayInterrupted").as("stayInterrupted");
-
-    cy.findByRole("button", { name: "Stay interrupted" }).click();
-
-    cy.wait("@stayInterrupted").its("request.body").should("deep.equal", {
-      localDate: "2021-05-17",
-      stayInterrupted: true,
-    });
-  });
-
-  it("sends the re-request space request to the server", () => {
-    cy.server();
-    cy.route("PATCH", "/stayInterrupted").as("stayInterrupted");
-
-    cy.findByRole("button", { name: "Stay interrupted" }).click();
-
-    cy.wait("@stayInterrupted");
-
-    cy.findByRole("button", { name: "Re-request space" }).click();
-
-    cy.wait("@stayInterrupted").its("request.body").should("deep.equal", {
-      localDate: "2021-05-17",
-      stayInterrupted: false,
-    });
   });
 
   it("redirects to the daily detail page when the link is clicked", () => {

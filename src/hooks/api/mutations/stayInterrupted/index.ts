@@ -18,7 +18,7 @@ export const useStayInterrupted = () => {
     StayInterruptedRequestBody
   >(endpoint, patch(getToken, endpoint), {
     onSuccess: (data) => {
-      queryClient.setQueryData("summary", data);
+      queryClient.setQueryData("dailyDetails", data);
     },
   });
   const { mutateAsync: stayInterrupted, isLoading: isSaving } = mutation;

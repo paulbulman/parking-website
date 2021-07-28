@@ -2,6 +2,9 @@ export interface paths {
   "/DailyDetails": {
     get: operations["DailyDetails_Get"];
   };
+  "/StayInterrupted": {
+    patch: operations["DailyDetails_Patch"];
+  };
   "/Overview": {
     get: operations["Overview_Get"];
   };
@@ -29,9 +32,6 @@ export interface paths {
   };
   "/Summary": {
     get: operations["Summary_GetSummary"];
-  };
-  "/StayInterrupted": {
-    patch: operations["Summary_UpdateStayInterrupted"];
   };
   "/Triggers": {
     post: operations["Triggers_Post"];
@@ -63,10 +63,27 @@ export interface components {
       allocatedUsers: components["schemas"]["DailyDetailsUser"][];
       interruptedUsers: components["schemas"]["DailyDetailsUser"][];
       pendingUsers: components["schemas"]["DailyDetailsUser"][];
+      stayInterruptedStatus: components["schemas"]["StayInterruptedStatus"];
     };
     DailyDetailsUser: {
       name: string;
       isHighlighted: boolean;
+    };
+    StayInterruptedStatus: {
+      isAllowed: boolean;
+      isSet: boolean;
+    };
+    ProblemDetails: {
+      type?: string | null;
+      title?: string | null;
+      status?: number | null;
+      detail?: string | null;
+      instance?: string | null;
+      extensions?: { [key: string]: any } | null;
+    } & { [key: string]: { [key: string]: unknown } | null };
+    StayInterruptedPatchRequest: {
+      localDate: string;
+      stayInterrupted: boolean;
     };
     OverviewResponse: {
       overview: components["schemas"]["CalendarOfOverviewData"];
@@ -125,14 +142,6 @@ export interface components {
     RequestsData: {
       requested: boolean;
     };
-    ProblemDetails: {
-      type?: string | null;
-      title?: string | null;
-      status?: number | null;
-      detail?: string | null;
-      instance?: string | null;
-      extensions?: { [key: string]: any } | null;
-    } & { [key: string]: { [key: string]: unknown } | null };
     RequestsPatchRequest: {
       requests: components["schemas"]["RequestsPatchRequestDailyData"][];
     };
@@ -172,7 +181,6 @@ export interface components {
     };
     SummaryResponse: {
       summary: components["schemas"]["CalendarOfSummaryData"];
-      stayInterruptedStatus: components["schemas"]["StayInterruptedStatus"];
     };
     CalendarOfSummaryData: {
       weeks: components["schemas"]["WeekOfSummaryData"][];
@@ -189,16 +197,7 @@ export interface components {
       status?: components["schemas"]["SummaryStatus"] | null;
       isProblem: boolean;
     };
-    SummaryStatus: "allocated" | "interrupted" | "pending";
-    StayInterruptedStatus: {
-      localDate: string;
-      isAllowed: boolean;
-      isSet: boolean;
-    };
-    StayInterruptedPatchRequest: {
-      localDate: string;
-      stayInterrupted: boolean;
-    };
+    SummaryStatus: "allocated" | "hardInterrupted" | "interrupted" | "pending";
     MultipleUsersResponse: {
       users: components["schemas"]["UsersData"][];
     };
@@ -245,6 +244,30 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["DailyDetailsResponse"];
         };
+      };
+    };
+  };
+  DailyDetails_Patch: {
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["DailyDetailsResponse"];
+        };
+      };
+      400: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"];
+        };
+      };
+      404: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["StayInterruptedPatchRequest"];
       };
     };
   };
@@ -389,30 +412,6 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["SummaryResponse"];
         };
-      };
-    };
-  };
-  Summary_UpdateStayInterrupted: {
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["SummaryResponse"];
-        };
-      };
-      400: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"];
-        };
-      };
-      404: {
-        content: {
-          "application/json": components["schemas"]["ProblemDetails"];
-        };
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["StayInterruptedPatchRequest"];
       };
     };
   };

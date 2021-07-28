@@ -36,8 +36,44 @@ describe("daily details page", () => {
       });
   });
 
+  it("highlights the current user", () => {
+    cy.findByText("User 4").should("have.class", "has-text-weight-bold");
+
+    cy.findByLabelText("Date").click();
+    cy.findByLabelText("Fri May 28 2021").click();
+    cy.findByText("User 4").should("have.class", "has-text-weight-bold");
+  });
+
   it("redirects to the summary page when the link is clicked", () => {
     cy.findByRole("link", { name: "Back to summary" }).click();
     cy.findByRole("heading", { name: "Summary" }).should("exist");
+  });
+
+  it("sends the stay interrupted request to the server", () => {
+    cy.server();
+    cy.route("PATCH", "/stayInterrupted").as("stayInterrupted");
+
+    cy.findByRole("button", { name: "Stay interrupted" }).click();
+
+    cy.wait("@stayInterrupted").its("request.body").should("deep.equal", {
+      localDate: "2021-05-17",
+      stayInterrupted: true,
+    });
+  });
+
+  it("sends the re-request space request to the server", () => {
+    cy.server();
+    cy.route("PATCH", "/stayInterrupted").as("stayInterrupted");
+
+    cy.findByRole("button", { name: "Stay interrupted" }).click();
+
+    cy.wait("@stayInterrupted");
+
+    cy.findByRole("button", { name: "Re-request space" }).click();
+
+    cy.wait("@stayInterrupted").its("request.body").should("deep.equal", {
+      localDate: "2021-05-17",
+      stayInterrupted: false,
+    });
   });
 });

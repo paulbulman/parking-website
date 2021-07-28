@@ -2,10 +2,12 @@ import querystring from "query-string";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { parseISO, isValid, isSameDay } from "date-fns";
 import { useDailyDetails } from "../../hooks/api/queries/dailyDetails";
+import { useStayInterrupted } from "../../hooks/api/mutations/stayInterrupted";
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
 import { DatePicker } from "../../components/DatePicker";
 import { DailyDetails } from "../../components/DailyDetails";
+import { success, error } from "../../utils/notifications";
 import { formatDate, getDailyData } from "./utils";
 
 export const DailyDetailsPage = () => {
@@ -13,6 +15,7 @@ export const DailyDetailsPage = () => {
   const history = useHistory();
 
   const { data, isLoading, isError } = useDailyDetails();
+  const { stayInterrupted, isSaving } = useStayInterrupted();
 
   const query = querystring.parse(location.search);
   const queryLocalDateString = query.localDate as string;
@@ -33,6 +36,22 @@ export const DailyDetailsPage = () => {
     history.push(`${location.pathname}?localDate=${formatDate(selectedDate)}`);
   };
 
+  const updateStayInterruptedStatus = async (value: boolean) => {
+    if (!data) {
+      return;
+    }
+
+    try {
+      await stayInterrupted({
+        localDate: formatDate(selectedDate),
+        stayInterrupted: value,
+      });
+      success("Request updated successfully.");
+    } catch {
+      error("Something went wrong. Please try again.");
+    }
+  };
+
   var content = isLoading ? (
     <Loading />
   ) : isError ? (
@@ -47,7 +66,11 @@ export const DailyDetailsPage = () => {
             setSelectedDate={setSelectedDate}
           />
         </div>
-        <DailyDetails details={getDailyData(data.details, selectedDate)} />
+        <DailyDetails
+          details={getDailyData(data.details, selectedDate)}
+          isSaving={isSaving}
+          updateStayInterruptedStatus={updateStayInterruptedStatus}
+        />
         <div className="pb-5">
           <Link to="/" className="button is-link is-light">
             Back to summary

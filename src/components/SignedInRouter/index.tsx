@@ -12,6 +12,7 @@ import { SignedInRouterProps } from "./types";
 import { DailyDetailsPage } from "../../pages/DailyDetails";
 import { NotFoundPage } from "../../pages/NotFound";
 import { NotAllowedPage } from "../../pages/NotAllowed";
+import { FaqPage } from "../../pages/Faq";
 
 export const SignedInRouter = ({ groups }: SignedInRouterProps) => {
   const EditReservations = groups.includes("TeamLeader") ? (
@@ -64,6 +65,9 @@ export const SignedInRouter = ({ groups }: SignedInRouterProps) => {
       </Route>
       <Route path="/users/add">{AddUser}</Route>
       <Route path="/users/edit/:userId">{EditUser}</Route>
+      <Route path="/faq">
+        <FaqPage />
+      </Route>
       <Route path="*">
         <NotFoundPage />
       </Route>

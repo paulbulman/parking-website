@@ -6,6 +6,7 @@ import {
   faCalendarAlt,
   faUsers,
   faUser,
+  faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { Header } from "../Header";
 import { NavigationLink } from "../NavigationLink";
@@ -60,6 +61,7 @@ export const SignedInHeader = ({
         </div>
         <div className="navbar-end">
           <NavigationLink to="/profile" caption={firstName} icon={faUser} />
+          <NavigationLink to="/faq" caption="FAQ" icon={faQuestionCircle} />
           <LogoutButton onClick={onSignout} />
         </div>
       </div>

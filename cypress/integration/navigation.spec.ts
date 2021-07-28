@@ -7,6 +7,7 @@ describe("navigation", () => {
   const editReservationsRegex = /edit reservations/i;
   const usersRegex = /users/i;
   const profileRegex = /john/i;
+  const faqRegex = /faq/i;
   const logOutRegex = /log out/i;
 
   context("when the user is on a desktop device", () => {
@@ -43,6 +44,11 @@ describe("navigation", () => {
       it("redirects to the profile page when the link is clicked", () => {
         cy.findByRole("link", { name: profileRegex }).click();
         cy.findByRole("heading", { name: /edit profile/i }).should("exist");
+      });
+
+      it("redirects to the FAQ page when the link is clicked", () => {
+        cy.findByRole("link", { name: faqRegex }).click();
+        cy.findByRole("heading", { name: /faq/i }).should("exist");
       });
 
       it("logs the user out when the link is clicked", () => {

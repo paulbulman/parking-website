@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import classNames from "classnames";
 import { SummaryDayProps } from "./types";
 import { Link } from "react-router-dom";
+import { SummaryStatusIndicator } from "../SummaryStatusIndicator";
 
 export const SummaryDay = ({ day }: SummaryDayProps) => {
   const getStatusCaption = (status: string | null | undefined) => {
@@ -40,8 +41,11 @@ export const SummaryDay = ({ day }: SummaryDayProps) => {
           {format(new Date(day.localDate), "dd MMM")}
         </Link>
       </div>
-      <div className={getStatusClass(day.data?.status)}>
-        {getStatusCaption(day.data?.status)}
+      <div className="mt-1 mb-1 is-flex is-align-items-center">
+        <SummaryStatusIndicator status={day.data?.status} />
+        <span className={getStatusClass(day.data?.status)}>
+          {getStatusCaption(day.data?.status)}
+        </span>
       </div>
     </td>
   );

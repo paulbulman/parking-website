@@ -1,0 +1,32 @@
+.circle {
+  display: block;
+  background: black;
+  border-radius: 50%;
+  height: 1.25rem;
+  width: 1.25rem;
+  margin: 0;
+}
+
+.allocated {
+  background: radial-gradient(
+    circle at 0.4rem 0.4rem,
+    hsl(120, 100%, 50%),
+    hsl(120, 100%, 25%)
+  );
+}
+
+.interrupted {
+  background: radial-gradient(
+    circle at 0.4rem 0.4rem,
+    hsl(0, 100%, 50%),
+    hsl(0, 100%, 25%)
+  );
+}
+
+.pending {
+  background: radial-gradient(
+    circle at 0.4rem 0.4rem,
+    hsl(0, 0%, 75%),
+    hsl(0, 0%, 50%)
+  );
+}

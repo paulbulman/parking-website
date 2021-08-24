@@ -1,0 +1,27 @@
+.DayPicker-Day {
+  line-height: 1;
+}
+
+.DayPicker-NavButton--prev,
+.DayPicker-NavButton--next {
+  background: none;
+}
+
+.DayPicker-NavButton--prev::before,
+.DayPicker-NavButton--next::before {
+  content: "";
+  display: inline-block;
+  height: 0.5rem;
+  width: 0.5rem;
+  border-style: solid;
+  border-width: 0.1rem 0.1rem 0 0;
+  border-color: black;
+}
+
+.DayPicker-NavButton--prev::before {
+  transform: rotate(-135deg);
+}
+
+.DayPicker-NavButton--next::before {
+  transform: rotate(45deg);
+}

@@ -10,7 +10,3 @@ body {
 .app {
   min-height: 100vh;
 }
-
-.DayPicker-Day {
-  line-height: 1;
-}

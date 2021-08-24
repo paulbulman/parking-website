@@ -13,6 +13,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "./index.css";
+import "./daypicker.css";
 
 if (process.env.NODE_ENV === "development") {
   const { worker } = require("./mocks/browser");

@@ -5,6 +5,7 @@ import { SignedOutHeader } from "./components/SignedOutHeader";
 import { SignedOutRouter } from "./components/SignedOutRouter";
 import { SignedInHeader } from "./components/SignedInHeader";
 import { SignedInRouter } from "./components/SignedInRouter";
+import { Footer } from "./components/Footer";
 
 export const App = () => {
   const { authenticationStatus, getGroups, getFirstName, signOut } =
@@ -30,12 +31,17 @@ export const App = () => {
       const firstName = getFirstName();
       return (
         <>
-          <SignedInHeader
-            groups={groups}
-            firstName={firstName}
-            onSignout={handleSignout}
-          />
-          <SignedInRouter groups={groups} />
+          <div className="app is-flex is-flex-direction-column">
+            <div className="is-flex-grow-1 is-flex-shrink-1">
+              <SignedInHeader
+                groups={groups}
+                firstName={firstName}
+                onSignout={handleSignout}
+              />
+              <SignedInRouter groups={groups} />
+            </div>
+            <Footer />
+          </div>
         </>
       );
   }

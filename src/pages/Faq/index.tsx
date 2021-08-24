@@ -57,7 +57,7 @@ export const FaqPage = () => {
         <p>
           If you've been allocated a space that you no longer need, please
           cancel your request via the{" "}
-          <Link to="/edit-requests">"Edit requests"</Link> page.
+          <Link to="/edit-requests">edit requests</Link> page.
         </p>
         <p>
           Similarly if you've been interrupted, but no longer need a space
@@ -69,7 +69,7 @@ export const FaqPage = () => {
           If you've been interrupted, but have now made alternative arrangments{" "}
           <strong>to come into the office</strong>, you can choose to stay
           interrupted using the "Stay interrupted" button on the{" "}
-          <Link to="daily-details">"Daily details"</Link> page. Note that this
+          <Link to="daily-details">daily details</Link> page. Note that this
           will only be available if you were interrupted when the final spaces
           were released for that day.
         </p>
@@ -104,7 +104,7 @@ export const FaqPage = () => {
         <h3>Is it secure?</h3>
         <p>
           Yes and no. No system is ever completely secure, despite what it might
-          claim. But there are various things in place here to increase the
+          claim. But here are some of the things in place here to increase the
           odds:
         </p>
         <ul>
@@ -121,7 +121,7 @@ export const FaqPage = () => {
           <li>
             The site is hosted using{" "}
             <a href="https://pages.cloudflare.com/">Cloudflare pages</a>, which
-            provides various security features including{" "}
+            provides numerous security features including{" "}
             <a
               href={`https://www.ssllabs.com/ssltest/analyze.html?d=${process.env.REACT_APP_DOMAIN}&hideResults=on&latest`}
             >
@@ -148,7 +148,7 @@ export const FaqPage = () => {
             attacks.
           </li>
           <li>
-            Various attack vectors are mitigated by{" "}
+            Many attack vectors are mitigated by{" "}
             <a
               href={`https://securityheaders.com/?q=${process.env.REACT_APP_DOMAIN}&hide=on&followRedirects=on`}
             >
@@ -168,10 +168,14 @@ export const FaqPage = () => {
           </li>
         </ul>
         <p>
-          Hopefully all of the above (and various other things besides), coupled
+          Hopefully all of the above (and some other things besides), coupled
           with the fact that it's not exactly a high-value target for nation
           state hacker types, means that the chance of your car registration
           number being sold on the dark web is pretty low... 🤞
+        </p>
+        <p>
+          You may also wish to read the <Link to="/privacy">Privacy Policy</Link>
+          .
         </p>
       </div>
     </Layout>

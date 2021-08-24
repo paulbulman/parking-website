@@ -7,14 +7,14 @@ describe("daily details page", () => {
   });
 
   it("displays the requests for the selected date", () => {
-    cy.findByText("Allocated")
+    cy.findByText("Allocated (2)")
       .parent()
       .within(() => {
         cy.findByText("User 1").should("exist");
         cy.findByText("User 3").should("exist");
       });
 
-    cy.findByText("Interrupted")
+    cy.findByText("Interrupted (2)")
       .parent()
       .within(() => {
         cy.findByText("User 2").should("exist");
@@ -26,7 +26,7 @@ describe("daily details page", () => {
     cy.findByLabelText("Date").click();
     cy.findByLabelText("Fri May 28 2021").click();
 
-    cy.findByText("Pending")
+    cy.findByText("Pending (4)")
       .parent()
       .within(() => {
         cy.findByText("User 1").should("exist");

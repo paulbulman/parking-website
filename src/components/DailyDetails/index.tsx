@@ -52,7 +52,7 @@ export const DailyDetails = ({
     return (
       <div className="pb-5">
         <h3 className={`${captionClassName} has-text-weight-bold`}>
-          {caption}
+          {caption} ({users.length})
         </h3>
         <div className="content">
           <ul>

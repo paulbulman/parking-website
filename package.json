@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/auth": "^4.3.0",
+    "@aws-amplify/auth": "^4.3.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
@@ -19,7 +19,7 @@
     "react-day-picker": "^7.4.10",
     "react-dom": "^17.0.2",
     "react-loader-spinner": "^4.0.0",
-    "react-query": "^3.21.0",
+    "react-query": "^3.23.1",
     "react-router-dom": "^5.2.0",
     "react-toastify": "^7.0.4"
   },

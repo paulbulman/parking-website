@@ -5,6 +5,7 @@ describe("navigation", () => {
   const editRequestsRegex = /edit requests/i;
   const registrationNumbersRegex = /registration numbers/i;
   const editReservationsRegex = /edit reservations/i;
+  const overrideRequestsRegex = /override requests/i;
   const usersRegex = /users/i;
   const profileRegex = /john/i;
   const faqRegex = /faq/i;
@@ -63,6 +64,13 @@ describe("navigation", () => {
         );
       });
 
+      it("does not render the override requests link", () => {
+        ensureNavigationBarIsLoaded();
+        cy.findByRole("link", { name: overrideRequestsRegex }).should(
+          "not.exist"
+        );
+      });
+
       it("does not render the users link", () => {
         ensureNavigationBarIsLoaded();
         cy.findByRole("link", { name: usersRegex }).should("not.exist");
@@ -78,6 +86,13 @@ describe("navigation", () => {
       it("redirects to the edit reservations page when the link is clicked", () => {
         cy.findByRole("link", { name: editReservationsRegex }).click();
         cy.findByRole("heading", { name: /^edit reservations$/i }).should(
+          "exist"
+        );
+      });
+
+      it("redirects to the override requests page when the link is clicked", () => {
+        cy.findByRole("link", { name: overrideRequestsRegex }).click();
+        cy.findByRole("heading", { name: /^override requests$/i }).should(
           "exist"
         );
       });
@@ -103,6 +118,13 @@ describe("navigation", () => {
         ensureNavigationBarIsLoaded();
 
         cy.findByRole("link", { name: editReservationsRegex }).should(
+          "not.exist"
+        );
+      });
+
+      it("does not render the override requests link when the user is not a team leader user", () => {
+        ensureNavigationBarIsLoaded();
+        cy.findByRole("link", { name: overrideRequestsRegex }).should(
           "not.exist"
         );
       });

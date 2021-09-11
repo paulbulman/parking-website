@@ -398,6 +398,11 @@ const usersData = [
   },
 ];
 
+const usersListData = [
+  { userId: 1, name: "John Doe" },
+  { userId: 2, name: "Ann Other" },
+];
+
 const getUser = (userId: string) => {
   const user = usersData[0];
   return { ...user, userId };
@@ -441,6 +446,13 @@ export const handlers = [
     return res(ctx.delay(500), ctx.json({ requests: requestsData }));
   }),
   rest.patch(`${baseUrl}/requests`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.json({ requests: requestsData }));
+  }),
+
+  rest.get(`${baseUrl}/requests/:userId`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.json({ requests: requestsData }));
+  }),
+  rest.patch(`${baseUrl}/requests/:userId`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ requests: requestsData }));
   }),
 
@@ -489,5 +501,9 @@ export const handlers = [
   }),
   rest.patch(`${baseUrl}/users/:userId`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ user: getUser(req.params.userId) }));
+  }),
+
+  rest.get(`${baseUrl}/usersList`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.json({ users: usersListData }));
   }),
 ];

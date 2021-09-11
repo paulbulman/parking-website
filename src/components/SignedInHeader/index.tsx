@@ -4,9 +4,10 @@ import {
   faHome,
   faCar,
   faCalendarAlt,
+  faQuestionCircle,
   faUsers,
   faUser,
-  faQuestionCircle,
+  faWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { Header } from "../Header";
 import { NavigationLink } from "../NavigationLink";
@@ -53,6 +54,13 @@ export const SignedInHeader = ({
               to="/edit-reservations"
               caption="Edit Reservations"
               icon={faCalendarAlt}
+            />
+          )}
+          {groups.includes("TeamLeader") && (
+            <NavigationLink
+              to="/override-requests"
+              caption="Override Requests"
+              icon={faWrench}
             />
           )}
           {groups.includes("UserAdmin") && (

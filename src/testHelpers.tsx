@@ -9,11 +9,9 @@ export const renderInProvider = (component: ReactNode) => {
 
   render(
     <MemoryRouter>
-      <AuthContextProvider>
-        <QueryClientProvider client={queryClient}>
-          {component}
-        </QueryClientProvider>
-      </AuthContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthContextProvider>{component}</AuthContextProvider>
+      </QueryClientProvider>
     </MemoryRouter>
   );
 };

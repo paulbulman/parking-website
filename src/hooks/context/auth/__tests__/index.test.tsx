@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { renderHook, act } from "@testing-library/react-hooks";
 import Auth from "@aws-amplify/auth";
 import { useAuthContext } from "..";
@@ -11,7 +12,13 @@ describe("useAuth", () => {
   const password = "__PASSWORD__";
 
   const wrapper = ({ children }: { children: ReactNode }) => {
-    return <AuthContextProvider>{children}</AuthContextProvider>;
+    const queryClient = new QueryClient();
+
+    return (
+      <QueryClientProvider client={queryClient}>
+        <AuthContextProvider>{children}</AuthContextProvider>
+      </QueryClientProvider>
+    );
   };
 
   it("throws an error when used outside an auth context provider", () => {

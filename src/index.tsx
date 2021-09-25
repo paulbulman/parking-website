@@ -32,8 +32,8 @@ FontAwesome.autoAddCss = false;
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
         <BrowserRouter>
           <ToastContainer
             transition={Zoom}
@@ -42,8 +42,8 @@ ReactDOM.render(
           />
           <App />
         </BrowserRouter>
-      </QueryClientProvider>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -5,6 +5,7 @@ import {
   useState,
   useEffect,
 } from "react";
+import { useQueryClient } from "react-query";
 import Auth from "@aws-amplify/auth";
 import jwt_decode from "jwt-decode";
 import {
@@ -39,6 +40,7 @@ export const AuthContext = createContext<AuthContextValues | undefined>(
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [isInitialising, setIsInitialising] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const loadPreviousUser = async () => {
@@ -120,12 +122,13 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
   const signOut = useCallback(async () => {
     try {
+      queryClient.clear();
       await Auth.signOut({ global: true });
       setUser(null);
     } catch {
       setUser(null);
     }
-  }, [setUser]);
+  }, [setUser, queryClient]);
 
   const getToken = useCallback(async () => {
     try {

@@ -12,7 +12,7 @@ export interface paths {
     get: operations["Profiles_Get"];
     patch: operations["Profiles_Patch"];
   };
-  "/RegistrationNumbers": {
+  "/RegistrationNumbers/{searchString}": {
     get: operations["RegistrationNumbers_Get"];
   };
   "/Requests": {
@@ -304,6 +304,11 @@ export interface operations {
     };
   };
   RegistrationNumbers_Get: {
+    parameters: {
+      path: {
+        searchString: string;
+      };
+    };
     responses: {
       200: {
         content: {

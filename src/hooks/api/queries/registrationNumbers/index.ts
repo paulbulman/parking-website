@@ -4,15 +4,29 @@ import { get } from "../../helpers";
 import {
   RegistrationNumbersRequestError,
   RegistrationNumbersRequestResult,
+  RegistrationNumbersRequestParameters,
 } from "./types";
 
-export const useRegistrationNumbers = () => {
+export const useRegistrationNumbers = ({
+  searchString,
+}: RegistrationNumbersRequestParameters) => {
   const endpoint = "registrationNumbers";
+  const sanitizedSearchString = searchString.replace(/[^a-z0-9]/gi, "");
 
   const { getToken } = useAuthContext();
 
   return useQuery<
     RegistrationNumbersRequestResult,
     RegistrationNumbersRequestError
-  >(endpoint, () => get<RegistrationNumbersRequestResult>(getToken, endpoint));
+  >(
+    [endpoint, sanitizedSearchString],
+    () =>
+      get<RegistrationNumbersRequestResult>(
+        getToken,
+        `${endpoint}/${sanitizedSearchString}`
+      ),
+    {
+      enabled: Boolean(sanitizedSearchString),
+    }
+  );
 };

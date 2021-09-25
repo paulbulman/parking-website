@@ -7,8 +7,13 @@ describe("registration numbers page", () => {
   });
 
   it("displays the registration numbers", () => {
+    cy.findByRole("textbox", { name: /registration number input/i }).type(
+      "AB123CDE"
+    );
+
+    cy.findByRole("button", { name: /search icon/i }).click();
+
     checkRegistrationNumber(/ab123cde/i, /john doe/i);
-    checkRegistrationNumber(/xy789xyz/i, /ann other/i);
   });
 
   const checkRegistrationNumber = (

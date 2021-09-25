@@ -11,7 +11,7 @@ export const RegistrationNumbersTable = ({
     </tr>
   ));
 
-  return (
+  return registrationNumbers.length > 0 ? (
     <Table>
       <thead>
         <tr>
@@ -21,5 +21,7 @@ export const RegistrationNumbersTable = ({
       </thead>
       <tbody>{rows}</tbody>
     </Table>
+  ) : (
+    <div>No matching registration number found.</div>
   );
 };

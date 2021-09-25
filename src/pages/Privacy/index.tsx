@@ -3,7 +3,10 @@ import { Layout } from "../../components/Layout";
 
 export const PrivacyPage = () => {
   return (
-    <Layout heading="Privacy policy" subheading="How your data is kept as safe as possible">
+    <Layout
+      heading="Privacy policy"
+      subheading="How your data is kept as safe as possible"
+    >
       <div className="content">
         <h3>Introduction</h3>
         <p>
@@ -81,6 +84,12 @@ export const PrivacyPage = () => {
           to other users of the system. In order to protect this data, users are
           not allowed to sign up to the system themselves; all new accounts must
           be created by an administrative user.
+        </p>
+        <p>
+          Registration numbers are not visible to browse; they are only
+          displayed when searching for a specific registration number. This is
+          the legitimate use case of another user finding out who is blocking
+          them in.
         </p>
         <p>
           No personal information is ever shared with any third-party. No

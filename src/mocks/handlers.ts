@@ -177,10 +177,6 @@ const registrationNumbersData = [
     registrationNumber: "AB123CDE",
     name: "John Doe",
   },
-  {
-    registrationNumber: "XY789XYZ",
-    name: "Ann Other",
-  },
 ];
 
 const requestsData = {
@@ -435,10 +431,14 @@ export const handlers = [
     return res(ctx.delay(500), ctx.json({ profile: getProfile() }));
   }),
 
-  rest.get(`${baseUrl}/registrationNumbers`, (req, res, ctx) => {
+  rest.get(`${baseUrl}/registrationNumbers/:searchString`, (req, res, ctx) => {
     return res(
       ctx.delay(500),
-      ctx.json({ registrationNumbers: registrationNumbersData })
+      ctx.json({
+        registrationNumbers: registrationNumbersData.filter(
+          (data) => data.registrationNumber === req.params["searchString"]
+        ),
+      })
     );
   }),
 

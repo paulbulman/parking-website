@@ -1,5 +1,6 @@
 import { Switch, Route } from "react-router-dom";
 import { AddUserPage } from "../../pages/AddUser";
+import { CreateErrorPage } from "../../pages/CreateError";
 import { DailyDetailsPage } from "../../pages/DailyDetails";
 import { EditProfilePage } from "../../pages/EditProfile";
 import { EditRequestsPage } from "../../pages/EditRequests";
@@ -51,6 +52,9 @@ export const SignedInRouter = ({ groups }: SignedInRouterProps) => {
     <Switch>
       <Route exact path="/">
         <SummaryPage />
+      </Route>
+      <Route path="/create-error">
+        <CreateErrorPage />
       </Route>
       <Route path="/daily-details">
         <DailyDetailsPage />

@@ -94,7 +94,7 @@ export const FaqPage = () => {
         <p>
           I suppose you don't, though creating this app would have been an awful
           lot of hassle to go to just for the sake of sneaking an occasional
-          exra parking space for myself 😛. If something's not working as it
+          extra parking space for myself 😛. If something's not working as it
           should be it's much more likely that there's a bug (see above), but
           you <em>can</em> see all the source code{" "}
           <a href={`${process.env.REACT_APP_REPOSITORY_URL}/tree/main`}>here</a>

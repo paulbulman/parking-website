@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/auth": "^4.3.8",
+    "@aws-amplify/auth": "^4.3.10",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
@@ -11,7 +11,7 @@
     "axios": "^0.21.2",
     "bulma": "^0.9.3",
     "classnames": "^2.3.1",
-    "date-fns": "^2.24.0",
+    "date-fns": "^2.25.0",
     "formik": "^2.2.9",
     "hibp": "11.0.0",
     "jwt-decode": "^3.1.2",
@@ -60,7 +60,7 @@
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.2",
     "@types/node": "^12.20.28",
-    "@types/react": "^17.0.24",
+    "@types/react": "^17.0.30",
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.3.0",
     "@types/testing-library__cypress": "^5.0.9",
@@ -68,7 +68,7 @@
     "eslint-plugin-cypress": "^2.12.1",
     "msw": "^0.35.0",
     "react-scripts": "^4.0.3",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.4"
   },
   "msw": {
     "workerDirectory": "public"

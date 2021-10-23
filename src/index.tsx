@@ -7,7 +7,6 @@ import { AuthContextProvider } from "./context/auth";
 import { QueryClient, QueryClientProvider, QueryCache } from "react-query";
 import { config as FontAwesome } from "@fortawesome/fontawesome-svg-core";
 import { App } from "./App";
-import { CloseButton } from "./components/CloseButton";
 import "bulma/css/bulma.min.css";
 import "react-day-picker/lib/style.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -50,9 +49,10 @@ ReactDOM.render(
         <AuthContextProvider>
           <BrowserRouter>
             <ToastContainer
+              theme="light"
               transition={Zoom}
               hideProgressBar={true}
-              closeButton={CloseButton}
+              closeButton={false}
             />
             <App />
           </BrowserRouter>

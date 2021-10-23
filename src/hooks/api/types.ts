@@ -5,6 +5,9 @@ export interface paths {
   "/StayInterrupted": {
     patch: operations["DailyDetails_Patch"];
   };
+  "/History": {
+    get: operations["History_Get"];
+  };
   "/Overview": {
     get: operations["Overview_Get"];
   };
@@ -79,11 +82,28 @@ export interface components {
       status?: number | null;
       detail?: string | null;
       instance?: string | null;
-      extensions?: { [key: string]: any } | null;
-    } & { [key: string]: { [key: string]: unknown } | null };
+      extensions?: { [key: string]: unknown } | null;
+    } & { [key: string]: unknown | null };
     StayInterruptedPatchRequest: {
       localDate: string;
       stayInterrupted: boolean;
+    };
+    HistoryResponse: {
+      history: components["schemas"]["CalendarOfString"];
+      totalContestedRequestsCount: number;
+      allocatedContestedRequestsCount: number;
+      allocationRatio: number;
+    };
+    CalendarOfString: {
+      weeks: components["schemas"]["WeekOfString"][];
+    };
+    WeekOfString: {
+      days: components["schemas"]["DayOfString"][];
+    };
+    DayOfString: {
+      localDate: string;
+      data?: string | null;
+      hidden: boolean;
     };
     OverviewResponse: {
       overview: components["schemas"]["CalendarOfOverviewData"];
@@ -113,10 +133,14 @@ export interface components {
     ProfileData: {
       registrationNumber?: string | null;
       alternativeRegistrationNumber?: string | null;
+      requestReminderEnabled: boolean;
+      reservationReminderEnabled: boolean;
     };
     ProfilePatchRequest: {
       alternativeRegistrationNumber?: string | null;
       registrationNumber?: string | null;
+      requestReminderEnabled?: boolean | null;
+      reservationReminderEnabled?: boolean | null;
     };
     RegistrationNumbersResponse: {
       registrationNumbers: components["schemas"]["RegistrationNumbersData"][];
@@ -268,6 +292,21 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["StayInterruptedPatchRequest"];
+      };
+    };
+  };
+  History_Get: {
+    parameters: {
+      query: {
+        userId: string | null;
+        lastDate: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["HistoryResponse"];
+        };
       };
     };
   };

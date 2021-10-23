@@ -5,6 +5,7 @@ import { FormSubmit } from "../FormSubmit";
 import { EditProfileFormProps } from "./types";
 
 export const EditProfileForm = ({
+  groups,
   initialValues,
   onChange,
   onSubmit,
@@ -57,6 +58,44 @@ export const EditProfileForm = ({
               </span>
             </div>
           </div>
+          <div className="field">
+            <label className="label" htmlFor="requestReminderEnabled">
+              Requests reminder
+            </label>
+            <div className="control">
+              <label className="checkbox">
+                <Field
+                  id="requestReminderEnabled"
+                  name="requestReminderEnabled"
+                  type="checkbox"
+                  disabled={isSubmitting}
+                />
+                <span className="pl-2">
+                  Send me a reminder if I have no upcoming requests
+                </span>
+              </label>
+            </div>
+          </div>
+          {groups.includes("TeamLeader") && (
+            <div className="field">
+              <label className="label" htmlFor="reservationReminderEnabled">
+                Reservations reminder
+              </label>
+              <div className="control">
+                <label className="checkbox">
+                  <Field
+                    id="reservationReminderEnabled"
+                    name="reservationReminderEnabled"
+                    type="checkbox"
+                    disabled={isSubmitting}
+                  />
+                  <span className="pl-2">
+                    Send me a reminder if there are no day-ahead reservations
+                  </span>
+                </label>
+              </div>
+            </div>
+          )}
           <div className="field">
             <FormSubmit isLoading={isSubmitting}>Save</FormSubmit>
           </div>

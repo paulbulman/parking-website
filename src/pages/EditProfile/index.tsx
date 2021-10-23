@@ -8,10 +8,11 @@ import { EditProfileForm } from "../../components/EditProfileForm";
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
 import { EditProfileFormValues } from "../../components/EditProfileForm/types";
+import { useAuthContext } from "../../hooks/context/auth";
 
 export const EditProfilePage = () => {
   const [isChanged, setIsChanged] = useState(false);
-
+  const { getGroups } = useAuthContext();
   const { data, isLoading, isError } = useProfile();
   const { editProfile } = useEditProfile();
 
@@ -31,6 +32,8 @@ export const EditProfilePage = () => {
     }
   };
 
+  const groups = getGroups();
+
   var content = isLoading ? (
     <Loading />
   ) : isError ? (
@@ -38,6 +41,7 @@ export const EditProfilePage = () => {
   ) : (
     data && (
       <EditProfileForm
+        groups={groups}
         initialValues={createInitialFormValues(data)}
         onChange={handleChange}
         onSubmit={handleSubmit}

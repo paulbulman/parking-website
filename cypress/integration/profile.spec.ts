@@ -3,7 +3,7 @@
 describe("profile page", () => {
   beforeEach(() => {
     cy.visit("/profile");
-    cy.mockLogin();
+    cy.mockLogin("TeamLeader");
   });
 
   it("displays the current user's profile", () => {
@@ -12,6 +12,8 @@ describe("profile page", () => {
       "have.value",
       "X123XYZ"
     );
+    cy.findByLabelText("Requests reminder").should("be.checked");
+    cy.findByLabelText("Reservations reminder").should("not.be.checked");
   });
 
   it("sends the edited profile to the server", () => {
@@ -24,12 +26,16 @@ describe("profile page", () => {
     cy.findByLabelText("Alternative registration number")
       .clear()
       .type("__ALTERNATIVE_REGISTRATION_NUMBER__");
+    cy.findByLabelText("Requests reminder").click();
+    cy.findByLabelText("Reservations reminder").click();
 
     cy.findByRole("button", { name: /save/i }).click();
 
     cy.wait("@profiles").its("request.body").should("deep.equal", {
       registrationNumber: "__REGISTRATION_NUMBER__",
       alternativeRegistrationNumber: "__ALTERNATIVE_REGISTRATION_NUMBER__",
+      requestReminderEnabled: false,
+      reservationReminderEnabled: true,
     });
   });
 });

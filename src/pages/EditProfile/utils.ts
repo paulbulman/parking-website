@@ -10,6 +10,8 @@ export const createInitialFormValues = ({ profile }: ProfileRequestResult) => {
   return {
     registrationNumber,
     alternativeRegistrationNumber,
+    requestReminderEnabled: profile.requestReminderEnabled,
+    reservationReminderEnabled: profile.reservationReminderEnabled,
   };
 };
 
@@ -29,5 +31,7 @@ export const createPatchValues = (
   return {
     registrationNumber,
     alternativeRegistrationNumber,
+    requestReminderEnabled: formValues.requestReminderEnabled,
+    reservationReminderEnabled: formValues.reservationReminderEnabled,
   };
 };

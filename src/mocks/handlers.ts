@@ -383,6 +383,8 @@ const usersData = [
     firstName: "John",
     lastName: "Doe",
     registrationNumber: "AB123CDE",
+    requestReminderEnabled: true,
+    reservationReminderEnabled: false,
   },
   {
     userId: 2,
@@ -391,6 +393,8 @@ const usersData = [
     firstName: "Ann",
     lastName: "Other",
     registrationNumber: "XY789XYZ",
+    requestReminderEnabled: false,
+    reservationReminderEnabled: true,
   },
 ];
 
@@ -409,6 +413,8 @@ const getProfile = () => {
   return {
     registrationNumber: user.registrationNumber,
     alternativeRegistrationNumber: user.alternativeRegistrationNumber,
+    requestReminderEnabled: user.requestReminderEnabled,
+    reservationReminderEnabled: user.reservationReminderEnabled,
   };
 };
 

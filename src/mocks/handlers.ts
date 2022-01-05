@@ -503,10 +503,10 @@ export const handlers = [
   }),
 
   rest.get(`${baseUrl}/users/:userId`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ user: getUser(req.params.userId) }));
+    return res(ctx.delay(500), ctx.json({ user: getUser(req.params.userId[0]) }));
   }),
   rest.patch(`${baseUrl}/users/:userId`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ user: getUser(req.params.userId) }));
+    return res(ctx.delay(500), ctx.json({ user: getUser(req.params.userId[0]) }));
   }),
 
   rest.get(`${baseUrl}/usersList`, (req, res, ctx) => {

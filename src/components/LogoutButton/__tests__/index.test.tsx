@@ -12,7 +12,7 @@ describe("logout button", () => {
       </MemoryRouter>
     );
 
-    userEvent.click(screen.getByRole("link", { name: "Log out" }));
+    await userEvent.click(screen.getByRole("link", { name: "Log out" }));
 
     expect(onClick).toHaveBeenCalled();
   });

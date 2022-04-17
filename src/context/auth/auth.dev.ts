@@ -1,4 +1,4 @@
-import Auth from "@aws-amplify/auth";
+import { Auth } from "@aws-amplify/auth";
 import { UsernamePasswordOpts } from "@aws-amplify/auth/lib-esm/types";
 import { UserType } from "./auth.dev.types";
 

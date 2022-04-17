@@ -1,5 +1,5 @@
 import axios from "axios";
-import Auth from "@aws-amplify/auth";
+import { Auth } from "@aws-amplify/auth";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getMockSession } from "../../../context/auth/auth.dev";
@@ -7,7 +7,6 @@ import { AddUserPage } from "..";
 import { renderInProvider } from "../../../testHelpers";
 
 describe("AddUser", () => {
-
   const data = {
     users: [
       {
@@ -27,23 +26,29 @@ describe("AddUser", () => {
       .mockResolvedValue(getMockSession("UserAdmin"));
     axios.post = jest.fn().mockReturnValueOnce({ data });
 
-    renderInProvider(<AddUserPage />)
+    renderInProvider(<AddUserPage />);
 
-    userEvent.type(screen.getByLabelText("Email"), "__EMAIL@ADDRESS__");
-    userEvent.type(screen.getByLabelText("Confirm email"), "__EMAIL@ADDRESS__");
-    userEvent.type(screen.getByLabelText("First name"), "__FIRST_NAME__");
-    userEvent.type(screen.getByLabelText("Last name"), "__LAST_NAME__");
-    userEvent.type(
+    await userEvent.type(screen.getByLabelText("Email"), "__EMAIL@ADDRESS__");
+    await userEvent.type(
+      screen.getByLabelText("Confirm email"),
+      "__EMAIL@ADDRESS__"
+    );
+    await userEvent.type(screen.getByLabelText("First name"), "__FIRST_NAME__");
+    await userEvent.type(screen.getByLabelText("Last name"), "__LAST_NAME__");
+    await userEvent.type(
       screen.getByLabelText("Registration number"),
       "__REGISTRATION_NUMBER__"
     );
-    userEvent.type(
+    await userEvent.type(
       screen.getByLabelText("Alternative registration number"),
       "__ALTERNATIVE_REGISTRATION_NUMBER__"
     );
-    userEvent.type(screen.getByLabelText("Commute distance (mi)"), "12.3");
+    await userEvent.type(
+      screen.getByLabelText("Commute distance (mi)"),
+      "12.3"
+    );
 
-    userEvent.click(screen.getByRole("button", { name: "Save" }));
+    await userEvent.click(screen.getByRole("button", { name: "Save" }));
 
     await waitFor(() =>
       expect(axios.post).toHaveBeenCalledWith(

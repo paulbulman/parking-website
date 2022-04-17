@@ -1,6 +1,6 @@
 import axios from "axios";
-import Auth from "@aws-amplify/auth";
-import { screen, act, waitFor } from "@testing-library/react";
+import { Auth } from "@aws-amplify/auth";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getMockSession } from "../../../context/auth/auth.dev";
 import { EditRequestsPage } from "..";
@@ -30,9 +30,7 @@ describe("Edit requests", () => {
     Auth.currentSession = jest.fn().mockResolvedValue(getMockSession("Normal"));
     axios.get = jest.fn().mockReturnValueOnce({ data });
 
-    act(() => {
-      renderInProvider(<EditRequestsPage />);
-    });
+    renderInProvider(<EditRequestsPage />);
 
     await ensureLoadingIsComplete();
 
@@ -45,17 +43,15 @@ describe("Edit requests", () => {
     axios.get = jest.fn().mockReturnValueOnce({ data });
     axios.patch = jest.fn().mockReturnValueOnce({ data });
 
-    act(() => {
-      renderInProvider(<EditRequestsPage />);
-    });
+    renderInProvider(<EditRequestsPage />);
 
     await ensureLoadingIsComplete();
 
     const requestCheckbox = screen.getByRole("checkbox", { name: "17 May" });
     const saveButton = screen.getByRole("button", { name: "Save" });
 
-    userEvent.click(requestCheckbox);
-    userEvent.click(saveButton);
+    await userEvent.click(requestCheckbox);
+    await userEvent.click(saveButton);
 
     await waitFor(() =>
       expect(axios.patch).toHaveBeenCalledWith(

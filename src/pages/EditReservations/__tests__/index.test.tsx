@@ -1,6 +1,6 @@
 import axios from "axios";
-import Auth from "@aws-amplify/auth";
-import { screen, act, waitFor } from "@testing-library/react";
+import { Auth } from "@aws-amplify/auth";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getMockSession } from "../../../context/auth/auth.dev";
 import { EditReservationsPage } from "..";
@@ -37,9 +37,7 @@ describe("Edit reservations", () => {
       .mockResolvedValue(getMockSession("TeamLeader"));
     axios.get = jest.fn().mockReturnValueOnce({ data });
 
-    act(() => {
-      renderInProvider(<EditReservationsPage />);
-    });
+    renderInProvider(<EditReservationsPage />);
 
     await ensureLoadingIsComplete();
 
@@ -55,17 +53,15 @@ describe("Edit reservations", () => {
     axios.get = jest.fn().mockReturnValueOnce({ data });
     axios.patch = jest.fn().mockReturnValueOnce({ data });
 
-    act(() => {
-      renderInProvider(<EditReservationsPage />);
-    });
+    renderInProvider(<EditReservationsPage />);
 
     await ensureLoadingIsComplete();
 
     const reservationSelect = screen.getAllByRole("combobox")[0];
     const saveButton = screen.getByRole("button", { name: "Save" });
 
-    userEvent.selectOptions(reservationSelect, "User 2");
-    userEvent.click(saveButton);
+    await userEvent.selectOptions(reservationSelect, "User 2");
+    await userEvent.click(saveButton);
 
     await waitFor(() =>
       expect(axios.patch).toHaveBeenCalledWith(

@@ -1,6 +1,6 @@
 import axios from "axios";
-import Auth from "@aws-amplify/auth";
-import { screen, act } from "@testing-library/react";
+import { Auth } from "@aws-amplify/auth";
+import { screen } from "@testing-library/react";
 import { getMockSession } from "../../../context/auth/auth.dev";
 import { OverviewPage } from "..";
 import {
@@ -32,9 +32,7 @@ describe("Overview", () => {
     Auth.currentSession = jest.fn().mockResolvedValue(getMockSession("Normal"));
     axios.get = jest.fn().mockReturnValueOnce({ data });
 
-    act(() => {
-      renderInProvider(<OverviewPage />);
-    });
+    renderInProvider(<OverviewPage />);
 
     await ensureLoadingIsComplete();
 

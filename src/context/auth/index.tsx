@@ -6,7 +6,7 @@ import {
   useEffect,
 } from "react";
 import { useQueryClient } from "react-query";
-import Auth from "@aws-amplify/auth";
+import { Auth } from "@aws-amplify/auth";
 import jwt_decode from "jwt-decode";
 import {
   AuthUser,

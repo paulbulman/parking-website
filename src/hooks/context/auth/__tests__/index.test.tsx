@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { renderHook, act } from "@testing-library/react-hooks";
-import Auth from "@aws-amplify/auth";
+import { Auth } from "@aws-amplify/auth";
 import { useAuthContext } from "..";
 import { AuthContextProvider } from "../../../../context/auth";
 import { getMockSession, getMockUser } from "../../../../context/auth/auth.dev";

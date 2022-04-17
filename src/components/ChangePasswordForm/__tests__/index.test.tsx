@@ -7,12 +7,12 @@ describe("change password form", () => {
     const onSubmit = jest.fn();
     render(<ChangePasswordForm onSubmit={onSubmit} />);
 
-    userEvent.type(screen.getByLabelText("Password"), "__PASSWORD__");
-    userEvent.type(
+    await userEvent.type(screen.getByLabelText("Password"), "__PASSWORD__");
+    await userEvent.type(
       screen.getByLabelText("Confirm password"),
       "__CONFIRM_PASSWORD__"
     );
-    userEvent.click(screen.getByRole("button", { name: "Set new password" }));
+    await userEvent.click(screen.getByRole("button", { name: "Set new password" }));
 
     await waitFor(() => {
       expect(onSubmit).toHaveBeenCalledWith({
@@ -28,10 +28,10 @@ describe("change password form", () => {
     const passwordInput = screen.getByLabelText("Password");
     const confirmPasswordInput = screen.getByLabelText("Confirm password");
 
-    userEvent.type(passwordInput, "__PASSWORD__");
-    userEvent.type(confirmPasswordInput, "__CONFIRM_PASSWORD__");
+    await userEvent.type(passwordInput, "__PASSWORD__");
+    await userEvent.type(confirmPasswordInput, "__CONFIRM_PASSWORD__");
 
-    userEvent.click(screen.getByRole("button", { name: "Set new password" }));
+    await userEvent.click(screen.getByRole("button", { name: "Set new password" }));
 
     await waitFor(() => {
       expect(passwordInput).toHaveValue("");

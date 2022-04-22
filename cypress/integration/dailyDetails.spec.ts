@@ -24,7 +24,7 @@ describe("daily details page", () => {
 
   it("shows requests for a new date when selected", () => {
     cy.findByLabelText("Date").click();
-    cy.findByLabelText("Fri May 28 2021").click();
+    cy.findByText("28").click();
 
     cy.findByText("Pending (4)")
       .parent()
@@ -40,7 +40,7 @@ describe("daily details page", () => {
     cy.findByText("User 4").should("have.class", "has-text-weight-bold");
 
     cy.findByLabelText("Date").click();
-    cy.findByLabelText("Fri May 28 2021").click();
+    cy.findByText("28").click();
     cy.findByText("User 4").should("have.class", "has-text-weight-bold");
   });
 

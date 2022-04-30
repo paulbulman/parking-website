@@ -2,7 +2,6 @@ import { useQuery } from "react-query";
 import { useAuthContext } from "../../../context/auth";
 import { get } from "../../helpers";
 import {
-  UserRequestsRequestError,
   UserRequestsRequestResult,
   UserRequestsRequestParameters,
 } from "./types";
@@ -12,7 +11,7 @@ export const useUserRequests = ({ userId }: UserRequestsRequestParameters) => {
 
   const { getToken } = useAuthContext();
 
-  return useQuery<UserRequestsRequestResult, UserRequestsRequestError>(
+  return useQuery<UserRequestsRequestResult, Error>(
     [endpoint, userId],
     () => get<UserRequestsRequestResult>(getToken, `${endpoint}/${userId}`),
     {

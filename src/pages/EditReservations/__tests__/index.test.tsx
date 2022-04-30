@@ -35,7 +35,10 @@ describe("Edit reservations", () => {
     Auth.currentSession = jest
       .fn()
       .mockResolvedValue(getMockSession("TeamLeader"));
-    axios.get = jest.fn().mockReturnValueOnce({ data });
+
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      json: () => Promise.resolve(data),
+    }) as jest.Mock;
 
     renderInProvider(<EditReservationsPage />);
 
@@ -50,7 +53,11 @@ describe("Edit reservations", () => {
     Auth.currentSession = jest
       .fn()
       .mockResolvedValue(getMockSession("TeamLeader"));
-    axios.get = jest.fn().mockReturnValueOnce({ data });
+
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      json: () => Promise.resolve(data),
+    }) as jest.Mock;
+
     axios.patch = jest.fn().mockReturnValueOnce({ data });
 
     renderInProvider(<EditReservationsPage />);

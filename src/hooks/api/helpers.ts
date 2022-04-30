@@ -6,7 +6,10 @@ export const get = async <T>(
 ) => {
   const url = createFullUrl(endpoint);
   const config = await createConfig(getToken);
-  const { data } = await axios.get<T>(url, config);
+
+  const response = await fetch(url, config);
+  const data: T = await response.json();
+
   return data;
 };
 

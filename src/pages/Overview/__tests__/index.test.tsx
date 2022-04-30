@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Auth } from "@aws-amplify/auth";
 import { screen } from "@testing-library/react";
 import { getMockSession } from "../../../context/auth/auth.dev";
@@ -30,7 +29,10 @@ describe("Overview", () => {
 
   it("displays data from the overview endpoint", async () => {
     Auth.currentSession = jest.fn().mockResolvedValue(getMockSession("Normal"));
-    axios.get = jest.fn().mockReturnValueOnce({ data });
+
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      json: () => Promise.resolve(data),
+    }) as jest.Mock;
 
     renderInProvider(<OverviewPage />);
 

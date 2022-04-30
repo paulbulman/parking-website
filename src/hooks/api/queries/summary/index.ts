@@ -1,14 +1,14 @@
 import { useQuery } from "react-query";
 import { useAuthContext } from "../../../context/auth";
 import { get } from "../../helpers";
-import { SummaryRequestError, SummaryRequestResult } from "./types";
+import { SummaryRequestResult } from "./types";
 
 export const useSummary = () => {
   const endpoint = "summary";
 
   const { getToken } = useAuthContext();
 
-  return useQuery<SummaryRequestResult, SummaryRequestError>(endpoint, () =>
+  return useQuery<SummaryRequestResult, Error>(endpoint, () =>
     get<SummaryRequestResult>(getToken, endpoint)
   );
 };

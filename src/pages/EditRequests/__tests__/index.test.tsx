@@ -28,7 +28,10 @@ describe("Edit requests", () => {
 
   it("displays data from the requests endpoint", async () => {
     Auth.currentSession = jest.fn().mockResolvedValue(getMockSession("Normal"));
-    axios.get = jest.fn().mockReturnValueOnce({ data });
+
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      json: () => Promise.resolve(data),
+    }) as jest.Mock;
 
     renderInProvider(<EditRequestsPage />);
 
@@ -40,7 +43,11 @@ describe("Edit requests", () => {
 
   it("sends changes to the requests endpoint", async () => {
     Auth.currentSession = jest.fn().mockResolvedValue(getMockSession("Normal"));
-    axios.get = jest.fn().mockReturnValueOnce({ data });
+
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      json: () => Promise.resolve(data),
+    }) as jest.Mock;
+
     axios.patch = jest.fn().mockReturnValueOnce({ data });
 
     renderInProvider(<EditRequestsPage />);

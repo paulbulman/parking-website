@@ -140,7 +140,7 @@ export const FaqPage = () => {
           </li>
           <li>
             The site is written using the{" "}
-            <a href="https://reactjs.org/">React libarary</a>, which helps
+            <a href="https://reactjs.org/">React library</a>, which helps
             protect against e.g.{" "}
             <a href="https://owasp.org/www-community/attacks/xss/">
               cross-site scripting (XSS)

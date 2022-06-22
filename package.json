@@ -29,7 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cypress": "cross-env run-p start:no-msw cypress:open",
+    "cypress": "concurrently npm:start:no-msw npm:cypress:open",
     "cypress:open": "cypress open"
   },
   "eslintConfig": {
@@ -66,11 +66,11 @@
     "@types/react-dom": "^17.0.14",
     "@types/react-router-dom": "^5.3.3",
     "@types/testing-library__cypress": "^5.0.9",
+    "concurrently": "^7.2.2",
     "cross-env": "^7.0.3",
     "cypress": "^10.2.0",
     "eslint-plugin-cypress": "^2.12.1",
     "msw": "^0.42.1",
-    "npm-run-all": "^4.1.5",
     "react-scripts": "^5.0.1",
     "typescript": "^4.7.4"
   },

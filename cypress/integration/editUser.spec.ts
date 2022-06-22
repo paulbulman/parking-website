@@ -2,8 +2,12 @@
 
 describe("edit user page", () => {
   beforeEach(() => {
-    cy.visit("/users/edit/1");
     cy.mockLogin("UserAdmin");
+    cy.visit("/users/edit/1");
+
+    cy.fixture("user").then((user) => {
+      cy.intercept({ url: "/users/1" }, { body: { user } });
+    });
   });
 
   it("displays the existing user properties", () => {
@@ -18,8 +22,11 @@ describe("edit user page", () => {
   });
 
   it("sends the updated user properties to the server", () => {
-    cy.server();
-    cy.route("PATCH", "/users/1").as("users");
+    cy.fixture("user").then((user) => {
+      cy.intercept({ method: "PATCH", url: "/users/1" }, { body: { user } }).as(
+        "users"
+      );
+    });
 
     cy.findByLabelText("First name").clear().type("__FIRST_NAME__");
     cy.findByLabelText("Last name").clear().type("__LAST_NAME__");
@@ -33,12 +40,14 @@ describe("edit user page", () => {
 
     cy.findByRole("button", { name: /save/i }).click();
 
-    cy.wait("@users").its("request.body").should("deep.equal", {
+    const expectedBody = JSON.stringify({
       firstName: "__FIRST_NAME__",
       lastName: "__LAST_NAME__",
       registrationNumber: "__REGISTRATION_NUMBER__",
       alternativeRegistrationNumber: "__ALTERNATIVE_REGISTRATION_NUMBER__",
       commuteDistance: 12.3,
     });
+
+    cy.wait("@users").its("request.body").should("equal", expectedBody);
   });
 });

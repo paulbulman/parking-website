@@ -1,0 +1,64 @@
+{
+  "requests": {
+    "weeks": [
+      {
+        "days": [
+          {
+            "localDate": "2021-05-17",
+            "data": { "requested": false },
+            "hidden": false
+          },
+          {
+            "localDate": "2021-05-18",
+            "data": { "requested": true },
+            "hidden": false
+          },
+          {
+            "localDate": "2021-05-19",
+            "data": { "requested": false },
+            "hidden": false
+          },
+          {
+            "localDate": "2021-05-20",
+            "data": { "requested": true },
+            "hidden": false
+          },
+          {
+            "localDate": "2021-05-21",
+            "data": null,
+            "hidden": true
+          }
+        ]
+      },
+      {
+        "days": [
+          {
+            "localDate": "2021-05-24",
+            "data": null,
+            "hidden": true
+          },
+          {
+            "localDate": "2021-05-25",
+            "data": { "requested": true },
+            "hidden": false
+          },
+          {
+            "localDate": "2021-05-26",
+            "data": { "requested": false },
+            "hidden": false
+          },
+          {
+            "localDate": "2021-05-27",
+            "data": { "requested": true },
+            "hidden": false
+          },
+          {
+            "localDate": "2021-05-28",
+            "data": { "requested": false },
+            "hidden": false
+          }
+        ]
+      }
+    ]
+  }
+}

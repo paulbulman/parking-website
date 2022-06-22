@@ -1,0 +1,8 @@
+{
+  "profile": {
+    "alternativeRegistrationNumber": "X123XYZ",
+    "registrationNumber": "AB123CDE",
+    "requestReminderEnabled": true,
+    "reservationReminderEnabled": false
+  }
+}

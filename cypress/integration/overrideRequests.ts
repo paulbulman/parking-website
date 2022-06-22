@@ -2,8 +2,15 @@
 
 describe("override requests page", () => {
   beforeEach(() => {
-    cy.visit("/override-requests");
     cy.mockLogin("TeamLeader");
+    cy.visit("/override-requests");
+
+    cy.fixture("usersList").then((body) => {
+      cy.intercept({ url: "/usersList" }, { body });
+    });
+    cy.fixture("requests").then((body) => {
+      cy.intercept({ url: "/requests/1" }, { body });
+    });
   });
 
   it("displays the existing requests", () => {
@@ -21,8 +28,11 @@ describe("override requests page", () => {
   });
 
   it("sends the edited requests to the server", () => {
-    cy.server();
-    cy.route("PATCH", "/requests/1").as("requests");
+    cy.fixture("requests").then((body) => {
+      cy.intercept({ method: "PATCH", url: "/requests/1" }, { body }).as(
+        "requests"
+      );
+    });
 
     cy.findByTitle(/user/i).select("John Doe");
 
@@ -31,13 +41,13 @@ describe("override requests page", () => {
 
     cy.findByRole("button", { name: /save/i }).click();
 
-    cy.wait("@requests")
-      .its("request.body")
-      .should("deep.equal", {
-        requests: [
-          { localDate: "2021-05-17", requested: true },
-          { localDate: "2021-05-18", requested: false },
-        ],
-      });
+    const expectedBody = JSON.stringify({
+      requests: [
+        { localDate: "2021-05-17", requested: true },
+        { localDate: "2021-05-18", requested: false },
+      ],
+    });
+
+    cy.wait("@requests").its("request.body").should("equal", expectedBody);
   });
 });

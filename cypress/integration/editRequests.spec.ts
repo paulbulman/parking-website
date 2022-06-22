@@ -2,8 +2,12 @@
 
 describe("edit requests page", () => {
   beforeEach(() => {
-    cy.visit("/edit-requests");
     cy.mockLogin();
+    cy.visit("/edit-requests");
+
+    cy.fixture("requests").then((body) => {
+      cy.intercept({ url: "/requests" }, { body });
+    });
   });
 
   it("displays the existing requests for the current user", () => {
@@ -19,21 +23,24 @@ describe("edit requests page", () => {
   });
 
   it("sends the edited requests to the server", () => {
-    cy.server();
-    cy.route("PATCH", "/requests").as("requests");
+    cy.fixture("requests").then((body) => {
+      cy.intercept({ method: "PATCH", url: "/requests" }, { body }).as(
+        "requests"
+      );
+    });
 
     cy.findByRole("checkbox", { name: /17 may/i }).check();
     cy.findByRole("checkbox", { name: /18 may/i }).uncheck();
 
     cy.findByRole("button", { name: /save/i }).click();
 
-    cy.wait("@requests")
-      .its("request.body")
-      .should("deep.equal", {
-        requests: [
-          { localDate: "2021-05-17", requested: true },
-          { localDate: "2021-05-18", requested: false },
-        ],
-      });
+    const expectedBody = JSON.stringify({
+      requests: [
+        { localDate: "2021-05-17", requested: true },
+        { localDate: "2021-05-18", requested: false },
+      ],
+    });
+
+    cy.wait("@requests").its("request.body").should("equal", expectedBody);
   });
 });

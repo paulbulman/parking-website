@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Auth } from "@aws-amplify/auth";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -44,11 +43,9 @@ describe("Edit requests", () => {
   it("sends changes to the requests endpoint", async () => {
     Auth.currentSession = jest.fn().mockResolvedValue(getMockSession("Normal"));
 
-    global.fetch = jest.fn().mockResolvedValueOnce({
+    global.fetch = jest.fn().mockResolvedValue({
       json: () => Promise.resolve(data),
     }) as jest.Mock;
-
-    axios.patch = jest.fn().mockReturnValueOnce({ data });
 
     renderInProvider(<EditRequestsPage />);
 
@@ -61,14 +58,15 @@ describe("Edit requests", () => {
     await userEvent.click(saveButton);
 
     await waitFor(() =>
-      expect(axios.patch).toHaveBeenCalledWith(
+      expect(global.fetch).toHaveBeenCalledWith(
         expect.stringMatching(/\/requests$/),
         {
-          requests: [{ localDate: "2021-05-17", requested: true }],
-        },
-        expect.objectContaining({
+          method: "PATCH",
           headers: { Authorization: expect.stringContaining("Bearer") },
-        })
+          body: JSON.stringify({
+            requests: [{ localDate: "2021-05-17", requested: true }],
+          }),
+        }
       )
     );
   });

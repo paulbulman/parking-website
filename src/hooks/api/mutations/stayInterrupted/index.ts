@@ -3,7 +3,6 @@ import { useAuthContext } from "../../../context/auth";
 import { patch } from "../../helpers";
 import {
   StayInterruptedRequestBody,
-  StayInterruptedRequestError,
   StayInterruptedRequestResult,
 } from "./types";
 
@@ -14,7 +13,7 @@ export const useStayInterrupted = () => {
 
   const mutation = useMutation<
     StayInterruptedRequestResult,
-    StayInterruptedRequestError,
+    Error,
     StayInterruptedRequestBody
   >(endpoint, patch(getToken, endpoint), {
     onSuccess: (data) => {

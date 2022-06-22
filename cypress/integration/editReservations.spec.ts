@@ -2,8 +2,12 @@
 
 describe("edit reservations page", () => {
   beforeEach(() => {
-    cy.visit("/edit-reservations");
     cy.mockLogin("TeamLeader");
+    cy.visit("/edit-reservations");
+
+    cy.fixture("reservations").then((body) => {
+      cy.intercept({ url: "/reservations" }, { body });
+    });
   });
 
   it("displays the existing reservations", () => {
@@ -35,8 +39,11 @@ describe("edit reservations page", () => {
   });
 
   it("sends the edited reservations to the server", () => {
-    cy.server();
-    cy.route("PATCH", "/reservations").as("reservations");
+    cy.fixture("reservations").then((body) => {
+      cy.intercept({ method: "PATCH", url: "/reservations" }, { body }).as(
+        "reservations"
+      );
+    });
 
     cy.findByRole("cell", { name: /17 may/i }).within(() => {
       cy.findByTitle(/reservation 1/i).select("Select");
@@ -50,13 +57,13 @@ describe("edit reservations page", () => {
 
     cy.findByRole("button", { name: /save/i }).click();
 
-    cy.wait("@reservations")
-      .its("request.body")
-      .should("deep.equal", {
-        reservations: [
-          { localDate: "2021-05-17", userIds: ["", "", "", ""] },
-          { localDate: "2021-05-18", userIds: ["", "", "user1", "user2"] },
-        ],
-      });
+    const expectedBody = JSON.stringify({
+      reservations: [
+        { localDate: "2021-05-17", userIds: ["", "", "", ""] },
+        { localDate: "2021-05-18", userIds: ["", "", "user1", "user2"] },
+      ],
+    });
+
+    cy.wait("@reservations").its("request.body").should("equal", expectedBody);
   });
 });

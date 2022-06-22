@@ -2,8 +2,12 @@
 
 describe("profile page", () => {
   beforeEach(() => {
-    cy.visit("/profile");
     cy.mockLogin("TeamLeader");
+    cy.visit("/profile");
+
+    cy.fixture("profiles").then((body) => {
+      cy.intercept({ url: "/profiles" }, { body });
+    });
   });
 
   it("displays the current user's profile", () => {
@@ -17,8 +21,11 @@ describe("profile page", () => {
   });
 
   it("sends the edited profile to the server", () => {
-    cy.server();
-    cy.route("PATCH", "/profiles").as("profiles");
+    cy.fixture("profiles").then((body) => {
+      cy.intercept({ method: "PATCH", url: "/profiles" }, { body }).as(
+        "profiles"
+      );
+    });
 
     cy.findByLabelText("Registration number")
       .clear()
@@ -31,11 +38,13 @@ describe("profile page", () => {
 
     cy.findByRole("button", { name: /save/i }).click();
 
-    cy.wait("@profiles").its("request.body").should("deep.equal", {
+    const expectedBody = JSON.stringify({
       registrationNumber: "__REGISTRATION_NUMBER__",
       alternativeRegistrationNumber: "__ALTERNATIVE_REGISTRATION_NUMBER__",
       requestReminderEnabled: false,
       reservationReminderEnabled: true,
     });
+
+    cy.wait("@profiles").its("request.body").should("equal", expectedBody);
   });
 });

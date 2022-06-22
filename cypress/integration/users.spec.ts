@@ -2,8 +2,12 @@
 
 describe("users page", () => {
   beforeEach(() => {
-    cy.visit("/users");
     cy.mockLogin("UserAdmin");
+    cy.visit("/users");
+
+    cy.fixture("users").then((body) => {
+      cy.intercept({ url: "/users" }, { body });
+    });
   });
 
   it("displays the existing users", () => {
@@ -32,6 +36,10 @@ describe("users page", () => {
   });
 
   it("redirects to the edit user page when the button is clicked", () => {
+    cy.fixture("user").then((user) => {
+      cy.intercept({ url: "/users/1" }, { body: { user } });
+    });
+
     cy.findByRole("cell", { name: /John/ })
       .parent()
       .within(() => {

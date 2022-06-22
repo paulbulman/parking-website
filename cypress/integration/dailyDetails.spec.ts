@@ -2,8 +2,12 @@
 
 describe("daily details page", () => {
   beforeEach(() => {
-    cy.visit("/daily-details?localDate=2021-05-17");
     cy.mockLogin("Normal");
+    cy.visit("/daily-details?localDate=2021-05-17");
+
+    cy.fixture("dailyDetails").then((body) => {
+      cy.intercept({ url: "/dailyDetails" }, { body });
+    });
   });
 
   it("displays the requests for the selected date", () => {
@@ -50,30 +54,34 @@ describe("daily details page", () => {
   });
 
   it("sends the stay interrupted request to the server", () => {
-    cy.server();
-    cy.route("PATCH", "/stayInterrupted").as("stayInterrupted");
-
-    cy.findByRole("button", { name: "Stay interrupted" }).click();
-
-    cy.wait("@stayInterrupted").its("request.body").should("deep.equal", {
-      localDate: "2021-05-17",
-      stayInterrupted: true,
+    cy.fixture("stayInterrupted").then((body) => {
+      cy.intercept({ method: "PATCH", url: "/stayInterrupted" }, { body }).as(
+        "stayInterrupted"
+      );
     });
-  });
-
-  it("sends the re-request space request to the server", () => {
-    cy.server();
-    cy.route("PATCH", "/stayInterrupted").as("stayInterrupted");
 
     cy.findByRole("button", { name: "Stay interrupted" }).click();
 
-    cy.wait("@stayInterrupted");
+    cy.wait("@stayInterrupted")
+      .its("request.body")
+      .should(
+        "equal",
+        JSON.stringify({
+          localDate: "2021-05-17",
+          stayInterrupted: true,
+        })
+      );
 
     cy.findByRole("button", { name: "Re-request space" }).click();
 
-    cy.wait("@stayInterrupted").its("request.body").should("deep.equal", {
-      localDate: "2021-05-17",
-      stayInterrupted: false,
-    });
+    cy.wait("@stayInterrupted")
+      .its("request.body")
+      .should(
+        "equal",
+        JSON.stringify({
+          localDate: "2021-05-17",
+          stayInterrupted: false,
+        })
+      );
   });
 });

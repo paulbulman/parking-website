@@ -2,13 +2,20 @@
 
 describe("add user page", () => {
   beforeEach(() => {
-    cy.visit("/users/add");
     cy.mockLogin("UserAdmin");
+    cy.visit("/users/add");
+
+    cy.fixture("users").then((body) => {
+      cy.intercept({ url: "/users" }, { body });
+    });
   });
 
   it("sends the new user properties to the server", () => {
-    cy.server();
-    cy.route("POST", "/users").as("users");
+    cy.fixture("user").then((body) => {
+      cy.intercept({ method: "POST", url: "/users" }, { body }).as(
+        "createUser"
+      );
+    });
 
     cy.findByLabelText("Email").type("EMAIL@ADDRESS");
     cy.findByLabelText("Confirm email").type("EMAIL@ADDRESS");
@@ -22,7 +29,7 @@ describe("add user page", () => {
 
     cy.findByRole("button", { name: /save/i }).click();
 
-    cy.wait("@users").its("request.body").should("deep.equal", {
+    const expectedBody = JSON.stringify({
       emailAddress: "EMAIL@ADDRESS",
       firstName: "__FIRST_NAME__",
       lastName: "__LAST_NAME__",
@@ -30,5 +37,7 @@ describe("add user page", () => {
       alternativeRegistrationNumber: "__ALTERNATIVE_REGISTRATION_NUMBER__",
       commuteDistance: 12.3,
     });
+
+    cy.wait("@createUser").its("request.body").should("equal", expectedBody);
   });
 });

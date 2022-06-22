@@ -10,4 +10,4 @@ If you clone the repo, and install [Node.js](https://nodejs.org/), you should be
 
 Log in using username `user@example` and password `pass`. (Or `teamLeader@example`:`pass`, or `userAdmin@example`:`pass`, to access other parts of the UI.)
 
-There are some unit tests that can be run using `npm t`, and integration tests using `npx cypress run`.
+There are some unit tests that can be run using `npm t`, and integration tests using `npm run cypress`.

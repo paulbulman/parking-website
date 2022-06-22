@@ -3,7 +3,6 @@ import { useAuthContext } from "../../../context/auth";
 import { patch } from "../../helpers";
 import {
   EditReservationsRequestBody,
-  EditReservationsRequestError,
   EditReservationsRequestResult,
 } from "./types";
 
@@ -14,7 +13,7 @@ export const useEditReservations = () => {
 
   const mutation = useMutation<
     EditReservationsRequestResult,
-    EditReservationsRequestError,
+    Error,
     EditReservationsRequestBody
   >(endpoint, patch(getToken, endpoint), {
     onSuccess: (data) => {

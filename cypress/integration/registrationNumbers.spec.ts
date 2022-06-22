@@ -2,8 +2,12 @@
 
 describe("registration numbers page", () => {
   beforeEach(() => {
-    cy.visit("/registration-numbers");
     cy.mockLogin();
+    cy.visit("/registration-numbers");
+
+    cy.fixture("registrationNumbers").then((body) => {
+      cy.intercept({ url: "/registrationNumbers/*" }, { body });
+    });
   });
 
   it("displays the registration numbers", () => {

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Auth } from "@aws-amplify/auth";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -24,7 +23,10 @@ describe("AddUser", () => {
     Auth.currentSession = jest
       .fn()
       .mockResolvedValue(getMockSession("UserAdmin"));
-    axios.post = jest.fn().mockReturnValueOnce({ data });
+
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      json: () => Promise.resolve(data),
+    }) as jest.Mock;
 
     renderInProvider(<AddUserPage />);
 
@@ -51,19 +53,21 @@ describe("AddUser", () => {
     await userEvent.click(screen.getByRole("button", { name: "Save" }));
 
     await waitFor(() =>
-      expect(axios.post).toHaveBeenCalledWith(
+      expect(global.fetch).toHaveBeenCalledWith(
         expect.stringMatching(/\/users$/),
         {
-          emailAddress: "__EMAIL@ADDRESS__",
-          firstName: "__FIRST_NAME__",
-          lastName: "__LAST_NAME__",
-          registrationNumber: "__REGISTRATION_NUMBER__",
-          alternativeRegistrationNumber: "__ALTERNATIVE_REGISTRATION_NUMBER__",
-          commuteDistance: 12.3,
-        },
-        expect.objectContaining({
+          method: "POST",
           headers: { Authorization: expect.stringContaining("Bearer") },
-        })
+          body: JSON.stringify({
+            emailAddress: "__EMAIL@ADDRESS__",
+            firstName: "__FIRST_NAME__",
+            lastName: "__LAST_NAME__",
+            registrationNumber: "__REGISTRATION_NUMBER__",
+            alternativeRegistrationNumber:
+              "__ALTERNATIVE_REGISTRATION_NUMBER__",
+            commuteDistance: 12.3,
+          }),
+        }
       )
     );
   });

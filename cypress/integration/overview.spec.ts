@@ -2,8 +2,12 @@
 
 describe("overview page", () => {
   beforeEach(() => {
-    cy.visit("/overview");
     cy.mockLogin();
+    cy.visit("/overview");
+
+    cy.fixture("overview").then((body) => {
+      cy.intercept({ url: "/overview" }, { body });
+    });
   });
 
   it("displays the current requests", () => {

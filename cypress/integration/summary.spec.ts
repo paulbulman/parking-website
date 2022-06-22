@@ -2,8 +2,12 @@
 
 describe("summary page", () => {
   beforeEach(() => {
-    cy.visit("/");
     cy.mockLogin("Normal");
+    cy.visit("/");
+
+    cy.fixture("summary").then((body) => {
+      cy.intercept({ url: "/summary" }, { body });
+    });
   });
 
   it("displays the request statuses for the current user", () => {
@@ -18,12 +22,20 @@ describe("summary page", () => {
   });
 
   it("redirects to the daily detail page when the link is clicked", () => {
+    cy.fixture("dailyDetails").then((body) => {
+      cy.intercept({ url: "/dailyDetails" }, { body });
+    });
+
     cy.findByRole("link", { name: "17 May" }).click();
     cy.findByRole("heading", { name: "Daily details" }).should("exist");
     cy.findByLabelText("Date").should("have.value", "17 May 2021");
   });
 
   it("redirects to the edit requests page when the link is clicked", () => {
+    cy.fixture("requests").then((body) => {
+      cy.intercept({ url: "/requests" }, { body });
+    });
+
     cy.findByRole("link", { name: "Edit requests" }).click();
     cy.findByRole("heading", { name: "Edit requests" }).should("exist");
   });

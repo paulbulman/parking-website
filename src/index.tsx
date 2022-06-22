@@ -15,7 +15,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import "./index.css";
 import "./daypicker.css";
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.REACT_APP_USE_MSW === "true") {
   const { worker } = require("./mocks/browser");
   worker.start();
 }

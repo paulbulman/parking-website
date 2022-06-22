@@ -1,0 +1,87 @@
+{
+  "details": [
+    {
+      "localDate": "2021-05-17",
+      "data": {
+        "allocatedUsers": [
+          { "name": "User 1", "isHighlighted": false },
+          { "name": "User 3", "isHighlighted": false }
+        ],
+        "interruptedUsers": [
+          { "name": "User 2", "isHighlighted": false },
+          { "name": "User 4", "isHighlighted": true }
+        ],
+        "pendingUsers": [],
+        "stayInterruptedStatus": { "isAllowed": true, "isSet": false }
+      }
+    },
+    {
+      "localDate": "2021-05-18",
+      "data": {
+        "allocatedUsers": [],
+        "interruptedUsers": [],
+        "pendingUsers": [],
+        "stayInterruptedStatus": { "isAllowed": false, "isSet": false }
+      }
+    },
+    {
+      "localDate": "2021-05-19",
+      "data": {
+        "allocatedUsers": [],
+        "interruptedUsers": [],
+        "pendingUsers": [],
+        "stayInterruptedStatus": { "isAllowed": false, "isSet": false }
+      }
+    },
+    {
+      "localDate": "2021-05-20",
+      "data": {
+        "allocatedUsers": [],
+        "interruptedUsers": [],
+        "pendingUsers": [],
+        "stayInterruptedStatus": { "isAllowed": false, "isSet": false }
+      }
+    },
+    {
+      "localDate": "2021-05-25",
+      "data": {
+        "allocatedUsers": [],
+        "interruptedUsers": [],
+        "pendingUsers": [],
+        "stayInterruptedStatus": { "isAllowed": false, "isSet": false }
+      }
+    },
+    {
+      "localDate": "2021-05-26",
+      "data": {
+        "allocatedUsers": [],
+        "interruptedUsers": [],
+        "pendingUsers": [],
+        "stayInterruptedStatus": { "isAllowed": false, "isSet": false }
+      }
+    },
+    {
+      "localDate": "2021-05-27",
+      "data": {
+        "allocatedUsers": [],
+        "interruptedUsers": [],
+        "pendingUsers": [],
+        "stayInterruptedStatus": { "isAllowed": false, "isSet": false }
+      }
+    },
+    {
+      "localDate": "2021-05-28",
+      "data": {
+        "allocatedUsers": [],
+        "interruptedUsers": [],
+        "pendingUsers": [
+          { "name": "User 1", "isHighlighted": false },
+          { "name": "User 2", "isHighlighted": false },
+          { "name": "User 3", "isHighlighted": false },
+          { "name": "User 4", "isHighlighted": true }
+        ],
+        "stayInterruptedStatus": { "isAllowed": false, "isSet": false }
+      }
+    }
+  ]
+}

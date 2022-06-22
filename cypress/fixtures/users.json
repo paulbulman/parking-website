@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "userId": 1,
+      "alternativeRegistrationNumber": "X123XYZ",
+      "commuteDistance": 2,
+      "firstName": "John",
+      "lastName": "Doe",
+      "registrationNumber": "AB123CDE",
+      "requestReminderEnabled": true,
+      "reservationReminderEnabled": false
+    },
+    {
+      "userId": 2,
+      "alternativeRegistrationNumber": "A789ABC",
+      "commuteDistance": 3,
+      "firstName": "Ann",
+      "lastName": "Other",
+      "registrationNumber": "XY789XYZ",
+      "requestReminderEnabled": false,
+      "reservationReminderEnabled": true
+    }
+  ]
+}

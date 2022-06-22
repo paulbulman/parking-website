@@ -6,4 +6,3 @@ export type EditUserRequestsRequestBody =
   operations["Requests_PatchById"]["requestBody"]["content"]["application/json"];
 export type EditUserRequestsRequestResult =
   operations["Requests_PatchById"]["responses"]["200"]["content"]["application/json"];
-export type EditUserRequestsRequestError = Error | null;

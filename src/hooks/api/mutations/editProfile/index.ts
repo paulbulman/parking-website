@@ -1,11 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useAuthContext } from "../../../context/auth";
 import { patch } from "../../helpers";
-import {
-  EditProfileRequestBody,
-  EditProfileRequestError,
-  EditProfileRequestResult,
-} from "./types";
+import { EditProfileRequestBody, EditProfileRequestResult } from "./types";
 
 export const useEditProfile = () => {
   const endpoint = "profiles";
@@ -14,7 +10,7 @@ export const useEditProfile = () => {
 
   const mutation = useMutation<
     EditProfileRequestResult,
-    EditProfileRequestError,
+    Error,
     EditProfileRequestBody
   >(endpoint, patch(getToken, endpoint), {
     onSuccess: (data) => {

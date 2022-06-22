@@ -4,7 +4,6 @@ import { patch } from "../../helpers";
 import {
   EditUserRequestsRequestParameters,
   EditUserRequestsRequestBody,
-  EditUserRequestsRequestError,
   EditUserRequestsRequestResult,
 } from "./types";
 
@@ -17,7 +16,7 @@ export const useEditUserRequests = ({
 
   const mutation = useMutation<
     EditUserRequestsRequestResult,
-    EditUserRequestsRequestError,
+    Error,
     EditUserRequestsRequestBody
   >([endpoint, userId], patch(getToken, `${endpoint}/${userId}`), {
     onSuccess: (data) => {

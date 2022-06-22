@@ -1,8 +1,10 @@
 /// <reference types="cypress" />
 
+import { mockLogin } from "../support/helpers";
+
 describe("override requests page", () => {
   beforeEach(() => {
-    cy.mockLogin("TeamLeader");
+    mockLogin("TeamLeader");
     cy.visit("/override-requests");
 
     cy.fixture("usersList").then((body) => {

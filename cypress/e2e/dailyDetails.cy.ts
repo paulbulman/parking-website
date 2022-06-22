@@ -1,8 +1,10 @@
 /// <reference types="cypress" />
 
+import { mockLogin } from "../support/helpers";
+
 describe("daily details page", () => {
   beforeEach(() => {
-    cy.mockLogin("Normal");
+    mockLogin("Normal");
     cy.visit("/daily-details?localDate=2021-05-17");
 
     cy.fixture("dailyDetails").then((body) => {

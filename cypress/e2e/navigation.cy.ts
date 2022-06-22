@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { mockLogin } from "../support/helpers";
+
 describe("navigation", () => {
   const homeRegex = /home/i;
   const editRequestsRegex = /edit requests/i;
@@ -18,8 +20,8 @@ describe("navigation", () => {
 
     context("when the logged-in user is a regular user", () => {
       beforeEach(() => {
+        mockLogin();
         cy.visit("/");
-        cy.mockLogin();
       });
 
       it("redirects to the home page when the link is clicked", () => {
@@ -79,8 +81,8 @@ describe("navigation", () => {
 
     context("when the logged-in user is a team leader user", () => {
       beforeEach(() => {
+        mockLogin("TeamLeader");
         cy.visit("/");
-        cy.mockLogin("TeamLeader");
       });
 
       it("redirects to the edit reservations page when the link is clicked", () => {
@@ -105,8 +107,8 @@ describe("navigation", () => {
 
     context("when the logged-in user is an admin user", () => {
       beforeEach(() => {
+        mockLogin("UserAdmin");
         cy.visit("/");
-        cy.mockLogin("UserAdmin");
       });
 
       it("redirects to the users page when the link is clicked", () => {
@@ -137,8 +139,8 @@ describe("navigation", () => {
     });
 
     it("toggles the menu when the hamburger is clicked", () => {
+      mockLogin();
       cy.visit("/");
-      cy.mockLogin();
 
       ensureNavigationBarIsLoaded();
       cy.findByRole("link", { name: registrationNumbersRegex }).should(

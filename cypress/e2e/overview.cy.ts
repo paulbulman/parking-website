@@ -1,8 +1,10 @@
 /// <reference types="cypress" />
 
+import { mockLogin } from "../support/helpers";
+
 describe("overview page", () => {
   beforeEach(() => {
-    cy.mockLogin();
+    mockLogin();
     cy.visit("/overview");
 
     cy.fixture("overview").then((body) => {

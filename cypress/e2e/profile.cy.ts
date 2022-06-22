@@ -1,8 +1,10 @@
 /// <reference types="cypress" />
 
+import { mockLogin } from "../support/helpers";
+
 describe("profile page", () => {
   beforeEach(() => {
-    cy.mockLogin("TeamLeader");
+    mockLogin("TeamLeader");
     cy.visit("/profile");
 
     cy.fixture("profiles").then((body) => {

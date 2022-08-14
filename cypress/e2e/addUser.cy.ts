@@ -31,15 +31,17 @@ describe("add user page", () => {
 
     cy.findByRole("button", { name: /save/i }).click();
 
-    const expectedBody = JSON.stringify({
+    const expectedBody = {
       emailAddress: "EMAIL@ADDRESS",
       firstName: "__FIRST_NAME__",
       lastName: "__LAST_NAME__",
       registrationNumber: "__REGISTRATION_NUMBER__",
       alternativeRegistrationNumber: "__ALTERNATIVE_REGISTRATION_NUMBER__",
       commuteDistance: 12.3,
-    });
+    };
 
-    cy.wait("@createUser").its("request.body").should("equal", expectedBody);
+    cy.wait("@createUser")
+      .its("request.body")
+      .should("deep.equal", expectedBody);
   });
 });

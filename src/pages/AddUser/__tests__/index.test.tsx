@@ -57,7 +57,10 @@ describe("AddUser", () => {
         expect.stringMatching(/\/users$/),
         {
           method: "POST",
-          headers: { Authorization: expect.stringContaining("Bearer") },
+          headers: {
+            Authorization: expect.stringContaining("Bearer"),
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             emailAddress: "__EMAIL@ADDRESS__",
             firstName: "__FIRST_NAME__",

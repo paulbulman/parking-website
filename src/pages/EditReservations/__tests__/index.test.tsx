@@ -72,7 +72,10 @@ describe("Edit reservations", () => {
         expect.stringMatching(/\/reservations$/),
         {
           method: "PATCH",
-          headers: { Authorization: expect.stringContaining("Bearer") },
+          headers: {
+            Authorization: expect.stringContaining("Bearer"),
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             reservations: [{ localDate: "2021-05-17", userIds: ["user2"] }],
           }),

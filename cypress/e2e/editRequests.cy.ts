@@ -36,13 +36,13 @@ describe("edit requests page", () => {
 
     cy.findByRole("button", { name: /save/i }).click();
 
-    const expectedBody = JSON.stringify({
+    const expectedBody = {
       requests: [
         { localDate: "2021-05-17", requested: true },
         { localDate: "2021-05-18", requested: false },
       ],
-    });
+    };
 
-    cy.wait("@requests").its("request.body").should("equal", expectedBody);
+    cy.wait("@requests").its("request.body").should("deep.equal", expectedBody);
   });
 });

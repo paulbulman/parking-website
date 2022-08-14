@@ -40,13 +40,13 @@ describe("profile page", () => {
 
     cy.findByRole("button", { name: /save/i }).click();
 
-    const expectedBody = JSON.stringify({
+    const expectedBody = {
       registrationNumber: "__REGISTRATION_NUMBER__",
       alternativeRegistrationNumber: "__ALTERNATIVE_REGISTRATION_NUMBER__",
       requestReminderEnabled: false,
       reservationReminderEnabled: true,
-    });
+    };
 
-    cy.wait("@profiles").its("request.body").should("equal", expectedBody);
+    cy.wait("@profiles").its("request.body").should("deep.equal", expectedBody);
   });
 });

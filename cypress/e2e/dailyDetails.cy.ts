@@ -64,26 +64,16 @@ describe("daily details page", () => {
 
     cy.findByRole("button", { name: "Stay interrupted" }).click();
 
-    cy.wait("@stayInterrupted")
-      .its("request.body")
-      .should(
-        "equal",
-        JSON.stringify({
-          localDate: "2021-05-17",
-          stayInterrupted: true,
-        })
-      );
+    cy.wait("@stayInterrupted").its("request.body").should("deep.equal", {
+      localDate: "2021-05-17",
+      stayInterrupted: true,
+    });
 
     cy.findByRole("button", { name: "Re-request space" }).click();
 
-    cy.wait("@stayInterrupted")
-      .its("request.body")
-      .should(
-        "equal",
-        JSON.stringify({
-          localDate: "2021-05-17",
-          stayInterrupted: false,
-        })
-      );
+    cy.wait("@stayInterrupted").its("request.body").should("deep.equal", {
+      localDate: "2021-05-17",
+      stayInterrupted: false,
+    });
   });
 });

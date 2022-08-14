@@ -59,13 +59,15 @@ describe("edit reservations page", () => {
 
     cy.findByRole("button", { name: /save/i }).click();
 
-    const expectedBody = JSON.stringify({
+    const expectedBody = {
       reservations: [
         { localDate: "2021-05-17", userIds: ["", "", "", ""] },
         { localDate: "2021-05-18", userIds: ["", "", "user1", "user2"] },
       ],
-    });
+    };
 
-    cy.wait("@reservations").its("request.body").should("equal", expectedBody);
+    cy.wait("@reservations")
+      .its("request.body")
+      .should("deep.equal", expectedBody);
   });
 });

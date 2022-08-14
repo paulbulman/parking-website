@@ -23,7 +23,10 @@ export const patch =
     const token = await getToken();
     const requestOptions = {
       method: "PATCH",
-      headers: { Authorization: "Bearer " + token },
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(patchData),
     };
 
@@ -41,7 +44,10 @@ export const post =
     const token = await getToken();
     const requestOptions = {
       method: "POST",
-      headers: { Authorization: "Bearer " + token },
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(patchData),
     };
 

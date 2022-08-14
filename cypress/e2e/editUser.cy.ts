@@ -42,14 +42,14 @@ describe("edit user page", () => {
 
     cy.findByRole("button", { name: /save/i }).click();
 
-    const expectedBody = JSON.stringify({
+    const expectedBody = {
       firstName: "__FIRST_NAME__",
       lastName: "__LAST_NAME__",
       registrationNumber: "__REGISTRATION_NUMBER__",
       alternativeRegistrationNumber: "__ALTERNATIVE_REGISTRATION_NUMBER__",
       commuteDistance: 12.3,
-    });
+    };
 
-    cy.wait("@users").its("request.body").should("equal", expectedBody);
+    cy.wait("@users").its("request.body").should("deep.equal", expectedBody);
   });
 });

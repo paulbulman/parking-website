@@ -508,6 +508,9 @@ export const handlers = [
   rest.patch(`${baseUrl}/users/:userId`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ user: getUser(req.params.userId[0]) }));
   }),
+  rest.delete(`${baseUrl}/users/:userId`, (req, res, ctx) => {
+    return res(ctx.delay(500), ctx.status(204));
+  }),
 
   rest.get(`${baseUrl}/usersList`, (req, res, ctx) => {
     return res(ctx.delay(500), ctx.json({ users: usersListData }));

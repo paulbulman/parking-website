@@ -45,6 +45,7 @@ export interface paths {
   };
   "/Users/{userId}": {
     get: operations["Users_GetById"];
+    delete: operations["Users_Delete"];
     patch: operations["Users_Patch"];
   };
   "/UsersList": {
@@ -58,6 +59,7 @@ export interface components {
       details: components["schemas"]["DayOfDailyDetailsData"][];
     };
     DayOfDailyDetailsData: {
+      /** Format: date */
       localDate: string;
       data?: components["schemas"]["DailyDetailsData"] | null;
       hidden: boolean;
@@ -79,19 +81,24 @@ export interface components {
     ProblemDetails: {
       type?: string | null;
       title?: string | null;
+      /** Format: int32 */
       status?: number | null;
       detail?: string | null;
       instance?: string | null;
-      extensions?: { [key: string]: unknown } | null;
+      extensions?: { [key: string]: unknown };
     } & { [key: string]: unknown | null };
     StayInterruptedPatchRequest: {
+      /** Format: date */
       localDate: string;
       stayInterrupted: boolean;
     };
     HistoryResponse: {
       history: components["schemas"]["CalendarOfString"];
+      /** Format: int32 */
       totalContestedRequestsCount: number;
+      /** Format: int32 */
       allocatedContestedRequestsCount: number;
+      /** Format: decimal */
       allocationRatio: number;
     };
     CalendarOfString: {
@@ -101,6 +108,7 @@ export interface components {
       days: components["schemas"]["DayOfString"][];
     };
     DayOfString: {
+      /** Format: date */
       localDate: string;
       data?: string | null;
       hidden: boolean;
@@ -115,6 +123,7 @@ export interface components {
       days: components["schemas"]["DayOfOverviewData"][];
     };
     DayOfOverviewData: {
+      /** Format: date */
       localDate: string;
       data?: components["schemas"]["OverviewData"] | null;
       hidden: boolean;
@@ -159,6 +168,7 @@ export interface components {
       days: components["schemas"]["DayOfRequestsData"][];
     };
     DayOfRequestsData: {
+      /** Format: date */
       localDate: string;
       data?: components["schemas"]["RequestsData"] | null;
       hidden: boolean;
@@ -170,11 +180,13 @@ export interface components {
       requests: components["schemas"]["RequestsPatchRequestDailyData"][];
     };
     RequestsPatchRequestDailyData: {
+      /** Format: date */
       localDate: string;
       requested: boolean;
     };
     ReservationsResponse: {
       reservations: components["schemas"]["CalendarOfReservationsData"];
+      /** Format: int32 */
       shortLeadTimeSpaces: number;
       users: components["schemas"]["ReservationsUser"][];
     };
@@ -185,6 +197,7 @@ export interface components {
       days: components["schemas"]["DayOfReservationsData"][];
     };
     DayOfReservationsData: {
+      /** Format: date */
       localDate: string;
       data?: components["schemas"]["ReservationsData"] | null;
       hidden: boolean;
@@ -200,6 +213,7 @@ export interface components {
       reservations: components["schemas"]["ReservationsPatchRequestDailyData"][];
     };
     ReservationsPatchRequestDailyData: {
+      /** Format: date */
       localDate: string;
       userIds: string[];
     };
@@ -213,6 +227,7 @@ export interface components {
       days: components["schemas"]["DayOfSummaryData"][];
     };
     DayOfSummaryData: {
+      /** Format: date */
       localDate: string;
       data?: components["schemas"]["SummaryData"] | null;
       hidden: boolean;
@@ -228,6 +243,7 @@ export interface components {
     UsersData: {
       userId: string;
       alternativeRegistrationNumber?: string | null;
+      /** Format: decimal */
       commuteDistance?: number | null;
       firstName: string;
       lastName: string;
@@ -238,6 +254,7 @@ export interface components {
     };
     UserPostRequest: {
       alternativeRegistrationNumber?: string | null;
+      /** Format: decimal */
       commuteDistance?: number | null;
       emailAddress: string;
       firstName: string;
@@ -246,6 +263,7 @@ export interface components {
     };
     UserPatchRequest: {
       alternativeRegistrationNumber?: string | null;
+      /** Format: decimal */
       commuteDistance?: number | null;
       firstName: string;
       lastName: string;
@@ -499,6 +517,21 @@ export interface operations {
           "application/json": components["schemas"]["SingleUserResponse"];
         };
       };
+      404: {
+        content: {
+          "application/json": components["schemas"]["ProblemDetails"];
+        };
+      };
+    };
+  };
+  Users_Delete: {
+    parameters: {
+      path: {
+        userId: string;
+      };
+    };
+    responses: {
+      204: never;
       404: {
         content: {
           "application/json": components["schemas"]["ProblemDetails"];

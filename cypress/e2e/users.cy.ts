@@ -37,7 +37,7 @@ describe("users page", () => {
     cy.findByRole("heading", { name: /add new user/i }).should("exist");
   });
 
-  it("redirects to the edit user page when the button is clicked", () => {
+  it("redirects to the edit user page when the edit button is clicked", () => {
     cy.fixture("user").then((user) => {
       cy.intercept({ url: "/users/1" }, { body: { user } });
     });
@@ -50,5 +50,17 @@ describe("users page", () => {
 
     cy.findByRole("heading", { name: /edit user/i }).should("exist");
     cy.findByLabelText("First name").should("have.value", "John");
+  });
+
+  it("sends the request to the server when the delete button is clicked", () => {
+    cy.intercept({ url: "/users/1" }).as("user");
+
+    cy.findByRole("cell", { name: /John/ })
+      .parent()
+      .within(() => {
+        cy.findByRole("img", { name: /delete user/i }).click();
+      });
+
+    cy.wait("@user");
   });
 });

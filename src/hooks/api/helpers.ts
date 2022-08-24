@@ -57,6 +57,23 @@ export const post =
     return data;
   };
 
+export const httpDelete = async (
+  getToken: () => Promise<string>,
+  endpoint: string
+) => {
+  const url = createFullUrl(endpoint);
+
+  const token = await getToken();
+  const requestOptions = {
+    method: "DELETE",
+    headers: { Authorization: "Bearer " + token },
+  };
+
+  await fetch(url, requestOptions);
+
+  return undefined as never;
+};
+
 const createFullUrl = (endpoint: string) => {
   return `${process.env.REACT_APP_API_BASE_URL}/${endpoint}`;
 };

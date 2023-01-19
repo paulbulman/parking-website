@@ -1,4 +1,5 @@
-import { Switch, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useAuthContext } from "../../hooks/context/auth";
 import { AddUserPage } from "../../pages/AddUser";
 import { CreateErrorPage } from "../../pages/CreateError";
 import { DailyDetailsPage } from "../../pages/DailyDetails";
@@ -13,11 +14,15 @@ import { OverrideRequestsPage } from "../../pages/OverrideRequests";
 import { OverviewPage } from "../../pages/Overview";
 import { PrivacyPage } from "../../pages/Privacy";
 import { RegistrationNumbersPage } from "../../pages/RegistrationNumbers";
-import { SignedInRouterProps } from "./types";
 import { SummaryPage } from "../../pages/Summary";
 import { UsersPage } from "../../pages/Users";
+import { Layout } from "./layout";
 
-export const SignedInRouter = ({ groups }: SignedInRouterProps) => {
+export const SignedInRouter = () => {
+  const { getGroups } = useAuthContext();
+
+  const groups = getGroups();
+
   const EditReservations = groups.includes("TeamLeader") ? (
     <EditReservationsPage />
   ) : (
@@ -48,45 +53,28 @@ export const SignedInRouter = ({ groups }: SignedInRouterProps) => {
     <NotAllowedPage />
   );
 
-  return (
-    <Switch>
-      <Route exact path="/">
-        <SummaryPage />
-      </Route>
-      <Route path="/create-error">
-        <CreateErrorPage />
-      </Route>
-      <Route path="/daily-details">
-        <DailyDetailsPage />
-      </Route>
-      <Route path="/edit-requests">
-        <EditRequestsPage />
-      </Route>
-      <Route path="/edit-reservations">{EditReservations}</Route>
-      <Route path="/faq">
-        <FaqPage />
-      </Route>
-      <Route path="/override-requests">{OverrideRequests}</Route>
-      <Route path="/overview">
-        <OverviewPage />
-      </Route>
-      <Route path="/privacy">
-        <PrivacyPage />
-      </Route>
-      <Route path="/profile">
-        <EditProfilePage />
-      </Route>
-      <Route path="/registration-numbers">
-        <RegistrationNumbersPage />
-      </Route>
-      <Route exact path="/users">
-        {Users}
-      </Route>
-      <Route path="/users/add">{AddUser}</Route>
-      <Route path="/users/edit/:userId">{EditUser}</Route>
-      <Route path="*">
-        <NotFoundPage />
-      </Route>
-    </Switch>
-  );
+  const router = createBrowserRouter([
+    {
+      element: <Layout />,
+      children: [
+        { path: "/", element: <SummaryPage /> },
+        { path: "/create-error", element: <CreateErrorPage /> },
+        { path: "/daily-details", element: <DailyDetailsPage /> },
+        { path: "/edit-requests", element: <EditRequestsPage /> },
+        { path: "/edit-reservations", element: EditReservations },
+        { path: "/faq", element: <FaqPage /> },
+        { path: "/override-requests", element: OverrideRequests },
+        { path: "/overview", element: <OverviewPage /> },
+        { path: "/privacy", element: <PrivacyPage /> },
+        { path: "/profile", element: <EditProfilePage /> },
+        { path: "/registration-numbers", element: <RegistrationNumbersPage /> },
+        { path: "/users", element: Users },
+        { path: "/users/add", element: AddUser },
+        { path: "/users/edit/:userId", element: EditUser },
+        { path: "*", element: <NotFoundPage /> },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 };

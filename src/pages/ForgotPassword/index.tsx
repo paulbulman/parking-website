@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { pwnedPassword } from "hibp";
 import { useAuthContext } from "../../hooks/context/auth";
 import { error, success } from "../../utils/notifications";
@@ -11,7 +11,7 @@ import { ForgotPasswordSubmitForm } from "../../components/ForgotPasswordSubmitF
 import { StageName } from "./types";
 
 export const ForgotPasswordPage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { forgotPassword, forgotPasswordSubmit } = useAuthContext();
 
@@ -52,7 +52,7 @@ export const ForgotPasswordPage = () => {
 
     if (result) {
       success("Your password has been reset successfully.");
-      history.push("/");
+      navigate("/");
     } else {
       error("Something went wrong. Please try again.");
     }

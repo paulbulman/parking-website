@@ -1,7 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import * as Sentry from "@sentry/react";
-import { BrowserRouter } from "react-router-dom";
 import { ToastContainer, Zoom } from "react-toastify";
 import { AuthContextProvider } from "./context/auth";
 import { QueryClient, QueryClientProvider, QueryCache } from "react-query";
@@ -39,14 +38,13 @@ const queryClient = new QueryClient({
 
 FontAwesome.autoAddCss = false;
 
-ReactDOM.render(
+createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Sentry.ErrorBoundary
       fallback={<div>Something went wrong. Please refresh, and try again.</div>}
     >
       <QueryClientProvider client={queryClient}>
         <AuthContextProvider>
-          <BrowserRouter>
             <ToastContainer
               theme="light"
               transition={Zoom}
@@ -54,10 +52,8 @@ ReactDOM.render(
               closeButton={false}
             />
             <App />
-          </BrowserRouter>
         </AuthContextProvider>
       </QueryClientProvider>
     </Sentry.ErrorBoundary>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );

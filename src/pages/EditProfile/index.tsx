@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Prompt } from "react-router-dom";
+import { Prompt } from "../../hooks/prompt";
 import { useProfile } from "../../hooks/api/queries/profile";
 import { useEditProfile } from "../../hooks/api/mutations/editProfile";
 import { error, success } from "../../utils/notifications";

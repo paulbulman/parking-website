@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { useHistory, Prompt } from "react-router-dom";
+import { flushSync } from "react-dom";
+import { Prompt } from "../../hooks/prompt";
+import { useNavigate } from "react-router-dom";
 import { useAddUser } from "../../hooks/api/mutations/addUser";
 import { error, success } from "../../utils/notifications";
 import { validateFormValues } from "./utils";
@@ -11,7 +13,7 @@ export const AddUserPage = () => {
   const [isChanged, setIsChanged] = useState(false);
   const [isCancelling, setIsCancelling] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const { addUser } = useAddUser();
 
   const handleChange = () => {
@@ -28,9 +30,13 @@ export const AddUserPage = () => {
 
     try {
       await addUser(validationResult.postValues);
-      setIsChanged(false);
+
+      flushSync(() => {
+        setIsChanged(false);
+      });
+
       success("User added successfully.");
-      history.push("/users");
+      navigate("/users");
     } catch {
       error("Something went wrong. Please try again.");
     }
@@ -43,9 +49,9 @@ export const AddUserPage = () => {
 
   useEffect(() => {
     if (isCancelling) {
-      history.push("/users");
+      navigate("/users");
     }
-  }, [isCancelling, history]);
+  }, [isCancelling, navigate]);
 
   return (
     <>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams, useHistory, Prompt } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { Prompt } from "../../hooks/prompt";
 import { useUser } from "../../hooks/api/queries/user";
 import { useEditUser } from "../../hooks/api/mutations/editUser";
 import { error, success } from "../../utils/notifications";
@@ -14,9 +15,9 @@ export const EditUserPage = () => {
   const [isChanged, setIsChanged] = useState(false);
   const [isCancelling, setIsCancelling] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  const { userId } = useParams<UserPageParams>();
+  const { userId } = useParams<keyof UserPageParams>() as UserPageParams;
 
   const { data, isLoading, isError } = useUser({ userId });
   const { editUser } = useEditUser({ userId });
@@ -37,7 +38,7 @@ export const EditUserPage = () => {
       await editUser(validationResult.patchValues);
       setIsChanged(false);
       success("User updated successfully.");
-      history.push("/users");
+      navigate("/users");
     } catch {
       error("Something went wrong. Please try again.");
     }
@@ -50,9 +51,9 @@ export const EditUserPage = () => {
 
   useEffect(() => {
     if (isCancelling) {
-      history.push("/users");
+      navigate("/users");
     }
-  }, [isCancelling, history]);
+  }, [isCancelling, navigate]);
 
   var content = isLoading ? (
     <Loading />

@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { Prompt } from "react-router-dom";
+import { Prompt } from "../../hooks/prompt";
 import { useUsersList } from "../../hooks/api/queries/usersList";
 import { useUserRequests } from "../../hooks/api/queries/userRequests";
 import { useEditUserRequests } from "../../hooks/api/mutations/editUserRequests";

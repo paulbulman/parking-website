@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook, act, waitFor } from "@testing-library/react";
 import { Auth } from "@aws-amplify/auth";
 import { useAuthContext } from "..";
 import { AuthContextProvider } from "../../../../context/auth";
@@ -22,38 +22,40 @@ describe("useAuth", () => {
   };
 
   it("throws an error when used outside an auth context provider", () => {
-    const { result } = renderHook(() => useAuthContext());
-
-    expect(result.error).toEqual(
-      Error("useAuthContext must be used within an AuthContextProvider.")
+    const expectedError = new Error(
+      "useAuthContext must be used within an AuthContextProvider."
     );
+
+    expect(() => {
+      renderHook(() => useAuthContext());
+    }).toThrow(expectedError);
   });
 
   it("initially sets the authentication status to initialising", async () => {
     Auth.currentAuthenticatedUser = jest.fn();
 
-    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+    const { result } = renderHook(() => useAuthContext(), {
       wrapper,
     });
 
-    expect(result.current.authenticationStatus).toBe(
-      AuthenticationStatuses.Initialising
+    await waitFor(() =>
+      expect(result.current.authenticationStatus).toBe(
+        AuthenticationStatuses.Initialising
+      )
     );
-
-    await waitForNextUpdate();
   });
 
   it("sets the authentication status to not signed in when there is no previously signed-in user", async () => {
     Auth.currentAuthenticatedUser = jest.fn().mockResolvedValue(null);
 
-    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+    const { result } = renderHook(() => useAuthContext(), {
       wrapper,
     });
 
-    await waitForNextUpdate();
-
-    expect(result.current.authenticationStatus).toBe(
-      AuthenticationStatuses.NotSignedIn
+    await waitFor(() =>
+      expect(result.current.authenticationStatus).toBe(
+        AuthenticationStatuses.NotSignedIn
+      )
     );
   });
 
@@ -62,14 +64,14 @@ describe("useAuth", () => {
       .fn()
       .mockResolvedValue(getMockUser("Normal"));
 
-    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+    const { result } = renderHook(() => useAuthContext(), {
       wrapper,
     });
 
-    await waitForNextUpdate();
-
-    expect(result.current.authenticationStatus).toBe(
-      AuthenticationStatuses.SignedIn
+    await waitFor(() =>
+      expect(result.current.authenticationStatus).toBe(
+        AuthenticationStatuses.SignedIn
+      )
     );
   });
 
@@ -125,22 +127,24 @@ describe("useAuth", () => {
     Auth.currentAuthenticatedUser = jest.fn().mockResolvedValue(null);
     Auth.signIn = jest.fn().mockResolvedValue(null);
 
-    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+    const { result } = renderHook(() => useAuthContext(), {
       wrapper,
     });
 
-    await waitForNextUpdate();
-
-    expect(result.current.authenticationStatus).toBe(
-      AuthenticationStatuses.NotSignedIn
+    await waitFor(() =>
+      expect(result.current.authenticationStatus).toBe(
+        AuthenticationStatuses.NotSignedIn
+      )
     );
 
     await act(async () => {
       await result.current.signIn({ email, password });
     });
 
-    expect(result.current.authenticationStatus).toBe(
-      AuthenticationStatuses.NotSignedIn
+    await waitFor(() =>
+      expect(result.current.authenticationStatus).toBe(
+        AuthenticationStatuses.NotSignedIn
+      )
     );
   });
 
@@ -148,14 +152,14 @@ describe("useAuth", () => {
     Auth.currentAuthenticatedUser = jest.fn().mockResolvedValue(null);
     Auth.signIn = jest.fn().mockResolvedValue(getMockUser("Normal"));
 
-    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+    const { result } = renderHook(() => useAuthContext(), {
       wrapper,
     });
 
-    await waitForNextUpdate();
-
-    expect(result.current.authenticationStatus).toBe(
-      AuthenticationStatuses.NotSignedIn
+    await waitFor(() =>
+      expect(result.current.authenticationStatus).toBe(
+        AuthenticationStatuses.NotSignedIn
+      )
     );
 
     await act(async () => {
@@ -173,14 +177,14 @@ describe("useAuth", () => {
       .mockResolvedValue(getMockUser("Normal"));
     Auth.signOut = jest.fn();
 
-    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+    const { result } = renderHook(() => useAuthContext(), {
       wrapper,
     });
 
-    await waitForNextUpdate();
-
-    expect(result.current.authenticationStatus).toBe(
-      AuthenticationStatuses.SignedIn
+    await waitFor(() =>
+      expect(result.current.authenticationStatus).toBe(
+        AuthenticationStatuses.SignedIn
+      )
     );
 
     await act(async () => {
@@ -215,11 +219,15 @@ describe("useAuth", () => {
       .fn()
       .mockResolvedValue(getMockUser("Normal"));
 
-    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+    const { result } = renderHook(() => useAuthContext(), {
       wrapper,
     });
 
-    await waitForNextUpdate();
+    await waitFor(() =>
+      expect(result.current.authenticationStatus).toBe(
+        AuthenticationStatuses.SignedIn
+      )
+    );
 
     const groups = result.current.getGroups();
     expect(groups).toMatchObject([]);
@@ -230,11 +238,15 @@ describe("useAuth", () => {
       .fn()
       .mockResolvedValue(getMockUser("TeamLeader"));
 
-    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+    const { result } = renderHook(() => useAuthContext(), {
       wrapper,
     });
 
-    await waitForNextUpdate();
+    await waitFor(() =>
+      expect(result.current.authenticationStatus).toBe(
+        AuthenticationStatuses.SignedIn
+      )
+    );
 
     const groups = result.current.getGroups();
     expect(groups).toMatchObject(["TeamLeader"]);
@@ -245,11 +257,15 @@ describe("useAuth", () => {
       .fn()
       .mockResolvedValue(getMockUser("UserAdmin"));
 
-    const { result, waitForNextUpdate } = renderHook(() => useAuthContext(), {
+    const { result } = renderHook(() => useAuthContext(), {
       wrapper,
     });
 
-    await waitForNextUpdate();
+    await waitFor(() =>
+      expect(result.current.authenticationStatus).toBe(
+        AuthenticationStatuses.SignedIn
+      )
+    );
 
     const groups = result.current.getGroups();
     expect(groups).toMatchObject(["UserAdmin"]);

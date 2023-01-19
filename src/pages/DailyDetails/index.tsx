@@ -1,5 +1,5 @@
 import querystring from "query-string";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { parseISO, isValid, isSameDay } from "date-fns";
 import { useDailyDetails } from "../../hooks/api/queries/dailyDetails";
 import { useStayInterrupted } from "../../hooks/api/mutations/stayInterrupted";
@@ -12,7 +12,7 @@ import { formatDate, getDailyData } from "./utils";
 
 export const DailyDetailsPage = () => {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { data, isLoading, isError } = useDailyDetails();
   const { stayInterrupted, isSaving } = useStayInterrupted();
@@ -33,7 +33,7 @@ export const DailyDetailsPage = () => {
       : enabledDates[0];
 
   const setSelectedDate = (selectedDate: Date) => {
-    history.push(`${location.pathname}?localDate=${formatDate(selectedDate)}`);
+    navigate(`${location.pathname}?localDate=${formatDate(selectedDate)}`);
   };
 
   const updateStayInterruptedStatus = async (value: boolean) => {

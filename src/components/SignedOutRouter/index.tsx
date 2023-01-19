@@ -1,4 +1,4 @@
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { AuthenticationStatuses } from "../../context/auth/types";
 import { LoginPage } from "../../pages/Login";
 import { ForceChangePasswordPage } from "../../pages/ForceChangePassword";
@@ -20,11 +20,9 @@ export const SignedOutRouter = ({
   };
 
   return (
-    <Switch>
-      <Route exact path="/forgot-password">
-        <ForgotPasswordPage />
-      </Route>
-      <Route>{getDefaultPage()}</Route>
-    </Switch>
+    <Routes>
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="*" element={getDefaultPage()} />
+    </Routes>
   );
 };

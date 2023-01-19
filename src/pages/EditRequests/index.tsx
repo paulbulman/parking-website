@@ -1,5 +1,6 @@
 import { FormEvent, useState, useEffect } from "react";
-import { useHistory, Prompt } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Prompt } from "../../hooks/prompt";
 import { useRequests } from "../../hooks/api/queries/requests";
 import { useEditRequests } from "../../hooks/api/mutations/editRequests";
 import { success, error } from "../../utils/notifications";
@@ -13,7 +14,7 @@ export const EditRequestsPage = () => {
   const [isCancelling, setIsCancelling] = useState(false);
   const [requestEdits, setRequestEdits] = useState<RequestEdit[]>([]);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { data, isLoading, isError } = useRequests();
   const { editRequests, isSaving } = useEditRequests();
@@ -30,7 +31,7 @@ export const EditRequestsPage = () => {
       await editRequests(parameters);
       setRequestEdits([]);
       success("Requests saved successfully.");
-      history.push("/");
+      navigate("/");
     } catch {
       error("Something went wrong. Please try again.");
     }
@@ -43,9 +44,9 @@ export const EditRequestsPage = () => {
 
   useEffect(() => {
     if (isCancelling) {
-      history.push("/");
+      navigate("/");
     }
-  }, [isCancelling, history]);
+  }, [isCancelling, navigate]);
 
   var content = isLoading ? (
     <Loading />

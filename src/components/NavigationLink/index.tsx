@@ -6,9 +6,10 @@ export const NavigationLink = ({ to, caption, icon }: NavigationLinkProps) => {
   const isHome = to === "/";
   return (
     <NavLink
-      activeClassName="is-active"
-      exact={isHome}
-      className="navbar-item is-tab"
+      end={isHome}
+      className={({ isActive }) =>
+        "navbar-item is-tab" + (isActive ? " is-active" : "")
+      }
       to={to}
     >
       <span className="mr-2">

@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUsers } from "../../hooks/api/queries/users";
 import { useDeleteUser } from "../../hooks/api/mutations/deleteUser";
 import { Loading } from "../../components/Loading";
@@ -8,12 +8,12 @@ import { success } from "../../utils/notifications";
 import type { User } from "./types";
 
 export const UsersPage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { data, isLoading, isRefetching, isError, refetch } = useUsers();
   const { deleteUser, isDeleting } = useDeleteUser();
 
   const handleEdit = (user: User) => {
-    history.push(`/users/edit/${user.userId}`);
+    navigate(`/users/edit/${user.userId}`);
   };
 
   const handleDelete = async (user: User) => {

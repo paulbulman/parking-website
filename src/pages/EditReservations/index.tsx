@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { Prompt } from "react-router-dom";
+import { Prompt } from "../../hooks/prompt";
 import { useReservations } from "../../hooks/api/queries/reservations";
 import { useEditReservations } from "../../hooks/api/mutations/editReservations";
 import { error, success } from "../../utils/notifications";

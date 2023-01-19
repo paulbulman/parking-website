@@ -53,7 +53,7 @@ describe("users page", () => {
   });
 
   it("sends the request to the server when the delete button is clicked", () => {
-    cy.intercept({ url: "/users/1" }).as("user");
+    cy.intercept({ url: "/users/1" }, { statusCode: 204 }).as("user");
 
     cy.findByRole("cell", { name: /John/ })
       .parent()

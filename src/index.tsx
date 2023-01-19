@@ -9,7 +9,6 @@ import { config as FontAwesome } from "@fortawesome/fontawesome-svg-core";
 import { App } from "./App";
 import "bulma/css/bulma.min.css";
 import "react-day-picker/dist/style.css";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "./index.css";

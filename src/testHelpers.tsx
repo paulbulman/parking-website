@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { render, waitFor, screen } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthContextProvider } from "./context/auth";
 
 export const renderInProvider = (component: ReactNode) => {

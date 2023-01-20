@@ -9,7 +9,7 @@ import { FindRegistrationNumberFormValues } from "../../components/FindRegistrat
 export const RegistrationNumbersPage = () => {
   const [searchString, setSearchString] = useState("");
 
-  const { data, isLoading, isError } = useRegistrationNumbers({
+  const { data, isInitialLoading, isError } = useRegistrationNumbers({
     searchString,
   });
 
@@ -17,7 +17,7 @@ export const RegistrationNumbersPage = () => {
     setSearchString(values.registrationNumber);
   };
 
-  const content = isLoading ? (
+  const content = isInitialLoading ? (
     <Loading />
   ) : isError ? (
     <div>Something went wrong. Please try again.</div>

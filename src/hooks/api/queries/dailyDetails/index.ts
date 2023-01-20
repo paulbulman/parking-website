@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useAuthContext } from "../../../context/auth";
 import { get } from "../../helpers";
 import { DailyDetailsRequestResult, DailyDetailsRequestError } from "./types";
@@ -9,7 +9,7 @@ export const useDailyDetails = () => {
   const { getToken } = useAuthContext();
 
   return useQuery<DailyDetailsRequestResult, DailyDetailsRequestError>(
-    endpoint,
+    [endpoint],
     () => get<DailyDetailsRequestResult>(getToken, endpoint)
   );
 };

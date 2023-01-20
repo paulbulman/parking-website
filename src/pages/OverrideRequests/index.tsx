@@ -17,13 +17,13 @@ export const OverrideRequestsPage = () => {
 
   const {
     data: usersData,
-    isLoading: isUsersLoading,
+    isInitialLoading: isUsersLoading,
     isError: isUsersError,
   } = useUsersList();
 
   const {
     data: requestsData,
-    isLoading: isRequestsLoading,
+    isInitialLoading: isRequestsLoading,
     isError: isRequestsError,
   } = useUserRequests({ userId });
 

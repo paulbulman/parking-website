@@ -10,7 +10,7 @@ import { FormSubmit } from "../../components/FormSubmit";
 import { ReservationEdit } from "./types";
 
 export const EditReservationsPage = () => {
-  const { data, isLoading, isError } = useReservations();
+  const { data, isInitialLoading, isError } = useReservations();
   const { editReservations, isSaving } = useEditReservations();
 
   const [reservationEdits, setReservationEdits] = useState<ReservationEdit[]>(
@@ -35,7 +35,7 @@ export const EditReservationsPage = () => {
     }
   };
 
-  var content = isLoading ? (
+  var content = isInitialLoading ? (
     <Loading />
   ) : isError ? (
     <div>Something went wrong. Please try again.</div>

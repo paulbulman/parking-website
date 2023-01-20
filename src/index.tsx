@@ -3,7 +3,11 @@ import { createRoot } from "react-dom/client";
 import * as Sentry from "@sentry/react";
 import { ToastContainer, Zoom } from "react-toastify";
 import { AuthContextProvider } from "./context/auth";
-import { QueryClient, QueryClientProvider, QueryCache } from "react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  QueryCache,
+} from "@tanstack/react-query";
 import { config as FontAwesome } from "@fortawesome/fontawesome-svg-core";
 import { App } from "./App";
 import "bulma/css/bulma.min.css";
@@ -45,13 +49,13 @@ createRoot(document.getElementById("root")!).render(
     >
       <QueryClientProvider client={queryClient}>
         <AuthContextProvider>
-            <ToastContainer
-              theme="light"
-              transition={Zoom}
-              hideProgressBar={true}
-              closeButton={false}
-            />
-            <App />
+          <ToastContainer
+            theme="light"
+            transition={Zoom}
+            hideProgressBar={true}
+            closeButton={false}
+          />
+          <App />
         </AuthContextProvider>
       </QueryClientProvider>
     </Sentry.ErrorBoundary>

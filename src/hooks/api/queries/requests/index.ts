@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useAuthContext } from "../../../context/auth";
 import { get } from "../../helpers";
 import { RequestsRequestError, RequestsRequestResult } from "./types";
@@ -8,7 +8,7 @@ export const useRequests = () => {
 
   const { getToken } = useAuthContext();
 
-  return useQuery<RequestsRequestResult, RequestsRequestError>(endpoint, () =>
+  return useQuery<RequestsRequestResult, RequestsRequestError>([endpoint], () =>
     get<RequestsRequestResult>(getToken, endpoint)
   );
 };

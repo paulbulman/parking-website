@@ -20,7 +20,7 @@ export const EditUserPage = () => {
 
   const { userId } = useParams<keyof UserPageParams>() as UserPageParams;
 
-  const { data, isLoading, isError } = useUser({ userId });
+  const { data, isInitialLoading, isError } = useUser({ userId });
   const { editUser } = useEditUser({ userId });
 
   const handleChange = () => {
@@ -60,7 +60,7 @@ export const EditUserPage = () => {
     }
   }, [isCancelling, navigate]);
 
-  var content = isLoading ? (
+  var content = isInitialLoading ? (
     <Loading />
   ) : isError ? (
     <div>Something went wrong. Please try again.</div>

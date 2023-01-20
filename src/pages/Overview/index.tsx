@@ -4,9 +4,9 @@ import { Layout } from "../../components/Layout";
 import { OverviewCalendar } from "../../components/OverviewCalendar";
 
 export const OverviewPage = () => {
-  const { data, isLoading, isError } = useOverview();
+  const { data, isInitialLoading, isError } = useOverview();
 
-  var content = isLoading ? (
+  var content = isInitialLoading ? (
     <Loading />
   ) : isError ? (
     <div>Something went wrong. Please try again.</div>

@@ -5,9 +5,9 @@ import { Layout } from "../../components/Layout";
 import { SummaryCalendar } from "../../components/SummaryCalendar";
 
 export const SummaryPage = () => {
-  const { data, isLoading, isError } = useSummary();
+  const { data, isInitialLoading, isError } = useSummary();
 
-  var content = isLoading ? (
+  var content = isInitialLoading ? (
     <Loading />
   ) : isError ? (
     <div>Something went wrong. Please try again.</div>

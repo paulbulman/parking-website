@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "../../../context/auth";
 import { patch } from "../../helpers";
 import {
@@ -18,7 +18,7 @@ export const useEditUser = ({ userId }: EditUserRequestParameters) => {
     EditUserRequestBody
   >([endpoint, userId], patch(getToken, `${endpoint}/${userId}`), {
     onSuccess: (data) => {
-      queryClient.invalidateQueries("registrationNumbers");
+      queryClient.invalidateQueries(["registrationNumbers"]);
       queryClient.setQueryData([endpoint, userId], data);
     },
   });

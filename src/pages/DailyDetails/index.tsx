@@ -14,7 +14,7 @@ export const DailyDetailsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useDailyDetails();
+  const { data, isInitialLoading, isError } = useDailyDetails();
   const { stayInterrupted, isSaving } = useStayInterrupted();
 
   const query = querystring.parse(location.search);
@@ -52,7 +52,7 @@ export const DailyDetailsPage = () => {
     }
   };
 
-  var content = isLoading ? (
+  var content = isInitialLoading ? (
     <Loading />
   ) : isError ? (
     <div>Something went wrong. Please try again.</div>

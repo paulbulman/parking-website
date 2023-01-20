@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "../../../context/auth";
 import { post } from "../../helpers";
 import { AddUserRequestBody, AddUserRequestResult } from "./types";
@@ -11,7 +11,7 @@ export const useAddUser = () => {
     post(getToken, endpoint),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("registrationNumbers");
+        queryClient.invalidateQueries(["registrationNumbers"]);
       },
     }
   );

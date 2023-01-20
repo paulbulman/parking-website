@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useAuthContext } from "../../../context/auth";
 import { httpDelete } from "../../helpers";
 import { DeleteUserRequestParameters, DeleteUserRequestResult } from "./types";

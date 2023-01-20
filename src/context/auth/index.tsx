@@ -5,7 +5,7 @@ import {
   useState,
   useEffect,
 } from "react";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Auth } from "@aws-amplify/auth";
 import jwt_decode from "jwt-decode";
 import {

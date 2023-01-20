@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "../../../context/auth";
 import { patch } from "../../helpers";
 import {
@@ -15,9 +15,9 @@ export const useStayInterrupted = () => {
     StayInterruptedRequestResult,
     Error,
     StayInterruptedRequestBody
-  >(endpoint, patch(getToken, endpoint), {
+  >([endpoint], patch(getToken, endpoint), {
     onSuccess: (data) => {
-      queryClient.setQueryData("dailyDetails", data);
+      queryClient.setQueryData(["dailyDetails"], data);
     },
   });
   const { mutateAsync: stayInterrupted, isLoading: isSaving } = mutation;

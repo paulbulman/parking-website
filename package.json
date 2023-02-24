@@ -69,7 +69,7 @@
     "cross-env": "^7.0.3",
     "cypress": "^12.6.0",
     "eslint-plugin-cypress": "^2.12.1",
-    "msw": "^1.0.1",
+    "msw": "^1.1.0",
     "react-scripts": "^5.0.1",
     "typescript": "^4.9.5"
   },

@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
+import { nextThursday, addDays, format } from "date-fns";
 import { Layout } from "../../components/Layout";
 
 export const FaqPage = () => {
+  const thursday = nextThursday(new Date());
+  const monday = addDays(thursday, 11);
+
   return (
     <Layout heading="FAQ" subheading="Frequently (er, perhaps) asked questions">
       <div className="content">
@@ -18,8 +22,9 @@ export const FaqPage = () => {
         <ul>
           <li>
             Most spaces are released at 12am on the Thursday 11 days ahead of a
-            working week. So for instance, for the week beginning Monday, 26
-            July 2021, most spaces are released on Thursday, 15 July 2021.
+            working week. So for instance, for the week beginning{" "}
+            {format(monday, "EEEE d MMMM")}, most spaces are released on{" "}
+            {format(thursday, "EEEE d MMMM")}.
           </li>
           <li>
             At 11am each working day, further spaces are released for the
@@ -174,8 +179,8 @@ export const FaqPage = () => {
           number being sold on the dark web is pretty low... 🤞
         </p>
         <p>
-          You may also wish to read the <Link to="/privacy">Privacy Policy</Link>
-          .
+          You may also wish to read the{" "}
+          <Link to="/privacy">Privacy Policy</Link>.
         </p>
       </div>
     </Layout>

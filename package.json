@@ -17,7 +17,7 @@
     "jwt-decode": "^3.1.2",
     "query-string": "^8.1.0",
     "react": "^18.2.0",
-    "react-day-picker": "^8.8.2",
+    "react-day-picker": "^8.9.0",
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^5.4.5",
     "react-router-dom": "^6.16.0",

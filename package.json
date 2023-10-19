@@ -65,7 +65,7 @@
     "@types/react-dom": "^18.2.14",
     "@types/react-router-dom": "^5.3.3",
     "@types/testing-library__cypress": "^5.0.11",
-    "concurrently": "^8.2.1",
+    "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "cypress": "^13.3.2",
     "eslint-plugin-cypress": "^2.15.1",

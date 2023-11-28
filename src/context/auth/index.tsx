@@ -7,7 +7,7 @@ import {
 } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Auth } from "@aws-amplify/auth";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import {
   AuthUser,
   AuthContextValues,
@@ -146,7 +146,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       if (!result) {
         throw new Error("No current token");
       }
-      const decoded = jwt_decode<CustomJwtPayload>(result);
+      const decoded = jwtDecode<CustomJwtPayload>(result);
 
       const rawGroupNames = decoded["cognito:groups"] ?? [];
       const groupNames: GroupName[] = [];
@@ -171,7 +171,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       if (!result) {
         throw new Error("No current token");
       }
-      const decoded = jwt_decode<CustomJwtPayload>(result);
+      const decoded = jwtDecode<CustomJwtPayload>(result);
 
       return decoded["given_name"];
     } catch (error) {

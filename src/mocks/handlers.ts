@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { HttpResponse, delay, http } from "msw";
 
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -419,100 +419,114 @@ const getProfile = () => {
 };
 
 export const handlers = [
-  rest.get(`${baseUrl}/dailyDetails`, (req, res, ctx) => {
-    return res(
-      ctx.delay(500),
-      ctx.json({ details: getDailyDetailsData(stayInterruptedIsSet) })
-    );
+  http.get(`${baseUrl}/dailyDetails`, async () => {
+    await delay(500);
+    return HttpResponse.json({
+      details: getDailyDetailsData(stayInterruptedIsSet),
+    });
   }),
 
-  rest.get(`${baseUrl}/overview`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ overview: overviewData }));
+  http.get(`${baseUrl}/overview`, async () => {
+    await delay(500);
+    return HttpResponse.json({ overview: overviewData });
   }),
 
-  rest.get(`${baseUrl}/profiles`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ profile: getProfile() }));
+  http.get(`${baseUrl}/profiles`, async () => {
+    await delay(500);
+    return HttpResponse.json({ profile: getProfile() });
   }),
-  rest.patch(`${baseUrl}/profiles`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ profile: getProfile() }));
-  }),
-
-  rest.get(`${baseUrl}/registrationNumbers/:searchString`, (req, res, ctx) => {
-    return res(
-      ctx.delay(500),
-      ctx.json({
-        registrationNumbers: registrationNumbersData.filter(
-          (data) => data.registrationNumber === req.params["searchString"]
-        ),
-      })
-    );
+  http.patch(`${baseUrl}/profiles`, async () => {
+    await delay(500);
+    return HttpResponse.json({ profile: getProfile() });
   }),
 
-  rest.get(`${baseUrl}/requests`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ requests: requestsData }));
+  http.get(
+    `${baseUrl}/registrationNumbers/:searchString`,
+    async ({ params }) => {
+      await delay(500);
+
+      const { searchString } = params;
+      const registrationNumbers = registrationNumbersData.filter(
+        (data) => data.registrationNumber === searchString
+      );
+      return HttpResponse.json({ registrationNumbers });
+    }
+  ),
+
+  http.get(`${baseUrl}/requests`, async () => {
+    await delay(500);
+    return HttpResponse.json({ requests: requestsData });
   }),
-  rest.patch(`${baseUrl}/requests`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ requests: requestsData }));
+  http.patch(`${baseUrl}/requests`, async () => {
+    await delay(500);
+    return HttpResponse.json({ requests: requestsData });
   }),
 
-  rest.get(`${baseUrl}/requests/:userId`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ requests: requestsData }));
+  http.get(`${baseUrl}/requests/:userId`, async () => {
+    await delay(500);
+    return HttpResponse.json({ requests: requestsData });
   }),
-  rest.patch(`${baseUrl}/requests/:userId`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ requests: requestsData }));
-  }),
-
-  rest.get(`${baseUrl}/reservations`, (req, res, ctx) => {
-    return res(
-      ctx.delay(500),
-      ctx.json({
-        reservations: reservationsData,
-        shortLeadTimeSpaces: 4,
-        users: reservationsUsersData,
-      })
-    );
-  }),
-  rest.patch(`${baseUrl}/reservations`, (req, res, ctx) => {
-    return res(
-      ctx.delay(500),
-      ctx.json({
-        reservations: reservationsData,
-        shortLeadTimeSpaces: 4,
-        users: reservationsUsersData,
-      })
-    );
+  http.patch(`${baseUrl}/requests/:userId`, async () => {
+    await delay(500);
+    return HttpResponse.json({ requests: requestsData });
   }),
 
-  rest.patch(`${baseUrl}/stayInterrupted`, (req, res, ctx) => {
+  http.get(`${baseUrl}/reservations`, async () => {
+    await delay(500);
+    return HttpResponse.json({
+      reservations: reservationsData,
+      shortLeadTimeSpaces: 4,
+      users: reservationsUsersData,
+    });
+  }),
+  http.patch(`${baseUrl}/reservations`, async () => {
+    await delay(500);
+    return HttpResponse.json({
+      reservations: reservationsData,
+      shortLeadTimeSpaces: 4,
+      users: reservationsUsersData,
+    });
+  }),
+
+  http.patch(`${baseUrl}/stayInterrupted`, async () => {
+    await delay(500);
     stayInterruptedIsSet = !stayInterruptedIsSet;
-    return res(
-      ctx.delay(500),
-      ctx.json({ details: getDailyDetailsData(stayInterruptedIsSet) })
-    );
+    return HttpResponse.json({
+      details: getDailyDetailsData(stayInterruptedIsSet),
+    });
   }),
 
-  rest.get(`${baseUrl}/summary`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ summary: summaryData }));
+  http.get(`${baseUrl}/summary`, async () => {
+    await delay(500);
+    return HttpResponse.json({ summary: summaryData });
   }),
 
-  rest.get(`${baseUrl}/users`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ users: usersData }));
+  http.get(`${baseUrl}/users`, async () => {
+    await delay(500);
+    return HttpResponse.json({ users: usersData });
   }),
-  rest.post(`${baseUrl}/users`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json(usersData[0]));
-  }),
-
-  rest.get(`${baseUrl}/users/:userId`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ user: getUser(req.params.userId[0]) }));
-  }),
-  rest.patch(`${baseUrl}/users/:userId`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ user: getUser(req.params.userId[0]) }));
-  }),
-  rest.delete(`${baseUrl}/users/:userId`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.status(204));
+  http.post(`${baseUrl}/users`, async () => {
+    await delay(500);
+    return HttpResponse.json(usersData[0]);
   }),
 
-  rest.get(`${baseUrl}/usersList`, (req, res, ctx) => {
-    return res(ctx.delay(500), ctx.json({ users: usersListData }));
+  http.get(`${baseUrl}/users/:userId`, async ({ params }) => {
+    await delay(500);
+    const { userId } = params;
+    return HttpResponse.json({ user: getUser(userId[0]) });
+  }),
+  http.patch(`${baseUrl}/users/:userId`, async ({ params }) => {
+    await delay(500);
+    const { userId } = params;
+    return HttpResponse.json({ user: getUser(userId[0]) });
+  }),
+  http.delete(`${baseUrl}/users/:userId`, async () => {
+    await delay(500);
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  http.get(`${baseUrl}/usersList`, async () => {
+    await delay(500);
+    return HttpResponse.json({ users: usersListData });
   }),
 ];

@@ -11,9 +11,11 @@ export const useDeleteUser = () => {
     DeleteUserRequestResult,
     Error,
     DeleteUserRequestParameters
-  >(({ userId }) => httpDelete(getToken, `${endpoint}/${userId}`));
+  >({
+    mutationFn: ({ userId }) => httpDelete(getToken, `${endpoint}/${userId}`),
+  });
 
-  const { mutateAsync: deleteUser, isLoading: isDeleting } = mutation;
+  const { mutateAsync: deleteUser, isPending: isDeleting } = mutation;
 
   return { deleteUser, isDeleting };
 };

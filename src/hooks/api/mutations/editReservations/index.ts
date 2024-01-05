@@ -15,11 +15,12 @@ export const useEditReservations = () => {
     EditReservationsRequestResult,
     Error,
     EditReservationsRequestBody
-  >([endpoint], patch(getToken, endpoint), {
+  >({
+    mutationFn: patch(getToken, endpoint),
     onSuccess: (data) => {
       queryClient.setQueryData([endpoint], data);
     },
   });
-  const { mutateAsync: editReservations, isLoading: isSaving } = mutation;
+  const { mutateAsync: editReservations, isPending: isSaving } = mutation;
   return { editReservations, isSaving };
 };

@@ -11,11 +11,9 @@ export const useUserRequests = ({ userId }: UserRequestsRequestParameters) => {
 
   const { getToken } = useAuthContext();
 
-  return useQuery<UserRequestsRequestResult, Error>(
-    [endpoint, userId],
-    () => get<UserRequestsRequestResult>(getToken, `${endpoint}/${userId}`),
-    {
-      enabled: Boolean(userId),
-    }
-  );
+  return useQuery({
+    queryKey: [endpoint, userId],
+    queryFn: () => get<UserRequestsRequestResult>(getToken, `${endpoint}/${userId}`),
+    enabled: Boolean(userId)
+  });
 };

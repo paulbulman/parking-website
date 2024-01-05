@@ -12,11 +12,12 @@ export const useEditRequests = () => {
     EditRequestsRequestResult,
     Error,
     EditRequestsRequestBody
-  >([endpoint], patch(getToken, endpoint), {
+  >({
+    mutationFn: patch(getToken, endpoint),
     onSuccess: (data) => {
       queryClient.setQueryData([endpoint], data);
     },
   });
-  const { mutateAsync: editRequests, isLoading: isSaving } = mutation;
+  const { mutateAsync: editRequests, isPending: isSaving } = mutation;
   return { editRequests, isSaving };
 };

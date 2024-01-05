@@ -12,12 +12,15 @@ export const useEditProfile = () => {
     EditProfileRequestResult,
     Error,
     EditProfileRequestBody
-  >([endpoint], patch(getToken, endpoint), {
+  >({
+    mutationFn: patch(getToken, endpoint),
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["registrationNumbers"]);
+      queryClient.invalidateQueries({
+        queryKey: ["registrationNumbers"],
+      });
       queryClient.setQueryData([endpoint], data);
     },
   });
-  const { mutateAsync: editProfile, isLoading: isSaving } = mutation;
+  const { mutateAsync: editProfile, isPending: isSaving } = mutation;
   return { editProfile, isSaving };
 };

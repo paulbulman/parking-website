@@ -8,10 +8,12 @@ export const useAddUser = () => {
   const queryClient = useQueryClient();
   const { getToken } = useAuthContext();
   const mutation = useMutation<AddUserRequestResult, Error, AddUserRequestBody>(
-    post(getToken, endpoint),
     {
+      mutationFn: post(getToken, endpoint),
       onSuccess: () => {
-        queryClient.invalidateQueries(["registrationNumbers"]);
+        queryClient.invalidateQueries({
+          queryKey: ["registrationNumbers"],
+        });
       },
     }
   );

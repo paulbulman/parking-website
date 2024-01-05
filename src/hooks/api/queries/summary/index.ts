@@ -8,7 +8,10 @@ export const useSummary = () => {
 
   const { getToken } = useAuthContext();
 
-  return useQuery<SummaryRequestResult, Error>([endpoint], () =>
-    get<SummaryRequestResult>(getToken, endpoint)
-  );
+  return useQuery({
+    queryKey: [endpoint],
+
+    queryFn: () =>
+      get<SummaryRequestResult>(getToken, endpoint)
+  });
 };

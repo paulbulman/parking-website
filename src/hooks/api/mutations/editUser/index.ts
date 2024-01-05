@@ -16,9 +16,12 @@ export const useEditUser = ({ userId }: EditUserRequestParameters) => {
     EditUserRequestResult,
     Error,
     EditUserRequestBody
-  >([endpoint, userId], patch(getToken, `${endpoint}/${userId}`), {
+  >({
+    mutationFn: patch(getToken, `${endpoint}/${userId}`),
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["registrationNumbers"]);
+      queryClient.invalidateQueries({
+        queryKey: ["registrationNumbers"],
+      });
       queryClient.setQueryData([endpoint, userId], data);
     },
   });

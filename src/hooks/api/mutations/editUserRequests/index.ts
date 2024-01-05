@@ -18,11 +18,12 @@ export const useEditUserRequests = ({
     EditUserRequestsRequestResult,
     Error,
     EditUserRequestsRequestBody
-  >([endpoint, userId], patch(getToken, `${endpoint}/${userId}`), {
+  >({
+    mutationFn: patch(getToken, `${endpoint}/${userId}`),
     onSuccess: (data) => {
       queryClient.setQueryData([endpoint, userId], data);
     },
   });
-  const { mutateAsync: editUserRequests, isLoading: isSaving } = mutation;
+  const { mutateAsync: editUserRequests, isPending: isSaving } = mutation;
   return { editUserRequests, isSaving };
 };

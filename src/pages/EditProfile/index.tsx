@@ -13,7 +13,7 @@ import { useAuthContext } from "../../hooks/context/auth";
 export const EditProfilePage = () => {
   const [isChanged, setIsChanged] = useState(false);
   const { getGroups } = useAuthContext();
-  const { data, isInitialLoading, isError } = useProfile();
+  const { data, isLoading, isError } = useProfile();
   const { editProfile } = useEditProfile();
 
   const handleChange = () => {
@@ -34,7 +34,7 @@ export const EditProfilePage = () => {
 
   const groups = getGroups();
 
-  var content = isInitialLoading ? (
+  var content = isLoading ? (
     <Loading />
   ) : isError ? (
     <div>Something went wrong. Please try again.</div>

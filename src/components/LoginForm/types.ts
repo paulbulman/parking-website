@@ -5,4 +5,4 @@ export interface LoginFormValues {
 
 export interface LoginFormProps {
   onSubmit: (parameters: LoginFormValues) => Promise<void>;
-};
+}

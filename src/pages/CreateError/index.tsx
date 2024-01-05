@@ -7,7 +7,7 @@ export const CreateErrorPage = () => {
   if (isError) {
     throw new Error("Error simulated for testing purposes.");
   }
-  
+
   return (
     <Layout
       heading="Create error"

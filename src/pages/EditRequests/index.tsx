@@ -17,7 +17,7 @@ export const EditRequestsPage = () => {
 
   const navigate = useNavigate();
 
-  const { data, isInitialLoading, isError } = useRequests();
+  const { data, isLoading, isError } = useRequests();
   const { editRequests, isSaving } = useEditRequests();
 
   const handleChange = (requestEdit: RequestEdit) => {
@@ -53,7 +53,7 @@ export const EditRequestsPage = () => {
     }
   }, [isCancelling, navigate]);
 
-  var content = isInitialLoading ? (
+  var content = isLoading ? (
     <Loading />
   ) : isError ? (
     <div>Something went wrong. Please try again.</div>

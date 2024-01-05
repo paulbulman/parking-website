@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuthContext } from "../../../context/auth";
 import { get } from "../../helpers";
-import { ReservationsRequestError, ReservationsRequestResult } from "./types";
+import { ReservationsRequestResult } from "./types";
 
 export const useReservations = () => {
   const endpoint = "reservations";
 
   const { getToken } = useAuthContext();
 
-  return useQuery<ReservationsRequestResult, ReservationsRequestError>(
-    [endpoint],
-    () => get<ReservationsRequestResult>(getToken, endpoint)
-  );
+  return useQuery({
+    queryKey: [endpoint],
+    queryFn: () => get<ReservationsRequestResult>(getToken, endpoint),
+  });
 };

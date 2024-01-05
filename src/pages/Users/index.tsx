@@ -9,7 +9,7 @@ import type { User } from "./types";
 
 export const UsersPage = () => {
   const navigate = useNavigate();
-  const { data, isInitialLoading, isRefetching, isError, refetch } = useUsers();
+  const { data, isLoading, isRefetching, isError, refetch } = useUsers();
   const { deleteUser, isDeleting } = useDeleteUser();
 
   const handleEdit = (user: User) => {
@@ -32,7 +32,7 @@ export const UsersPage = () => {
   };
 
   const content =
-    isInitialLoading || isDeleting || isRefetching ? (
+    isLoading || isDeleting || isRefetching ? (
       <Loading />
     ) : isError ? (
       <div>Something went wrong. Please try again.</div>

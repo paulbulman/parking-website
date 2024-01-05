@@ -12,7 +12,9 @@ describe("change password form", () => {
       screen.getByLabelText("Confirm password"),
       "__CONFIRM_PASSWORD__"
     );
-    await userEvent.click(screen.getByRole("button", { name: "Set new password" }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Set new password" })
+    );
 
     await waitFor(() => {
       expect(onSubmit).toHaveBeenCalledWith({
@@ -31,7 +33,9 @@ describe("change password form", () => {
     await userEvent.type(passwordInput, "__PASSWORD__");
     await userEvent.type(confirmPasswordInput, "__CONFIRM_PASSWORD__");
 
-    await userEvent.click(screen.getByRole("button", { name: "Set new password" }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Set new password" })
+    );
 
     await waitFor(() => {
       expect(passwordInput).toHaveValue("");

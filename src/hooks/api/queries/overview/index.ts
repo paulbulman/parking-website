@@ -1,14 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAuthContext } from "../../../context/auth";
 import { get } from "../../helpers";
-import { OverviewRequestError, OverviewRequestResult } from "./types";
+import { OverviewRequestResult } from "./types";
 
 export const useOverview = () => {
   const endpoint = "overview";
 
   const { getToken } = useAuthContext();
 
-  return useQuery<OverviewRequestResult, OverviewRequestError>([endpoint], () =>
-    get<OverviewRequestResult>(getToken, endpoint)
-  );
+  return useQuery({
+    queryKey: [endpoint],
+
+    queryFn: () => get<OverviewRequestResult>(getToken, endpoint),
+  });
 };

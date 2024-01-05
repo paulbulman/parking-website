@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuthContext } from "../../../context/auth";
 import { get } from "../../helpers";
 import {
-  RegistrationNumbersRequestError,
   RegistrationNumbersRequestResult,
   RegistrationNumbersRequestParameters,
 } from "./types";
@@ -15,18 +14,15 @@ export const useRegistrationNumbers = ({
 
   const { getToken } = useAuthContext();
 
-  return useQuery<
-    RegistrationNumbersRequestResult,
-    RegistrationNumbersRequestError
-  >(
-    [endpoint, sanitizedSearchString],
-    () =>
+  return useQuery({
+    queryKey: [endpoint, sanitizedSearchString],
+
+    queryFn: () =>
       get<RegistrationNumbersRequestResult>(
         getToken,
         `${endpoint}/${sanitizedSearchString}`
       ),
-    {
-      enabled: Boolean(sanitizedSearchString),
-    }
-  );
+
+    enabled: Boolean(sanitizedSearchString),
+  });
 };

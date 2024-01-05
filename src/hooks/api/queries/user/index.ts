@@ -8,7 +8,10 @@ export const useUser = ({ userId }: UserRequestParameters) => {
 
   const { getToken } = useAuthContext();
 
-  return useQuery<UserRequestResult, Error>([endpoint, userId], () =>
-    get<UserRequestResult>(getToken, `${endpoint}/${userId}`)
-  );
+  return useQuery({
+    queryKey: [endpoint, userId],
+
+    queryFn: () =>
+      get<UserRequestResult>(getToken, `${endpoint}/${userId}`)
+  });
 };

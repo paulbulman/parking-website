@@ -5,7 +5,7 @@
   "dependencies": {
     "@aws-amplify/auth": "^5.6.6",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
-    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@sentry/react": "^7.109.0",
     "@tanstack/react-query": "^5.28.14",

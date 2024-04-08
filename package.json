@@ -9,7 +9,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@sentry/react": "^7.109.0",
     "@tanstack/react-query": "^5.29.0",
-    "bulma": "^0.9.4",
+    "bulma": "^1.0.0",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
     "formik": "^2.4.5",

@@ -67,7 +67,7 @@
     "@types/testing-library__cypress": "^5.0.13",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
-    "cypress": "^13.8.1",
+    "cypress": "^13.11.0",
     "eslint-plugin-cypress": "^2.15.1",
     "msw": "^2.2.14",
     "react-scripts": "^5.0.1",

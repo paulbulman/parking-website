@@ -71,7 +71,7 @@
     "eslint-plugin-cypress": "^3.5.0",
     "msw": "^2.3.5",
     "react-scripts": "^5.0.1",
-    "typescript": "^4.9.5"
+    "typescript": "^5.5.4"
   },
   "msw": {
     "workerDirectory": "public"

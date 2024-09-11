@@ -7,7 +7,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "@sentry/react": "^8.28.0",
+    "@sentry/react": "^8.30.0",
     "@tanstack/react-query": "^5.54.1",
     "bulma": "^0.9.4",
     "classnames": "^2.5.1",

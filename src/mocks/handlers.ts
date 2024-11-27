@@ -513,11 +513,21 @@ export const handlers = [
   http.get(`${baseUrl}/users/:userId`, async ({ params }) => {
     await delay(500);
     const { userId } = params;
+
+    if (!userId) {
+      throw new Error("userId was not defined.");
+    }
+
     return HttpResponse.json({ user: getUser(userId[0]) });
   }),
   http.patch(`${baseUrl}/users/:userId`, async ({ params }) => {
     await delay(500);
     const { userId } = params;
+
+    if (!userId) {
+      throw new Error("userId was not defined.");
+    }
+
     return HttpResponse.json({ user: getUser(userId[0]) });
   }),
   http.delete(`${baseUrl}/users/:userId`, async () => {

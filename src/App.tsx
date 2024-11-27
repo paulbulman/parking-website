@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { useAuthContext } from "./hooks/context/auth";
 import { AuthenticationStatuses } from "./context/auth/types";
 import { Loading } from "./components/Loading";

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useBeforeUnload, useBlocker } from "react-router-dom";
+import { useBeforeUnload, useBlocker } from "react-router";
 
 // You can abstract `useBlocker` to use the browser's `window.confirm` dialog to
 // determine whether or not the user should navigate within the current origin.

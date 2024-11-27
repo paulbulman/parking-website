@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { flushSync } from "react-dom";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import { Prompt } from "../../hooks/prompt";
 import { useUser } from "../../hooks/api/queries/user";
 import { useEditUser } from "../../hooks/api/mutations/editUser";

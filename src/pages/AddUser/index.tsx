@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { flushSync } from "react-dom";
 import { Prompt } from "../../hooks/prompt";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useAddUser } from "../../hooks/api/mutations/addUser";
 import { error, success } from "../../utils/notifications";
 import { validateFormValues } from "./utils";

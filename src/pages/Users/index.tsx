@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { useUsers } from "../../hooks/api/queries/users";
 import { useDeleteUser } from "../../hooks/api/mutations/deleteUser";
 import { Loading } from "../../components/Loading";

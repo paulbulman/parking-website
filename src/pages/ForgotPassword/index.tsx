@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router";
 import { pwnedPassword } from "hibp";
 import { useAuthContext } from "../../hooks/context/auth";
 import { error, success } from "../../utils/notifications";

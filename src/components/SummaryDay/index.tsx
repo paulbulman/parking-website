@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import classNames from "classnames";
 import { SummaryDayProps } from "./types";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 export const SummaryDay = ({ day }: SummaryDayProps) => {
   const getStatusCaption = (status: string | null | undefined) => {

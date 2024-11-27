@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import { useAuthContext } from "../../hooks/context/auth";
 import { Footer } from "../Footer";
 import { SignedInHeader } from "../SignedInHeader";

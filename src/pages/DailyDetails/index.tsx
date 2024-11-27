@@ -1,5 +1,5 @@
 import querystring from "query-string";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router";
 import { parseISO, isValid, isSameDay } from "date-fns";
 import { useDailyDetails } from "../../hooks/api/queries/dailyDetails";
 import { useStayInterrupted } from "../../hooks/api/mutations/stayInterrupted";

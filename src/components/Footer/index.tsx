@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const Licence = () => (
   <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">

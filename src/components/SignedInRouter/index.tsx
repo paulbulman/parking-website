@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router";
 import { useAuthContext } from "../../hooks/context/auth";
 import { AddUserPage } from "../../pages/AddUser";
 import { CreateErrorPage } from "../../pages/CreateError";

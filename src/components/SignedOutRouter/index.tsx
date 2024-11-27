@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router";
 import { AuthenticationStatuses } from "../../context/auth/types";
 import { LoginPage } from "../../pages/Login";
 import { ForceChangePasswordPage } from "../../pages/ForceChangePassword";

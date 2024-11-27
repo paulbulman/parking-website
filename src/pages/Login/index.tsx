@@ -1,7 +1,7 @@
 import { useAuthContext } from "../../hooks/context/auth";
 import { Layout } from "../../components/Layout";
 import { LoginForm } from "../../components/LoginForm";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { error } from "../../utils/notifications";
 import { LoginFormValues } from "../../components/LoginForm/types";
 

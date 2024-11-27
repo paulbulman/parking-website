@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useSummary } from "../../hooks/api/queries/summary";
 import { Loading } from "../../components/Loading";
 import { Layout } from "../../components/Layout";
